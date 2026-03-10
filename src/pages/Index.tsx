@@ -167,9 +167,12 @@ const Index = () => {
               custom={i}
               className="bg-background rounded-2xl p-8 shadow-sm border border-border hover:shadow-md transition-shadow"
             >
-              <div className="flex items-center gap-2 text-primary mb-4">
-                <Clock className="w-5 h-5" />
-                <span className="font-body font-medium">{service.duration}</span>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2 text-primary">
+                  <Clock className="w-5 h-5" />
+                  <span className="font-body font-medium">{service.duration}</span>
+                </div>
+                <span className="text-xl font-display font-bold text-foreground">{service.price}</span>
               </div>
               <h3 className="text-xl font-display font-semibold text-foreground mb-3">
                 {service.title}
