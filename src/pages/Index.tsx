@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MapPin, Clock, Star, Heart, Calendar, ArrowRight } from "lucide-react";
+import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import treatmentRoom from "@/assets/treatment-room.jpg";
 
