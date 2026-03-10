@@ -155,8 +155,8 @@ const Index = () => {
 
         <div className="max-w-3xl mx-auto grid md:grid-cols-2 gap-8">
           {[
-            { title: "Klassisk massage", duration: "60 min", desc: "En hel timmes avkopplande behandling som löser upp spänningar i hela kroppen." },
-            { title: "Klassisk massage", duration: "45 min", desc: "En kortare men effektiv behandling fokuserad på dina problemområden." },
+            { title: "Klassisk massage", duration: "60 min", price: "650 kr", desc: "En hel timmes avkopplande behandling som löser upp spänningar i hela kroppen." },
+            { title: "Klassisk massage", duration: "45 min", price: "550 kr", desc: "En kortare men effektiv behandling fokuserad på dina problemområden." },
           ].map((service, i) => (
             <motion.div
               key={i}
