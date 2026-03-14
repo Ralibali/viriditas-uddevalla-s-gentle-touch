@@ -18,12 +18,16 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Hero */}
       <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
-        <img
-          src={heroBg}
-          alt="Naturliga stenar och eukalyptus"
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
           className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0" style={{ background: "var(--hero-overlay)" }} />
+        >
+          <source src="/video/massage-2.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
           <motion.p
             initial="hidden"
