@@ -114,7 +114,7 @@ const Index = () => {
           >
             <img
               src={treatmentRoom}
-              alt="Behandlingsrum med ledarhunden Goliat"
+              alt="Klassisk massage i Uddevalla – Andreas Håman med ledarhunden Goliat i behandlingsrummet"
               className="rounded-2xl shadow-lg w-full object-cover aspect-square"
             />
           </motion.div>
