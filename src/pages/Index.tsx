@@ -161,9 +161,12 @@ const Index = () => {
             custom={1}
             className="order-1 md:order-2"
           >
-            <img
-              src={massage2}
-              alt="Andreas Håman utför klassisk massage med ledarhunden Goliat i bakgrunden"
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster=""
               className="rounded-2xl shadow-lg w-full object-cover aspect-square"
             />
           </motion.div>
