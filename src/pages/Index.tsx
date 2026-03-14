@@ -166,9 +166,10 @@ const Index = () => {
               muted
               loop
               playsInline
-              poster=""
               className="rounded-2xl shadow-lg w-full object-cover aspect-square"
-            />
+            >
+              <source src="/video/massage.mp4" type="video/mp4" />
+            </video>
           </motion.div>
         </div>
       </section>
