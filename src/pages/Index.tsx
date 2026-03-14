@@ -171,7 +171,7 @@ const Index = () => {
       </section>
 
       {/* Tjänster */}
-      <section className="py-24 px-6 bg-card">
+      <section className="py-24 px-6">
         <div className="max-w-4xl mx-auto text-center mb-16">
           <motion.h2
             initial="hidden"
