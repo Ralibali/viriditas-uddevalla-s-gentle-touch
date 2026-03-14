@@ -46,7 +46,7 @@ const Index = () => {
             custom={1}
             className="text-5xl md:text-7xl font-display font-semibold text-primary-foreground mb-6 leading-tight"
           >
-            Viriditas
+            Massage i Uddevalla
           </motion.h1>
           <motion.p
             initial="hidden"
