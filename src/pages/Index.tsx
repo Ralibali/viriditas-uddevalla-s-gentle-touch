@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote } from "lucide-react";
 import heroBg from "@/assets/skog.jpg";
-import treatmentRoom from "@/assets/treatment-room.jpg";
+import treatmentRoom from "@/assets/massage-1.jpeg";
+import massage2 from "@/assets/massage-2.jpeg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
