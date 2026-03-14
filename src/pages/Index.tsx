@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote } from "lucide-react";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBg from "@/assets/skog.jpg";
 import treatmentRoom from "@/assets/treatment-room.jpg";
 
 const fadeUp = {
