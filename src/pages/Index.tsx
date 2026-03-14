@@ -357,7 +357,13 @@ const Index = () => {
       </section>
 
 
-      <section className="py-24 px-6">
+      <section className="relative py-24 px-6 overflow-hidden">
+        <img
+          src={heroBg}
+          alt="Grön skogsväg"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-background/85" />
         <div className="max-w-3xl mx-auto text-center">
           <motion.h2
             initial="hidden"
