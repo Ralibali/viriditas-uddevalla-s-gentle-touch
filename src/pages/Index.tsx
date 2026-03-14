@@ -440,7 +440,66 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* FAQ */}
+      <section className="py-24 px-6 bg-card">
+        <div className="max-w-3xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">
+              Vanliga frågor
+            </h2>
+            <div className="w-16 h-0.5 bg-primary rounded-full mx-auto" />
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            custom={1}
+          >
+            <Accordion type="single" collapsible className="space-y-3">
+              {[
+                {
+                  q: "Vad kostar massage hos Viriditas i Uddevalla?",
+                  a: "Klassisk massage 60 minuter kostar 650 kr och 45 minuter kostar 550 kr. Du bokar enkelt online.",
+                },
+                {
+                  q: "Var ligger Viriditas i Uddevalla?",
+                  a: "Viriditas finns på Hälsokraft, Norra Drottninggatan 2 i centrala Uddevalla.",
+                },
+                {
+                  q: "Hur bokar jag tid för massage?",
+                  a: "Du bokar snabbt och enkelt online via vår bokningssida. Klicka på \"Boka tid\" här på sidan.",
+                },
+                {
+                  q: "Vad är klassisk massage?",
+                  a: "Klassisk massage är den vanligaste massageformen i Sverige. Den löser upp spänningar, ökar blodcirkulationen och ger djup avkoppling för hela kroppen.",
+                },
+                {
+                  q: "Vem är massageterapeuten på Viriditas?",
+                  a: "Andreas Håman är diplomerad massageterapeut med bakgrund inom vården. Tack vare sin synnedsättning har han utvecklat en unik känslighet i sina händer, vilket gör hans behandlingar extra uppmärksamma och precisa.",
+                },
+              ].map((faq, i) => (
+                <AccordionItem key={i} value={`faq-${i}`} className="bg-background rounded-xl border border-border px-6">
+                  <AccordionTrigger className="text-left font-display text-foreground hover:no-underline">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </motion.div>
+        </div>
+      </section>
+
       <footer className="py-10 px-6 border-t border-border bg-card">
         <div className="max-w-4xl mx-auto text-center space-y-2">
           <p className="font-display text-lg text-foreground">Viriditas</p>
