@@ -53,9 +53,18 @@ const Index = () => {
             animate="visible"
             variants={fadeUp}
             custom={2}
-            className="text-primary-foreground/80 text-lg md:text-xl font-body mb-4"
+            className="text-primary-foreground/80 text-lg md:text-xl font-body mb-2"
           >
-            Uddevallas blinde massör
+            Viriditas
+          </motion.p>
+          <motion.p
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            custom={2.5}
+            className="text-primary-foreground/60 text-base font-body mb-4"
+          >
+            Klassisk massage &middot; Från 550 kr &middot; Boka online
           </motion.p>
           <motion.div
             initial="hidden"
