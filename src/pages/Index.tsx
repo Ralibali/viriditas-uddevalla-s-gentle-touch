@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote } from "lucide-react";
 import heroBg from "@/assets/skog.jpg";
-import treatmentRoom from "@/assets/treatment-room.jpg";
+import treatmentRoom from "@/assets/massage-1.jpeg";
+import massage2 from "@/assets/massage-2.jpeg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -131,8 +132,46 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Tjänster */}
+      {/* Viriditas betydelse */}
       <section className="py-24 px-6 bg-card">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeUp}
+            className="space-y-6 order-2 md:order-1"
+          >
+            <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground">
+              Vad betyder Viriditas?
+            </h2>
+            <div className="w-16 h-0.5 bg-primary rounded-full" />
+            <p className="text-muted-foreground leading-relaxed">
+              Viriditas är ett ord som betyder vitalitet, fruktsamhet, frodighet och grönska. Det är särskilt förknippat med abbedissan Hildegard von Bingen (1098–1179), mystiker, tonsättare och predikant.
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              Hildegard hade en helhetssyn på människans hälsa där hon tog in kropp, själ och ande.
+            </p>
+          </motion.div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeUp}
+            custom={1}
+            className="order-1 md:order-2"
+          >
+            <img
+              src={massage2}
+              alt="Andreas Håman utför klassisk massage med ledarhunden Goliat i bakgrunden"
+              className="rounded-2xl shadow-lg w-full object-cover aspect-square"
+            />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Tjänster */}
+      <section className="py-24 px-6">
         <div className="max-w-4xl mx-auto text-center mb-16">
           <motion.h2
             initial="hidden"
