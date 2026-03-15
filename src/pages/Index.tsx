@@ -410,6 +410,22 @@ const Index = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeUp}
+            custom={2.5}
+            className="rounded-2xl overflow-hidden shadow-lg mb-8"
+          >
+            <img
+              src={halsokraft}
+              alt="Hälsokraft butiken på Norra Drottninggatan 2 i Uddevalla – här finns Viriditas massage"
+              className="w-full object-cover max-h-[400px]"
+              loading="lazy"
+            />
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
             custom={3}
             className="rounded-2xl overflow-hidden shadow-lg mb-12"
           >
