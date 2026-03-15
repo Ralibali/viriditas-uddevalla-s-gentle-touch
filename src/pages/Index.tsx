@@ -3,6 +3,7 @@ import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote, HelpCircle } f
 import heroBg from "@/assets/skog.jpg";
 import treatmentRoom from "@/assets/massage-1.jpeg";
 import massage2 from "@/assets/massage-2.jpeg";
+import halsokraft from "@/assets/halsokraft.jpeg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const fadeUp = {
@@ -402,6 +403,22 @@ const Index = () => {
           >
             <MapPin className="w-5 h-5 text-primary" />
             Hälsokraft, Norra Drottninggatan 2, Uddevalla
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            custom={2.5}
+            className="rounded-2xl overflow-hidden shadow-lg mb-8"
+          >
+            <img
+              src={halsokraft}
+              alt="Hälsokraft butiken på Norra Drottninggatan 2 i Uddevalla – här finns Viriditas massage"
+              className="w-full object-cover max-h-[400px]"
+              loading="lazy"
+            />
           </motion.div>
 
           <motion.div
