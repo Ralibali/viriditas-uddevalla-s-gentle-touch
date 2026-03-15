@@ -3,6 +3,7 @@ import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote, HelpCircle } f
 import heroBg from "@/assets/skog.jpg";
 import treatmentRoom from "@/assets/massage-1.jpeg";
 import massage2 from "@/assets/massage-2.jpeg";
+import halsokraft from "@/assets/halsokraft.jpeg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const fadeUp = {
