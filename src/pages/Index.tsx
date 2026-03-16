@@ -5,6 +5,7 @@ import treatmentRoom from "@/assets/massage-1.jpeg";
 import massage2 from "@/assets/massage-2.jpeg";
 import halsokraft from "@/assets/halsokraft.jpeg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { trackBookingClick } from "@/lib/trackBookingClick";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
