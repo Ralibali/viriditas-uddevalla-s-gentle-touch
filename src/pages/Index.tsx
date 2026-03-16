@@ -253,6 +253,7 @@ const Index = () => {
                 href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackBookingClick(`treatment-${service.duration}`)}
                 className="inline-flex items-center gap-2 text-primary font-medium text-sm hover:underline"
               >
                 Boka denna behandling <ArrowRight className="w-4 h-4" />
