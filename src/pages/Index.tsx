@@ -54,9 +54,18 @@ const Index = () => {
             animate="visible"
             variants={fadeUp}
             custom={2}
-            className="text-primary-foreground/80 text-lg md:text-xl font-body mb-2"
+            className="text-primary-foreground/80 text-lg md:text-xl font-body mb-1"
           >
             Viriditas
+          </motion.p>
+          <motion.p
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            custom={2.3}
+            className="text-primary-foreground/60 text-base font-body italic mb-4"
+          >
+            …betyder grönkraften; vitalitet, frodighet och grönska.
           </motion.p>
           <motion.p
             initial="hidden"
@@ -375,7 +384,7 @@ const Index = () => {
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-background/85" />
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="relative z-10 max-w-3xl mx-auto text-center">
           <motion.h2
             initial="hidden"
             whileInView="visible"
