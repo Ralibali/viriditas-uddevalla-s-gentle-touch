@@ -5,6 +5,7 @@ import treatmentRoom from "@/assets/massage-1.jpeg";
 import massage2 from "@/assets/massage-2.jpeg";
 import halsokraft from "@/assets/halsokraft.jpeg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { trackBookingClick } from "@/lib/trackBookingClick";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -96,6 +97,7 @@ const Index = () => {
             href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackBookingClick("hero")}
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-full font-body font-medium text-lg hover:opacity-90 transition-opacity"
           >
             Boka tid <Calendar className="w-5 h-5" />
@@ -251,6 +253,7 @@ const Index = () => {
                 href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackBookingClick(`treatment-${service.duration}`)}
                 className="inline-flex items-center gap-2 text-primary font-medium text-sm hover:underline"
               >
                 Boka denna behandling <ArrowRight className="w-4 h-4" />
@@ -459,6 +462,7 @@ const Index = () => {
             href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackBookingClick("hitta-hit")}
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-full font-body font-medium text-lg hover:opacity-90 transition-opacity"
           >
             Boka din behandling <Calendar className="w-5 h-5" />
