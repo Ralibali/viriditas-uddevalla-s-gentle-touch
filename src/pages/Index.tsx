@@ -97,6 +97,7 @@ const Index = () => {
             href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackBookingClick("hero")}
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-full font-body font-medium text-lg hover:opacity-90 transition-opacity"
           >
             Boka tid <Calendar className="w-5 h-5" />
