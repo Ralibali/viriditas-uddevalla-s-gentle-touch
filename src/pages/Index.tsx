@@ -126,9 +126,9 @@ const Index = () => {
             variants={fadeUp}
           >
             <img
-              src={treatmentRoom}
-              alt="Klassisk massage i Uddevalla – Andreas Håman med ledarhunden Goliat i behandlingsrummet"
-              className="rounded-2xl shadow-lg w-full object-cover aspect-square"
+              src={andreasGoliat}
+              alt="Andreas Håman, massageterapeut på Viriditas i Uddevalla, med ledarhunden Goliat"
+              className="rounded-2xl shadow-lg w-full object-cover object-top aspect-[3/4]"
             />
           </motion.div>
           <motion.div
