@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote, HelpCircle } from "lucide-react";
 import heroBg from "@/assets/skog.jpg";
+import andreasGoliat from "@/assets/andreas-goliat.jpeg";
 import treatmentRoom from "@/assets/massage-1.jpeg";
 import massage2 from "@/assets/massage-2.jpeg";
 import halsokraft from "@/assets/halsokraft.jpeg";
@@ -125,9 +126,9 @@ const Index = () => {
             variants={fadeUp}
           >
             <img
-              src={treatmentRoom}
-              alt="Klassisk massage i Uddevalla – Andreas Håman med ledarhunden Goliat i behandlingsrummet"
-              className="rounded-2xl shadow-lg w-full object-cover aspect-square"
+              src={andreasGoliat}
+              alt="Andreas Håman, massageterapeut på Viriditas i Uddevalla, med ledarhunden Goliat"
+              className="rounded-2xl shadow-lg w-full object-cover object-top aspect-[3/4]"
             />
           </motion.div>
           <motion.div
