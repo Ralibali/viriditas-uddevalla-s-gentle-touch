@@ -303,6 +303,12 @@ const Index = () => {
               text: "Jag önskade ryggmassage, skuldrorna har krånglat. Lokalen var avskild och tyst trots att den ligger innanför en butik. Mjuk naturnära musik och ljus, värmen och hunden i hörnet bidrog till avslappning och att kunna släppa taget. Nystart för ryggen och själen. Som att unna sig en resa till värmen mitt i kylan.",
             },
             {
+              name: "Tone Ekström",
+              rating: 5,
+              date: "14 mars",
+              text: "Mycket trevligt bemötande, motsvarade alla mina förväntningar.",
+            },
+            {
               name: "Charlotte Lundqvist",
               rating: 5,
               date: "2 feb.",
@@ -313,6 +319,12 @@ const Index = () => {
               rating: 5,
               date: "26 jan.",
               text: "Nöjd och ett väl bemött!",
+            },
+            {
+              name: "Eva Jantzen",
+              rating: 5,
+              date: "31 jan.",
+              text: "Återkommer!",
             },
           ].map((review, i) => (
             <motion.div
@@ -350,11 +362,12 @@ const Index = () => {
           className="max-w-4xl mx-auto mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4"
         >
           {[
+            { name: "Tomas Johansson", rating: 5, date: "22 mars" },
+            { name: "Sonja Karlsson", rating: 4, date: "18 mars" },
             { name: "Anders Brattgård", rating: 4, date: "8 mars" },
             { name: "Anne Holmlund", rating: 5, date: "22 feb." },
             { name: "Åsa Karlsson", rating: 5, date: "21 feb." },
             { name: "Catarina Platek", rating: 4, date: "15 feb." },
-            { name: "Eva Jantzen", rating: 5, date: "31 jan." },
             { name: "Ellen Beran", rating: 5, date: "24 jan." },
             { name: "Camilla Edwartz", rating: 5, date: "17 jan." },
             { name: "Minde Passby", rating: 5, date: "10 jan." },
