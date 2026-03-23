@@ -290,7 +290,7 @@ const Index = () => {
                 <Star key={i} className={`w-5 h-5 ${i < 5 ? "text-primary fill-primary" : "text-border"}`} />
               ))}
             </span>
-            <span className="text-muted-foreground ml-2">(11 omdömen)</span>
+            <span className="text-muted-foreground ml-2">(14 omdömen)</span>
           </motion.div>
         </div>
 
