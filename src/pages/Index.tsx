@@ -64,15 +64,6 @@ const Index = () => {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            custom={2.3}
-            className="text-primary-foreground/60 text-base font-body italic mb-4"
-          >
-            …betyder grönkraften; vitalitet, frodighet och grönska.
-          </motion.p>
-          <motion.p
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
             custom={2.5}
             className="text-primary-foreground/60 text-base font-body mb-4"
           >
