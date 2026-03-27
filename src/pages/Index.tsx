@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote, HelpCircle } from "lucide-react";
+import { useReviews } from "@/hooks/useReviews";
 import heroBg from "@/assets/skog.jpg";
 import andreasGoliat from "@/assets/andreas-goliat.jpeg";
 import treatmentRoom from "@/assets/massage-1.jpeg";
