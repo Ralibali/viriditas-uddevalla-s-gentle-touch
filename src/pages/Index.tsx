@@ -305,40 +305,9 @@ const Index = () => {
         </div>
 
         <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6">
-          {[
-            {
-              name: "Tone Faye",
-              rating: 5,
-              date: "19 feb.",
-              text: "Jag önskade ryggmassage, skuldrorna har krånglat. Lokalen var avskild och tyst trots att den ligger innanför en butik. Mjuk naturnära musik och ljus, värmen och hunden i hörnet bidrog till avslappning och att kunna släppa taget. Nystart för ryggen och själen. Som att unna sig en resa till värmen mitt i kylan.",
-            },
-            {
-              name: "Tone Ekström",
-              rating: 5,
-              date: "14 mars",
-              text: "Mycket trevligt bemötande, motsvarade alla mina förväntningar.",
-            },
-            {
-              name: "Charlotte Lundqvist",
-              rating: 5,
-              date: "2 feb.",
-              text: "Bara positiv upplevelse! Kommer tillbaka!",
-            },
-            {
-              name: "Fredrica Myrehag",
-              rating: 5,
-              date: "26 jan.",
-              text: "Nöjd och ett väl bemött!",
-            },
-            {
-              name: "Eva Jantzen",
-              rating: 5,
-              date: "31 jan.",
-              text: "Återkommer!",
-            },
-          ].map((review, i) => (
+          {featuredReviews.slice(0, 5).map((review, i) => (
             <motion.div
-              key={i}
+              key={review.id}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -353,11 +322,11 @@ const Index = () => {
                 ))}
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4 italic">
-                "{review.text}"
+                "{review.review_text}"
               </p>
               <div className="flex items-center justify-between">
-                <span className="text-foreground font-medium text-sm">{review.name}</span>
-                <span className="text-muted-foreground/60 text-xs">{review.date}</span>
+                <span className="text-foreground font-medium text-sm">{review.reviewer_name}</span>
+                <span className="text-muted-foreground/60 text-xs">{review.review_date}</span>
               </div>
             </motion.div>
           ))}
@@ -371,24 +340,14 @@ const Index = () => {
           custom={3}
           className="max-w-4xl mx-auto mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4"
         >
-          {[
-            { name: "Tomas Johansson", rating: 5, date: "22 mars" },
-            { name: "Sonja Karlsson", rating: 4, date: "18 mars" },
-            { name: "Anders Brattgård", rating: 4, date: "8 mars" },
-            { name: "Anne Holmlund", rating: 5, date: "22 feb." },
-            { name: "Åsa Karlsson", rating: 5, date: "21 feb." },
-            { name: "Catarina Platek", rating: 4, date: "15 feb." },
-            { name: "Ellen Beran", rating: 5, date: "24 jan." },
-            { name: "Camilla Edwartz", rating: 5, date: "17 jan." },
-            { name: "Minde Passby", rating: 5, date: "10 jan." },
-          ].map((r, i) => (
-            <div key={i} className="bg-card rounded-xl p-4 border border-border text-center">
+          {compactReviews.map((r, i) => (
+            <div key={r.id} className="bg-card rounded-xl p-4 border border-border text-center">
               <div className="flex justify-center gap-0.5 mb-1">
                 {[...Array(5)].map((_, j) => (
                   <Star key={j} className={`w-3 h-3 ${j < r.rating ? "text-primary fill-primary" : "text-border"}`} />
                 ))}
               </div>
-              <p className="text-foreground text-xs font-medium">{r.name}</p>
+              <p className="text-foreground text-xs font-medium">{r.reviewer_name}</p>
             </div>
           ))}
         </motion.div>
