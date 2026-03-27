@@ -19,6 +19,15 @@ const fadeUp = {
 };
 
 const Index = () => {
+  const { data: reviews } = useReviews();
+
+  const featuredReviews = reviews?.filter(r => r.review_text) || [];
+  const compactReviews = reviews?.filter(r => !r.review_text) || [];
+  const totalCount = reviews?.length || 0;
+  const avgRating = totalCount > 0
+    ? (reviews!.reduce((sum, r) => sum + r.rating, 0) / totalCount).toFixed(1)
+    : "0";
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
