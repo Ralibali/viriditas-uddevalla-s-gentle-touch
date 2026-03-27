@@ -293,14 +293,14 @@ const Index = () => {
             custom={2}
             className="flex items-center justify-center gap-2 text-foreground"
           >
-            <span className="text-3xl font-display font-bold">4.8</span>
+            <span className="text-3xl font-display font-bold">{avgRating}</span>
             <span className="text-muted-foreground">av 5</span>
             <span className="flex ml-2">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className={`w-5 h-5 ${i < 5 ? "text-primary fill-primary" : "text-border"}`} />
+                <Star key={i} className={`w-5 h-5 ${i < Math.round(Number(avgRating)) ? "text-primary fill-primary" : "text-border"}`} />
               ))}
             </span>
-            <span className="text-muted-foreground ml-2">(14 omdömen)</span>
+            <span className="text-muted-foreground ml-2">({totalCount} omdömen)</span>
           </motion.div>
         </div>
 
