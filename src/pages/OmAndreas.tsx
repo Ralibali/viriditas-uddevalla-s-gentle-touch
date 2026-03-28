@@ -25,6 +25,56 @@ const OmAndreas = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Hem",
+                "item": "https://viriditasmassage.se/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Om Andreas",
+                "item": "https://viriditasmassage.se/om-andreas"
+              }
+            ]
+          })
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Andreas Håman",
+            "jobTitle": "Diplomerad Massageterapeut",
+            "worksFor": {
+              "@type": "HealthAndBeautyBusiness",
+              "name": "Viriditas",
+              "url": "https://viriditasmassage.se"
+            },
+            "workLocation": {
+              "@type": "Place",
+              "name": "Hälsokraft",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Norra Drottninggatan 2",
+                "addressLocality": "Uddevalla",
+                "postalCode": "451 30",
+                "addressCountry": "SE"
+              }
+            }
+          })
+        }}
+      />
       <Navbar />
 
       <section className="pt-32 pb-20 px-6">
