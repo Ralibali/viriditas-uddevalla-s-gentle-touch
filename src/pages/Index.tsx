@@ -31,16 +31,17 @@ const Index = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#f9f6f1] to-[#e8ede8]">
-        {/* Botanical decoration */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <svg className="absolute -top-20 -right-20 w-96 h-96 text-primary/5" viewBox="0 0 200 200" fill="currentColor">
-            <path d="M100,10 Q130,50 100,100 Q70,50 100,10 Z M100,100 Q140,80 180,100 Q140,120 100,100 Z M100,100 Q60,80 20,100 Q60,120 100,100 Z M100,100 Q130,140 100,190 Q70,140 100,100 Z" />
-          </svg>
-          <svg className="absolute -bottom-20 -left-20 w-80 h-80 text-primary/5 rotate-45" viewBox="0 0 200 200" fill="currentColor">
-            <path d="M100,10 Q130,50 100,100 Q70,50 100,10 Z M100,100 Q140,80 180,100 Q140,120 100,100 Z M100,100 Q60,80 20,100 Q60,120 100,100 Z M100,100 Q130,140 100,190 Q70,140 100,100 Z" />
-          </svg>
-        </div>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/video/massage-2.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/50" />
 
         <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
           <motion.div
@@ -50,9 +51,9 @@ const Index = () => {
             custom={0}
             className="flex items-center justify-center gap-2 mb-6"
           >
-            <Leaf className="w-5 h-5 text-primary" />
-            <span className="text-primary tracking-[0.3em] uppercase text-sm font-body">Viriditas</span>
-            <Leaf className="w-5 h-5 text-primary" />
+            <Leaf className="w-5 h-5 text-primary-foreground/70" />
+            <span className="text-primary-foreground/70 tracking-[0.3em] uppercase text-sm font-body">Viriditas</span>
+            <Leaf className="w-5 h-5 text-primary-foreground/70" />
           </motion.div>
 
           <motion.h1
@@ -60,10 +61,10 @@ const Index = () => {
             animate="visible"
             variants={fadeUp}
             custom={1}
-            className="text-5xl md:text-7xl font-display font-semibold text-foreground mb-6 leading-tight"
+            className="text-5xl md:text-7xl font-display font-semibold text-primary-foreground mb-6 leading-tight"
           >
             Massage i Uddevalla
-            <span className="block text-3xl md:text-4xl font-normal mt-2 text-primary">
+            <span className="block text-3xl md:text-4xl font-normal mt-2 text-primary-foreground/80">
               – Känn skillnaden
             </span>
           </motion.h1>
@@ -73,7 +74,7 @@ const Index = () => {
             animate="visible"
             variants={fadeUp}
             custom={2}
-            className="text-muted-foreground text-lg md:text-xl font-body italic mb-8 max-w-xl mx-auto"
+            className="text-primary-foreground/70 text-lg md:text-xl font-body italic mb-8 max-w-xl mx-auto"
           >
             Diplomerad massageterapeut Andreas Håman – Hälsokraft, Norra Drottninggatan 2
           </motion.p>
@@ -98,7 +99,7 @@ const Index = () => {
             </motion.a>
             <a
               href="#behandlingar"
-              className="inline-flex items-center gap-2 text-primary font-body font-medium hover:underline"
+              className="inline-flex items-center gap-2 text-primary-foreground/80 font-body font-medium hover:text-primary-foreground transition-colors"
             >
               Se behandlingar <ArrowRight className="w-4 h-4" />
             </a>
@@ -109,14 +110,14 @@ const Index = () => {
             animate="visible"
             variants={fadeUp}
             custom={4}
-            className="flex items-center justify-center gap-6 text-muted-foreground text-sm mt-12"
+            className="flex items-center justify-center gap-6 text-primary-foreground/60 text-sm mt-12"
           >
             <span className="flex items-center gap-1">
-              <Star className="w-4 h-4 text-primary fill-primary" /> {avgRating} betyg
+              <Star className="w-4 h-4 text-primary-foreground fill-primary-foreground" /> {avgRating} betyg
             </span>
-            <span className="w-1 h-1 bg-muted-foreground/30 rounded-full" />
+            <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
             <span>Från 550 kr</span>
-            <span className="w-1 h-1 bg-muted-foreground/30 rounded-full" />
+            <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
             <span>{totalCount}+ omdömen</span>
           </motion.div>
         </div>
@@ -127,7 +128,7 @@ const Index = () => {
           transition={{ delay: 1.5, duration: 1 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
         >
-          <a href="#om" className="text-muted-foreground/50 animate-bounce block">
+          <a href="#om" className="text-primary-foreground/50 animate-bounce block">
             <ArrowRight className="w-6 h-6 rotate-90" />
           </a>
         </motion.div>
