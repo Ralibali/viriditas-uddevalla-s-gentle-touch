@@ -646,7 +646,6 @@ const Index = () => {
                 <p className="flex items-center gap-2">
                   <Phone className="w-4 h-4" /> 076-317 78 97
                 </p>
-                </p>
               </div>
             </div>
           </div>
