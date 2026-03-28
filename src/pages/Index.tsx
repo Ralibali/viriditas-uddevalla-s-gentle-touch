@@ -113,11 +113,11 @@ const Index = () => {
             className="flex items-center justify-center gap-6 text-primary-foreground/60 text-sm mt-12"
           >
             <span className="flex items-center gap-1">
-              <Star className="w-4 h-4 text-primary fill-primary" /> {avgRating} betyg
+              <Star className="w-4 h-4 text-primary-foreground fill-primary-foreground" /> {avgRating} betyg
             </span>
-            <span className="w-1 h-1 bg-muted-foreground/30 rounded-full" />
+            <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
             <span>Från 550 kr</span>
-            <span className="w-1 h-1 bg-muted-foreground/30 rounded-full" />
+            <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
             <span>{totalCount}+ omdömen</span>
           </motion.div>
         </div>
@@ -128,7 +128,7 @@ const Index = () => {
           transition={{ delay: 1.5, duration: 1 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
         >
-          <a href="#om" className="text-muted-foreground/50 animate-bounce block">
+          <a href="#om" className="text-primary-foreground/50 animate-bounce block">
             <ArrowRight className="w-6 h-6 rotate-90" />
           </a>
         </motion.div>
