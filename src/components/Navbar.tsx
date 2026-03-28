@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import { trackBookingClick } from "@/lib/trackBookingClick";
 
 const navLinks = [
-  { label: "Hem", href: "#" },
-  { label: "Behandlingar", href: "#behandlingar" },
-  { label: "Om Andreas", href: "#om" },
-  { label: "Kontakt", href: "#kontakt" },
+  { label: "Hem", href: "/", isRoute: true },
+  { label: "Behandlingar", href: "/#behandlingar" },
+  { label: "Om Andreas", href: "/om-andreas", isRoute: true },
+  { label: "Klassisk massage", href: "/klassisk-massage", isRoute: true },
+  { label: "Kontakt", href: "/#kontakt" },
 ];
 
 const Navbar = () => {
@@ -35,15 +37,25 @@ const Navbar = () => {
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm font-body text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.isRoute ? (
+              <Link
+                key={link.href}
+                to={link.href}
+                className="text-sm font-body text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm font-body text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {link.label}
+              </a>
+            )
+          )}
           <a
             href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
             target="_blank"
@@ -76,16 +88,27 @@ const Navbar = () => {
             className="md:hidden backdrop-blur-md bg-background/95 border-b border-border/40 overflow-hidden"
           >
             <div className="px-6 py-6 flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="text-base font-body text-foreground py-2"
-                >
-                  {link.label}
-                </a>
-              ))}
+              {navLinks.map((link) =>
+                link.isRoute ? (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="text-base font-body text-foreground py-2"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="text-base font-body text-foreground py-2"
+                  >
+                    {link.label}
+                  </a>
+                )
+              )}
               <a
                 href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
                 target="_blank"
