@@ -29,6 +29,23 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Hem",
+                "item": "https://viriditasmassage.se/"
+              }
+            ]
+          })
+        }}
+      />
       <Navbar />
 
       {/* Hero */}

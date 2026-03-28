@@ -25,6 +25,29 @@ const KlassiskMassage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Hem",
+                "item": "https://viriditasmassage.se/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Klassisk Massage",
+                "item": "https://viriditasmassage.se/klassisk-massage"
+              }
+            ]
+          })
+        }}
+      />
       <Navbar />
 
       <section className="pt-32 pb-20 px-6">
