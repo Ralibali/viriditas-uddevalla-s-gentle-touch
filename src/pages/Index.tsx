@@ -161,7 +161,6 @@ const Index = () => {
              <h2 className="text-3xl md:text-5xl font-display font-semibold text-foreground">
                Om Andreas &amp; Goliat
              </h2>
-            </h2>
             <div className="w-20 h-1 bg-primary rounded-full" />
             <p className="text-muted-foreground leading-relaxed text-lg">
               Andreas Håman är diplomerad massageterapeut med bakgrund inom vården. Hans unika känslighet – skärpt av en synnedsättning – gör varje behandling exceptionellt uppmärksam och personlig.
