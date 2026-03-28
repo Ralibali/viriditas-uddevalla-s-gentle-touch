@@ -31,16 +31,17 @@ const Index = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#f9f6f1] to-[#e8ede8]">
-        {/* Botanical decoration */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <svg className="absolute -top-20 -right-20 w-96 h-96 text-primary/5" viewBox="0 0 200 200" fill="currentColor">
-            <path d="M100,10 Q130,50 100,100 Q70,50 100,10 Z M100,100 Q140,80 180,100 Q140,120 100,100 Z M100,100 Q60,80 20,100 Q60,120 100,100 Z M100,100 Q130,140 100,190 Q70,140 100,100 Z" />
-          </svg>
-          <svg className="absolute -bottom-20 -left-20 w-80 h-80 text-primary/5 rotate-45" viewBox="0 0 200 200" fill="currentColor">
-            <path d="M100,10 Q130,50 100,100 Q70,50 100,10 Z M100,100 Q140,80 180,100 Q140,120 100,100 Z M100,100 Q60,80 20,100 Q60,120 100,100 Z M100,100 Q130,140 100,190 Q70,140 100,100 Z" />
-          </svg>
-        </div>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/video/massage-2.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/50" />
 
         <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
           <motion.div
