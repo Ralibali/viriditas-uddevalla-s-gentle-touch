@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote, HelpCircle, Leaf, Gift, Phone, Mail, ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useReviews } from "@/hooks/useReviews";
 import andreasGoliat from "@/assets/andreas-goliat.jpeg";
 import halsokraft from "@/assets/halsokraft.jpeg";
@@ -65,7 +66,7 @@ const Index = () => {
           >
             Massage i Uddevalla
             <span className="block text-3xl md:text-4xl font-normal mt-2 text-primary-foreground/80">
-              – Känn skillnaden
+              – Känn skillnaden med Viriditas
             </span>
           </motion.h1>
 
@@ -157,8 +158,9 @@ const Index = () => {
             custom={1}
             className="space-y-6"
           >
-            <h2 className="text-3xl md:text-5xl font-display font-semibold text-foreground">
-              Om Andreas &amp; Goliat
+             <h2 className="text-3xl md:text-5xl font-display font-semibold text-foreground">
+               Om Andreas &amp; Goliat
+             </h2>
             </h2>
             <div className="w-20 h-1 bg-primary rounded-full" />
             <p className="text-muted-foreground leading-relaxed text-lg">
@@ -179,6 +181,12 @@ const Index = () => {
               </p>
               <cite className="text-sm text-muted-foreground mt-2 block not-italic">– Andreas Håman</cite>
             </blockquote>
+            <Link
+              to="/om-andreas"
+              className="inline-flex items-center gap-2 text-primary font-body font-medium hover:underline mt-4"
+            >
+              Läs mer om Andreas <ArrowRight className="w-4 h-4" />
+            </Link>
           </motion.div>
         </div>
       </section>
@@ -235,7 +243,7 @@ const Index = () => {
             variants={fadeUp}
             className="text-3xl md:text-5xl font-display font-semibold text-foreground mb-4"
           >
-            Behandlingar
+            Klassisk massage – Behandlingar &amp; priser
           </motion.h2>
           <motion.div
             initial="hidden"
@@ -340,6 +348,14 @@ const Index = () => {
             </motion.div>
           ))}
         </div>
+        <div className="max-w-5xl mx-auto text-center mt-10">
+          <Link
+            to="/klassisk-massage"
+            className="inline-flex items-center gap-2 text-primary font-body font-medium hover:underline"
+          >
+            Läs mer om klassisk massage <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </section>
 
       {/* Omdömen */}
@@ -442,9 +458,9 @@ const Index = () => {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeUp}
-              className="text-3xl md:text-5xl font-display font-semibold text-foreground mb-4"
-            >
-              Hitta hit
+            className="text-3xl md:text-5xl font-display font-semibold text-foreground mb-4"
+          >
+            Boka massage Uddevalla – Hitta hit
             </motion.h2>
             <motion.div
               initial="hidden"
@@ -491,7 +507,7 @@ const Index = () => {
                   </div>
                   <div>
                     <h3 className="font-display font-semibold text-foreground mb-1">Telefon</h3>
-                    <p className="text-muted-foreground">+46 XXX XXX XX</p>
+                    <p className="text-muted-foreground">076-317 78 97</p>
                   </div>
                 </div>
               </div>
@@ -613,22 +629,11 @@ const Index = () => {
             <div>
               <h4 className="font-display font-semibold mb-4">Snabblänkar</h4>
               <div className="space-y-2">
-                {[
-                  { label: "Behandlingar", href: "#behandlingar" },
-                  { label: "Om Andreas", href: "#om" },
-                  { label: "Hitta hit", href: "#kontakt" },
-                  { label: "Boka online", href: "https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule", external: true },
-                ].map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target={link.external ? "_blank" : undefined}
-                    rel={link.external ? "noopener noreferrer" : undefined}
-                    className="block text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                <Link to="/om-andreas" className="block text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors">Om Andreas</Link>
+                <Link to="/klassisk-massage" className="block text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors">Klassisk massage</Link>
+                <a href="#behandlingar" className="block text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors">Behandlingar</a>
+                <a href="#kontakt" className="block text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors">Hitta hit</a>
+                <a href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule" target="_blank" rel="noopener noreferrer" className="block text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors">Boka online</a>
               </div>
             </div>
 
@@ -640,7 +645,8 @@ const Index = () => {
                   <MapPin className="w-4 h-4" /> Norra Drottninggatan 2, Uddevalla
                 </p>
                 <p className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" /> +46 XXX XXX XX
+                  <Phone className="w-4 h-4" /> 076-317 78 97
+                </p>
                 </p>
               </div>
             </div>
