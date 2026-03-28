@@ -51,9 +51,9 @@ const Index = () => {
             custom={0}
             className="flex items-center justify-center gap-2 mb-6"
           >
-            <Leaf className="w-5 h-5 text-primary" />
-            <span className="text-primary tracking-[0.3em] uppercase text-sm font-body">Viriditas</span>
-            <Leaf className="w-5 h-5 text-primary" />
+            <Leaf className="w-5 h-5 text-primary-foreground/70" />
+            <span className="text-primary-foreground/70 tracking-[0.3em] uppercase text-sm font-body">Viriditas</span>
+            <Leaf className="w-5 h-5 text-primary-foreground/70" />
           </motion.div>
 
           <motion.h1
@@ -61,10 +61,10 @@ const Index = () => {
             animate="visible"
             variants={fadeUp}
             custom={1}
-            className="text-5xl md:text-7xl font-display font-semibold text-foreground mb-6 leading-tight"
+            className="text-5xl md:text-7xl font-display font-semibold text-primary-foreground mb-6 leading-tight"
           >
             Massage i Uddevalla
-            <span className="block text-3xl md:text-4xl font-normal mt-2 text-primary">
+            <span className="block text-3xl md:text-4xl font-normal mt-2 text-primary-foreground/80">
               – Känn skillnaden
             </span>
           </motion.h1>
@@ -74,7 +74,7 @@ const Index = () => {
             animate="visible"
             variants={fadeUp}
             custom={2}
-            className="text-muted-foreground text-lg md:text-xl font-body italic mb-8 max-w-xl mx-auto"
+            className="text-primary-foreground/70 text-lg md:text-xl font-body italic mb-8 max-w-xl mx-auto"
           >
             Diplomerad massageterapeut Andreas Håman – Hälsokraft, Norra Drottninggatan 2
           </motion.p>
@@ -99,7 +99,7 @@ const Index = () => {
             </motion.a>
             <a
               href="#behandlingar"
-              className="inline-flex items-center gap-2 text-primary font-body font-medium hover:underline"
+              className="inline-flex items-center gap-2 text-primary-foreground/80 font-body font-medium hover:text-primary-foreground transition-colors"
             >
               Se behandlingar <ArrowRight className="w-4 h-4" />
             </a>
@@ -110,7 +110,7 @@ const Index = () => {
             animate="visible"
             variants={fadeUp}
             custom={4}
-            className="flex items-center justify-center gap-6 text-muted-foreground text-sm mt-12"
+            className="flex items-center justify-center gap-6 text-primary-foreground/60 text-sm mt-12"
           >
             <span className="flex items-center gap-1">
               <Star className="w-4 h-4 text-primary fill-primary" /> {avgRating} betyg
