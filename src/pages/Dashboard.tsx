@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { motion } from "framer-motion";
-import { BarChart3, MousePointerClick, TrendingUp, Calendar } from "lucide-react";
+import { BarChart3, MousePointerClick, TrendingUp, Calendar, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const fadeUp = {
