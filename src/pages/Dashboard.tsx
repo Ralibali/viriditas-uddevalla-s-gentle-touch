@@ -30,8 +30,58 @@ function useBookingClicks() {
   });
 }
 
+const DASHBOARD_PASSWORD = "Annika";
+
 const Dashboard = () => {
+  const [isAuthed, setIsAuthed] = useState(() => sessionStorage.getItem("dashboard-auth") === "true");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
   const { data: clicks, isLoading } = useBookingClicks();
+
+  if (!isAuthed) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-card border border-border rounded-3xl p-8 shadow-lg max-w-sm w-full text-center space-y-4"
+        >
+          <Lock className="w-10 h-10 text-primary mx-auto" />
+          <h2 className="text-xl font-display font-semibold text-foreground">Dashboard</h2>
+          <p className="text-muted-foreground text-sm font-body">Ange lösenord för att se statistiken</p>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (password === DASHBOARD_PASSWORD) {
+                sessionStorage.setItem("dashboard-auth", "true");
+                setIsAuthed(true);
+                setError(false);
+              } else {
+                setError(true);
+              }
+            }}
+            className="space-y-3"
+          >
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => { setPassword(e.target.value); setError(false); }}
+              placeholder="Lösenord"
+              className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground font-body text-center focus:outline-none focus:ring-2 focus:ring-primary"
+              autoFocus
+            />
+            {error && <p className="text-destructive text-sm font-body">Fel lösenord</p>}
+            <button
+              type="submit"
+              className="w-full bg-primary text-primary-foreground py-3 rounded-xl font-body font-medium hover:bg-primary/90 transition-colors"
+            >
+              Logga in
+            </button>
+          </form>
+        </motion.div>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
