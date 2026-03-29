@@ -1,0 +1,1 @@
+CREATE POLICY "Anyone can read booking clicks" ON public.booking_clicks FOR SELECT TO anon, authenticated USING (true);
