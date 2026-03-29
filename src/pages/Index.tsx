@@ -123,6 +123,17 @@ const Index = () => {
             </a>
           </motion.div>
 
+          <motion.p
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            custom={3.5}
+            className="text-primary-foreground/60 text-sm font-body mt-4 flex items-center justify-center gap-2"
+          >
+            <Calendar className="w-4 h-4" />
+            Tider tillgängliga fredagar &amp; lördagar
+          </motion.p>
+
           <motion.div
             initial="hidden"
             animate="visible"
