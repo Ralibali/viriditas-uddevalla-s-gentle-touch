@@ -96,6 +96,29 @@ const KlassiskMassage = () => {
             </p>
           </motion.div>
 
+          {/* Mid-content CTA */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            custom={2.5}
+            className="mt-12 bg-primary/5 border border-primary/20 rounded-3xl p-8 text-center"
+          >
+            <p className="text-foreground font-display font-semibold text-xl mb-2">Låter det bra?</p>
+            <p className="text-muted-foreground font-body mb-4">Boka din tid direkt – det tar under en minut.</p>
+            <motion.a
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackBookingClick("klassisk-massage-mid")}
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full font-body font-medium shadow-lg shadow-primary/20 hover:shadow-xl transition-shadow"
+            >
+              Boka tid <Calendar className="w-5 h-5" />
+            </motion.a>
+          </motion.div>
+
           <motion.div
             initial="hidden"
             animate="visible"
