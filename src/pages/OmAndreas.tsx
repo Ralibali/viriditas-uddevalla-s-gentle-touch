@@ -107,6 +107,29 @@ const OmAndreas = () => {
             </p>
           </motion.div>
 
+          {/* Mid-content CTA */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            custom={1.5}
+            className="mt-12 bg-primary/5 border border-primary/20 rounded-3xl p-8 text-center"
+          >
+            <p className="text-foreground font-display font-semibold text-xl mb-2">Nyfiken på hur det känns?</p>
+            <p className="text-muted-foreground font-body mb-4">Boka din första behandling och upplev skillnaden.</p>
+            <motion.a
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackBookingClick("om-andreas-mid")}
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full font-body font-medium shadow-lg shadow-primary/20 hover:shadow-xl transition-shadow"
+            >
+              Boka tid <Calendar className="w-5 h-5" />
+            </motion.a>
+          </motion.div>
+
           <motion.div
             initial="hidden"
             animate="visible"

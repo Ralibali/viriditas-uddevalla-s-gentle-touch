@@ -207,6 +207,37 @@ const Index = () => {
         </div>
       </section>
 
+      {/* CTA after Om Andreas */}
+      <section className="py-16 px-6 bg-primary">
+        <div className="max-w-3xl mx-auto text-center">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="space-y-4"
+          >
+            <h2 className="text-2xl md:text-3xl font-display font-semibold text-primary-foreground">
+              Redo att boka din massage?
+            </h2>
+            <p className="text-primary-foreground/80 font-body">
+              Boka enkelt online – välj tid som passar dig.
+            </p>
+            <motion.a
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackBookingClick("cta-after-about")}
+              className="inline-flex items-center gap-2 bg-primary-foreground text-primary px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg hover:shadow-xl transition-shadow"
+            >
+              Boka tid nu <Calendar className="w-5 h-5" />
+            </motion.a>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Viriditas betydelse */}
       <section className="py-28 px-6 bg-card">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
@@ -463,6 +494,28 @@ const Index = () => {
             ))}
           </motion.div>
         )}
+
+        {/* CTA after reviews */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          custom={4}
+          className="max-w-2xl mx-auto text-center mt-16"
+        >
+          <motion.a
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackBookingClick("cta-after-reviews")}
+            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
+          >
+            Boka din massage idag <Calendar className="w-5 h-5" />
+          </motion.a>
+        </motion.div>
       </section>
 
       {/* Hitta hit / Kontakt */}
@@ -625,6 +678,37 @@ const Index = () => {
                 </AccordionItem>
               ))}
             </Accordion>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Final CTA before footer */}
+      <section className="py-20 px-6 bg-primary">
+        <div className="max-w-3xl mx-auto text-center">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="space-y-4"
+          >
+            <h2 className="text-2xl md:text-3xl font-display font-semibold text-primary-foreground">
+              Ge kroppen den omvårdnad den förtjänar
+            </h2>
+            <p className="text-primary-foreground/80 font-body">
+              Klassisk massage från 550 kr. Boka din tid idag.
+            </p>
+            <motion.a
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackBookingClick("cta-before-footer")}
+              className="inline-flex items-center gap-2 bg-primary-foreground text-primary px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg hover:shadow-xl transition-shadow"
+            >
+              Boka tid <Calendar className="w-5 h-5" />
+            </motion.a>
           </motion.div>
         </div>
       </section>
