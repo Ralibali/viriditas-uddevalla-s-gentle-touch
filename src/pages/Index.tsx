@@ -543,9 +543,9 @@ const Index = () => {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeUp}
-            className="text-3xl md:text-5xl font-display font-semibold text-foreground mb-4"
+           className="text-3xl md:text-5xl font-display font-semibold text-foreground mb-4"
           >
-            Boka massage Uddevalla – Hitta hit
+            {t("contact_title", "Boka massage Uddevalla – Hitta hit")}
             </motion.h2>
             <motion.div
               initial="hidden"
