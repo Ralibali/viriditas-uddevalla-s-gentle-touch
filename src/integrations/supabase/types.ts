@@ -62,6 +62,72 @@ export type Database = {
         }
         Relationships: []
       }
+      site_pages: {
+        Row: {
+          content: Json
+          created_at: string
+          id: string
+          is_published: boolean
+          meta_description: string | null
+          nav_label: string | null
+          nav_order: number
+          show_in_nav: boolean
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content?: Json
+          created_at?: string
+          id?: string
+          is_published?: boolean
+          meta_description?: string | null
+          nav_label?: string | null
+          nav_order?: number
+          show_in_nav?: boolean
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          id?: string
+          is_published?: boolean
+          meta_description?: string | null
+          nav_label?: string | null
+          nav_order?: number
+          show_in_nav?: boolean
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          created_at: string
+          id: string
+          setting_key: string
+          setting_value: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          setting_key: string
+          setting_value?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          setting_key?: string
+          setting_value?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
