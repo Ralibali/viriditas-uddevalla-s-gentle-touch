@@ -150,7 +150,7 @@ const Index = () => {
               <Star className="w-4 h-4 text-primary-foreground fill-primary-foreground" /> {avgRating} betyg
             </span>
             <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
-            <span>Från 550 kr</span>
+            <span>{t("hero_price_from", "Från 550 kr")}</span>
             <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
             <span>{totalCount}+ omdömen</span>
           </motion.div>
