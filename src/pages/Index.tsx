@@ -572,7 +572,7 @@ const Index = () => {
                   </div>
                   <div>
                     <h3 className="font-display font-semibold text-foreground mb-1">Adress</h3>
-                    <p className="text-muted-foreground">Hälsokraft, Norra Drottninggatan 2<br />451 30 Uddevalla</p>
+                    <p className="text-muted-foreground whitespace-pre-line">{t("contact_address_full", "Hälsokraft, Norra Drottninggatan 2\n451 30 Uddevalla")}</p>
                   </div>
                 </div>
 
