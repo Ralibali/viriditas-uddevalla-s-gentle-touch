@@ -265,14 +265,14 @@ const Index = () => {
             className="space-y-6 order-2 md:order-1"
           >
             <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground">
-              Vad betyder Viriditas?
+              {t("viriditas_title", "Vad betyder Viriditas?")}
             </h2>
             <div className="w-20 h-1 bg-primary rounded-full" />
             <p className="text-muted-foreground leading-relaxed text-lg">
-              Viriditas är ett ord som betyder vitalitet, fruktsamhet, frodighet och grönska. Det är särskilt förknippat med abbedissan Hildegard von Bingen (1098–1179), mystiker, tonsättare och predikant.
+              {t("viriditas_text_1", "Viriditas är ett ord som betyder vitalitet, fruktsamhet, frodighet och grönska. Det är särskilt förknippat med abbedissan Hildegard von Bingen (1098–1179), mystiker, tonsättare och predikant.")}
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Hildegard hade en helhetssyn på människans hälsa där hon tog in kropp, själ och ande.
+              {t("viriditas_text_2", "Hildegard hade en helhetssyn på människans hälsa där hon tog in kropp, själ och ande.")}
             </p>
           </motion.div>
           <motion.div
