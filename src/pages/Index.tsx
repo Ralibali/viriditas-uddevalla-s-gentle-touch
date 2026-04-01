@@ -20,6 +20,10 @@ const fadeUp = {
 
 const Index = () => {
   const { data: reviews } = useReviews();
+  const { data: s } = useSiteSettings();
+
+  // Helper: get setting value or fallback
+  const t = (key: string, fallback: string) => s?.[key] || fallback;
 
   const featuredReviews = reviews?.filter(r => r.review_text) || [];
   const compactReviews = reviews?.filter(r => !r.review_text) || [];
