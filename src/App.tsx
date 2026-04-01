@@ -7,6 +7,7 @@ import Index from "./pages/Index.tsx";
 import OmAndreas from "./pages/OmAndreas.tsx";
 import KlassiskMassage from "./pages/KlassiskMassage.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
+import DynamicPage from "./pages/DynamicPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/om-andreas" element={<OmAndreas />} />
           <Route path="/klassisk-massage" element={<KlassiskMassage />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/p/:slug" element={<DynamicPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
