@@ -136,7 +136,7 @@ const Index = () => {
             className="text-primary-foreground/60 text-sm font-body mt-4 flex items-center justify-center gap-2"
           >
             <Calendar className="w-4 h-4" />
-            Tider tillgängliga fredagar &amp; lördagar
+            {t("hero_availability", "Tider tillgängliga fredagar & lördagar")}
           </motion.p>
 
           <motion.div
