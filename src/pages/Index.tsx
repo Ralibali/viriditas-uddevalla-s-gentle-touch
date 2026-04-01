@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote, HelpCircle, Leaf, Gift, Phone, Mail, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useReviews } from "@/hooks/useReviews";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 import andreasGoliat from "@/assets/andreas-goliat.jpeg";
 import halsokraft from "@/assets/halsokraft.jpeg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -19,6 +20,10 @@ const fadeUp = {
 
 const Index = () => {
   const { data: reviews } = useReviews();
+  const { data: s } = useSiteSettings();
+
+  // Helper: get setting value or fallback
+  const t = (key: string, fallback: string) => s?.[key] || fallback;
 
   const featuredReviews = reviews?.filter(r => r.review_text) || [];
   const compactReviews = reviews?.filter(r => !r.review_text) || [];
@@ -81,9 +86,9 @@ const Index = () => {
             custom={1}
             className="text-5xl md:text-7xl font-display font-semibold text-primary-foreground mb-6 leading-tight"
           >
-            Massage i Uddevalla
+            {t("hero_title", "Massage i Uddevalla")}
             <span className="block text-3xl md:text-4xl font-normal mt-2 text-primary-foreground/80">
-              – Känn skillnaden med Viriditas
+              {t("hero_subtitle", "– Känn skillnaden med Viriditas")}
             </span>
           </motion.h1>
 
@@ -94,7 +99,7 @@ const Index = () => {
             custom={2}
             className="text-primary-foreground/70 text-lg md:text-xl font-body italic mb-8 max-w-xl mx-auto"
           >
-            Diplomerad massageterapeut Andreas Håman – Hälsokraft, Norra Drottninggatan 2
+            {t("hero_description", "Diplomerad massageterapeut Andreas Håman – Hälsokraft, Norra Drottninggatan 2")}
           </motion.p>
 
           <motion.div
@@ -131,7 +136,7 @@ const Index = () => {
             className="text-primary-foreground/60 text-sm font-body mt-4 flex items-center justify-center gap-2"
           >
             <Calendar className="w-4 h-4" />
-            Tider tillgängliga fredagar &amp; lördagar
+            {t("hero_availability", "Tider tillgängliga fredagar & lördagar")}
           </motion.p>
 
           <motion.div
@@ -145,7 +150,7 @@ const Index = () => {
               <Star className="w-4 h-4 text-primary-foreground fill-primary-foreground" /> {avgRating} betyg
             </span>
             <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
-            <span>Från 550 kr</span>
+            <span>{t("hero_price_from", "Från 550 kr")}</span>
             <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
             <span>{totalCount}+ omdömen</span>
           </motion.div>
@@ -187,25 +192,25 @@ const Index = () => {
             className="space-y-6"
           >
              <h2 className="text-3xl md:text-5xl font-display font-semibold text-foreground">
-               Om Andreas &amp; Goliat
+               {t("about_title", "Om Andreas & Goliat")}
              </h2>
             <div className="w-20 h-1 bg-primary rounded-full" />
             <p className="text-muted-foreground leading-relaxed text-lg">
-              Andreas Håman är diplomerad massageterapeut med bakgrund inom vården. Hans unika känslighet – skärpt av en synnedsättning – gör varje behandling exceptionellt uppmärksam och personlig.
+              {t("about_text_1", "Andreas Håman är diplomerad massageterapeut med bakgrund inom vården. Hans unika känslighet – skärpt av en synnedsättning – gör varje behandling exceptionellt uppmärksam och personlig.")}
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Tidigare har han arbetat inom personlig assistans, psykiatrin och äldreboende. I massagen har han funnit något som ger samma känsla av kreativitet som konsten en gång gav.
+              {t("about_text_2", "Tidigare har han arbetat inom personlig assistans, psykiatrin och äldreboende. I massagen har han funnit något som ger samma känsla av kreativitet som konsten en gång gav.")}
             </p>
             <p className="text-muted-foreground leading-relaxed flex items-start gap-2">
               <Heart className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-              <span>
-                Min bästa vän och ledarhund <strong className="text-foreground">Goliat</strong> hjälper mig i vardagen och är också med i behandlingsrummet – en lugn och trygg närvaro.
-              </span>
+               <span>
+                 {t("about_text_goliat", "Min bästa vän och ledarhund Goliat hjälper mig i vardagen och är också med i behandlingsrummet – en lugn och trygg närvaro.")}
+               </span>
             </p>
             <blockquote className="border-l-4 border-primary pl-6 mt-8">
-              <p className="text-xl font-body italic text-foreground">
-                "Jag lyssnar med händerna."
-              </p>
+               <p className="text-xl font-body italic text-foreground">
+                 "{t("about_quote", "Jag lyssnar med händerna.")}"
+               </p>
               <cite className="text-sm text-muted-foreground mt-2 block not-italic">– Andreas Håman</cite>
             </blockquote>
             <Link
@@ -229,10 +234,10 @@ const Index = () => {
             className="space-y-4"
           >
             <h2 className="text-2xl md:text-3xl font-display font-semibold text-primary-foreground">
-              Redo att boka din massage?
+              {t("cta1_title", "Redo att boka din massage?")}
             </h2>
             <p className="text-primary-foreground/80 font-body">
-              Boka enkelt online – välj tid som passar dig.
+              {t("cta1_text", "Boka enkelt online – välj tid som passar dig.")}
             </p>
             <motion.a
               whileHover={{ scale: 1.03 }}
@@ -260,14 +265,14 @@ const Index = () => {
             className="space-y-6 order-2 md:order-1"
           >
             <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground">
-              Vad betyder Viriditas?
+              {t("viriditas_title", "Vad betyder Viriditas?")}
             </h2>
             <div className="w-20 h-1 bg-primary rounded-full" />
             <p className="text-muted-foreground leading-relaxed text-lg">
-              Viriditas är ett ord som betyder vitalitet, fruktsamhet, frodighet och grönska. Det är särskilt förknippat med abbedissan Hildegard von Bingen (1098–1179), mystiker, tonsättare och predikant.
+              {t("viriditas_text_1", "Viriditas är ett ord som betyder vitalitet, fruktsamhet, frodighet och grönska. Det är särskilt förknippat med abbedissan Hildegard von Bingen (1098–1179), mystiker, tonsättare och predikant.")}
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Hildegard hade en helhetssyn på människans hälsa där hon tog in kropp, själ och ande.
+              {t("viriditas_text_2", "Hildegard hade en helhetssyn på människans hälsa där hon tog in kropp, själ och ande.")}
             </p>
           </motion.div>
           <motion.div
@@ -301,7 +306,7 @@ const Index = () => {
             variants={fadeUp}
             className="text-3xl md:text-5xl font-display font-semibold text-foreground mb-4"
           >
-            Klassisk massage – Behandlingar &amp; priser
+            {t("treatments_title", "Klassisk massage – Behandlingar & priser")}
           </motion.h2>
           <motion.div
             initial="hidden"
@@ -317,27 +322,27 @@ const Index = () => {
           {[
             {
               icon: Clock,
-              title: "Klassisk massage",
+              title: t("treatment_45_title", "Klassisk massage"),
               duration: "45 min",
-              price: "550 kr",
-              desc: "En kortare men effektiv behandling fokuserad på dina problemområden.",
+              price: t("treatment_45_price", "550 kr"),
+              desc: t("treatment_45_desc", "En kortare men effektiv behandling fokuserad på dina problemområden."),
               cta: "Boka 45 min",
             },
             {
               icon: Leaf,
-              title: "Klassisk massage",
+              title: t("treatment_60_title", "Klassisk massage"),
               duration: "60 min",
-              price: "650 kr",
-              desc: "En hel timmes avkopplande behandling som löser upp spänningar i hela kroppen.",
+              price: t("treatment_60_price", "650 kr"),
+              desc: t("treatment_60_desc", "En hel timmes avkopplande behandling som löser upp spänningar i hela kroppen."),
               cta: "Boka 60 min",
               featured: true,
             },
             {
               icon: Gift,
-              title: "Presentkort",
+              title: t("gift_title", "Presentkort"),
               duration: "",
-              price: "Valfritt belopp",
-              desc: "Ge bort välmående. Perfekt som present till någon du tycker om.",
+              price: t("gift_price", "Valfritt belopp"),
+              desc: t("gift_desc", "Ge bort välmående. Perfekt som present till någon du tycker om."),
               cta: "Kontakta oss",
               isGift: true,
             },
@@ -538,9 +543,9 @@ const Index = () => {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeUp}
-            className="text-3xl md:text-5xl font-display font-semibold text-foreground mb-4"
+           className="text-3xl md:text-5xl font-display font-semibold text-foreground mb-4"
           >
-            Boka massage Uddevalla – Hitta hit
+            {t("contact_title", "Boka massage Uddevalla – Hitta hit")}
             </motion.h2>
             <motion.div
               initial="hidden"
@@ -567,7 +572,7 @@ const Index = () => {
                   </div>
                   <div>
                     <h3 className="font-display font-semibold text-foreground mb-1">Adress</h3>
-                    <p className="text-muted-foreground">Hälsokraft, Norra Drottninggatan 2<br />451 30 Uddevalla</p>
+                    <p className="text-muted-foreground whitespace-pre-line">{t("contact_address_full", "Hälsokraft, Norra Drottninggatan 2\n451 30 Uddevalla")}</p>
                   </div>
                 </div>
 
@@ -577,7 +582,7 @@ const Index = () => {
                   </div>
                   <div>
                     <h3 className="font-display font-semibold text-foreground mb-1">Öppettider</h3>
-                    <p className="text-muted-foreground">Mån–Fre: 09:00–18:00<br />Lör: 10:00–15:00</p>
+                    <p className="text-muted-foreground whitespace-pre-line">{t("contact_hours_display", "Mån–Fre: 09:00–18:00\nLör: 10:00–15:00")}</p>
                   </div>
                 </div>
 
@@ -587,7 +592,7 @@ const Index = () => {
                   </div>
                   <div>
                     <h3 className="font-display font-semibold text-foreground mb-1">Telefon</h3>
-                    <p className="text-muted-foreground">076-317 78 97</p>
+                    <p className="text-muted-foreground">{t("phone", "076-317 78 97")}</p>
                   </div>
                 </div>
               </div>
@@ -704,10 +709,10 @@ const Index = () => {
             className="space-y-4"
           >
             <h2 className="text-2xl md:text-3xl font-display font-semibold text-primary-foreground">
-              Ge kroppen den omvårdnad den förtjänar
+              {t("cta2_title", "Ge kroppen den omvårdnad den förtjänar")}
             </h2>
             <p className="text-primary-foreground/80 font-body">
-              Klassisk massage från 550 kr. Boka din tid idag.
+              {t("cta2_text", "Klassisk massage från 550 kr. Boka din tid idag.")}
             </p>
             <motion.a
               whileHover={{ scale: 1.03 }}
@@ -732,7 +737,7 @@ const Index = () => {
             <div>
               <h3 className="font-display text-2xl font-semibold mb-4">Viriditas</h3>
               <p className="text-primary-foreground/70 text-sm leading-relaxed">
-                Klassisk massage i Uddevalla. Diplomerad massageterapeut med passion för välmående.
+                {t("footer_text", "Klassisk massage i Uddevalla. Diplomerad massageterapeut med passion för välmående.")}
               </p>
             </div>
 
@@ -753,10 +758,10 @@ const Index = () => {
               <h4 className="font-display font-semibold mb-4">Kontakt</h4>
               <div className="space-y-3 text-sm text-primary-foreground/70">
                 <p className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4" /> Norra Drottninggatan 2, Uddevalla
+                  <MapPin className="w-4 h-4" /> {t("address", "Norra Drottninggatan 2, Uddevalla")}
                 </p>
                 <p className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" /> 076-317 78 97
+                  <Phone className="w-4 h-4" /> {t("phone", "076-317 78 97")}
                 </p>
               </div>
             </div>
