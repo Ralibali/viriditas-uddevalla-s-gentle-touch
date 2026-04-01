@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote, HelpCircle, Leaf, Gift, Phone, Mail, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useReviews } from "@/hooks/useReviews";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 import andreasGoliat from "@/assets/andreas-goliat.jpeg";
 import halsokraft from "@/assets/halsokraft.jpeg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
