@@ -9,9 +9,9 @@ const SETTINGS_FIELDS = [
   { key: "email", label: "E-post", placeholder: "info@viriditas.se" },
   { key: "address", label: "Adress", placeholder: "Norra Drottninggatan 2, Uddevalla" },
   { key: "booking_url", label: "Boknings-URL", placeholder: "https://peach.nu/..." },
-  { key: "opening_hours", label: "Öppettider", placeholder: "Fredagar & lördagar", type: "textarea" as const },
-  { key: "footer_text", label: "Footer-text", placeholder: "Klassisk massage i Uddevalla...", type: "textarea" as const },
-];
+  { key: "opening_hours", label: "Öppettider", placeholder: "Fredagar & lördagar", type: "textarea" },
+  { key: "footer_text", label: "Footer-text", placeholder: "Klassisk massage i Uddevalla...", type: "textarea" },
+] as const;
 
 export default function SettingsEditor() {
   const { data: settings, isLoading } = useSiteSettings();
