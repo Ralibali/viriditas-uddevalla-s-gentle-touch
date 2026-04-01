@@ -761,7 +761,7 @@ const Index = () => {
                   <MapPin className="w-4 h-4" /> {t("address", "Norra Drottninggatan 2, Uddevalla")}
                 </p>
                 <p className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" /> 076-317 78 97
+                  <Phone className="w-4 h-4" /> {t("phone", "076-317 78 97")}
                 </p>
               </div>
             </div>
