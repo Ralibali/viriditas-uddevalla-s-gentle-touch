@@ -582,7 +582,7 @@ const Index = () => {
                   </div>
                   <div>
                     <h3 className="font-display font-semibold text-foreground mb-1">Öppettider</h3>
-                    <p className="text-muted-foreground">Mån–Fre: 09:00–18:00<br />Lör: 10:00–15:00</p>
+                    <p className="text-muted-foreground whitespace-pre-line">{t("contact_hours_display", "Mån–Fre: 09:00–18:00\nLör: 10:00–15:00")}</p>
                   </div>
                 </div>
 
