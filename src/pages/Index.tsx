@@ -234,10 +234,10 @@ const Index = () => {
             className="space-y-4"
           >
             <h2 className="text-2xl md:text-3xl font-display font-semibold text-primary-foreground">
-              Redo att boka din massage?
+              {t("cta1_title", "Redo att boka din massage?")}
             </h2>
             <p className="text-primary-foreground/80 font-body">
-              Boka enkelt online – välj tid som passar dig.
+              {t("cta1_text", "Boka enkelt online – välj tid som passar dig.")}
             </p>
             <motion.a
               whileHover={{ scale: 1.03 }}
