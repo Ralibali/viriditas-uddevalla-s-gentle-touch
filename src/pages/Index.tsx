@@ -306,7 +306,7 @@ const Index = () => {
             variants={fadeUp}
             className="text-3xl md:text-5xl font-display font-semibold text-foreground mb-4"
           >
-            Klassisk massage – Behandlingar &amp; priser
+            {t("treatments_title", "Klassisk massage – Behandlingar & priser")}
           </motion.h2>
           <motion.div
             initial="hidden"
