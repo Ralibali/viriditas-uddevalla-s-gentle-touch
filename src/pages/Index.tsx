@@ -208,9 +208,9 @@ const Index = () => {
                </span>
             </p>
             <blockquote className="border-l-4 border-primary pl-6 mt-8">
-              <p className="text-xl font-body italic text-foreground">
-                "Jag lyssnar med händerna."
-              </p>
+               <p className="text-xl font-body italic text-foreground">
+                 "{t("about_quote", "Jag lyssnar med händerna.")}"
+               </p>
               <cite className="text-sm text-muted-foreground mt-2 block not-italic">– Andreas Håman</cite>
             </blockquote>
             <Link
