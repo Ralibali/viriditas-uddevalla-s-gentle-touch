@@ -99,7 +99,7 @@ const Index = () => {
             custom={2}
             className="text-primary-foreground/70 text-lg md:text-xl font-body italic mb-8 max-w-xl mx-auto"
           >
-            Diplomerad massageterapeut Andreas Håman – Hälsokraft, Norra Drottninggatan 2
+            {t("hero_description", "Diplomerad massageterapeut Andreas Håman – Hälsokraft, Norra Drottninggatan 2")}
           </motion.p>
 
           <motion.div
