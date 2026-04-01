@@ -192,7 +192,7 @@ const Index = () => {
             className="space-y-6"
           >
              <h2 className="text-3xl md:text-5xl font-display font-semibold text-foreground">
-               Om Andreas &amp; Goliat
+               {t("about_title", "Om Andreas & Goliat")}
              </h2>
             <div className="w-20 h-1 bg-primary rounded-full" />
             <p className="text-muted-foreground leading-relaxed text-lg">
