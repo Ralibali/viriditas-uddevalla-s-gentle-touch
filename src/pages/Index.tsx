@@ -203,9 +203,9 @@ const Index = () => {
             </p>
             <p className="text-muted-foreground leading-relaxed flex items-start gap-2">
               <Heart className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-              <span>
-                Min bästa vän och ledarhund <strong className="text-foreground">Goliat</strong> hjälper mig i vardagen och är också med i behandlingsrummet – en lugn och trygg närvaro.
-              </span>
+               <span>
+                 {t("about_text_goliat", "Min bästa vän och ledarhund Goliat hjälper mig i vardagen och är också med i behandlingsrummet – en lugn och trygg närvaro.")}
+               </span>
             </p>
             <blockquote className="border-l-4 border-primary pl-6 mt-8">
               <p className="text-xl font-body italic text-foreground">
