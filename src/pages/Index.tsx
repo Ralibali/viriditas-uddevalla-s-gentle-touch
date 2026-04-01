@@ -758,7 +758,7 @@ const Index = () => {
               <h4 className="font-display font-semibold mb-4">Kontakt</h4>
               <div className="space-y-3 text-sm text-primary-foreground/70">
                 <p className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4" /> Norra Drottninggatan 2, Uddevalla
+                  <MapPin className="w-4 h-4" /> {t("address", "Norra Drottninggatan 2, Uddevalla")}
                 </p>
                 <p className="flex items-center gap-2">
                   <Phone className="w-4 h-4" /> 076-317 78 97
