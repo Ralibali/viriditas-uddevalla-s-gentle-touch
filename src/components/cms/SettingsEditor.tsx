@@ -3,7 +3,7 @@ import { Save, Loader2 } from "lucide-react";
 import { useSiteSettings, useUpdateSetting } from "@/hooks/useSiteSettings";
 import { toast } from "sonner";
 
-const SETTINGS_FIELDS = [
+const SETTINGS_FIELDS: { key: string; label: string; placeholder: string; type?: "textarea" }[] = [
   { key: "business_name", label: "Företagsnamn", placeholder: "Viriditas" },
   { key: "phone", label: "Telefon", placeholder: "076-317 78 97" },
   { key: "email", label: "E-post", placeholder: "info@viriditas.se" },
@@ -11,7 +11,7 @@ const SETTINGS_FIELDS = [
   { key: "booking_url", label: "Boknings-URL", placeholder: "https://peach.nu/..." },
   { key: "opening_hours", label: "Öppettider", placeholder: "Fredagar & lördagar", type: "textarea" },
   { key: "footer_text", label: "Footer-text", placeholder: "Klassisk massage i Uddevalla...", type: "textarea" },
-] as const;
+];
 
 export default function SettingsEditor() {
   const { data: settings, isLoading } = useSiteSettings();
