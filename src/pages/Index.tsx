@@ -191,7 +191,7 @@ const Index = () => {
              </h2>
             <div className="w-20 h-1 bg-primary rounded-full" />
             <p className="text-muted-foreground leading-relaxed text-lg">
-              Andreas Håman är diplomerad massageterapeut med bakgrund inom vården. Hans unika känslighet – skärpt av en synnedsättning – gör varje behandling mycket uppmärksam och personlig.
+              Andreas Håman är diplomerad massageterapeut med bakgrund inom vården. Hans unika känslighet – skärpt av en synnedsättning – gör varje behandling exceptionellt uppmärksam och personlig.
             </p>
             <p className="text-muted-foreground leading-relaxed">
               Tidigare har han arbetat inom personlig assistans, psykiatrin och äldreboende. I massagen har han funnit något som ger samma känsla av kreativitet som konsten en gång gav.
