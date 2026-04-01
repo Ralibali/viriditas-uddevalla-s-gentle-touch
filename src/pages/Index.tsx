@@ -737,7 +737,7 @@ const Index = () => {
             <div>
               <h3 className="font-display text-2xl font-semibold mb-4">Viriditas</h3>
               <p className="text-primary-foreground/70 text-sm leading-relaxed">
-                Klassisk massage i Uddevalla. Diplomerad massageterapeut med passion för välmående.
+                {t("footer_text", "Klassisk massage i Uddevalla. Diplomerad massageterapeut med passion för välmående.")}
               </p>
             </div>
 
