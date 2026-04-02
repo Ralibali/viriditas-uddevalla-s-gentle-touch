@@ -60,6 +60,8 @@ const Index = () => {
           muted
           loop
           playsInline
+          preload="metadata"
+          poster="/video/massage-2-poster.jpg"
           className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/video/massage-2.mp4" type="video/mp4" />
