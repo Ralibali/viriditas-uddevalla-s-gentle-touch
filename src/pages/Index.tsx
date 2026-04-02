@@ -290,6 +290,7 @@ const Index = () => {
               muted
               loop
               playsInline
+              preload="none"
               className="rounded-3xl shadow-2xl w-full object-cover aspect-square"
             >
               <source src="/video/massage.mp4" type="video/mp4" />
