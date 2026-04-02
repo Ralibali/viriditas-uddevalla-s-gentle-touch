@@ -183,6 +183,8 @@ const Index = () => {
               src={andreasGoliat}
               alt="Andreas Håman, massageterapeut på Viriditas i Uddevalla, med ledarhunden Goliat"
               className="rounded-3xl shadow-2xl w-full object-cover object-top aspect-[3/4]"
+              loading="lazy"
+              decoding="async"
             />
           </motion.div>
           <motion.div
