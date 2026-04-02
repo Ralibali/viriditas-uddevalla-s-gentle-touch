@@ -60,6 +60,8 @@ const Index = () => {
           muted
           loop
           playsInline
+          preload="metadata"
+          poster="/video/massage-2-poster.jpg"
           className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/video/massage-2.mp4" type="video/mp4" />
@@ -181,6 +183,8 @@ const Index = () => {
               src={andreasGoliat}
               alt="Andreas Håman, massageterapeut på Viriditas i Uddevalla, med ledarhunden Goliat"
               className="rounded-3xl shadow-2xl w-full object-cover object-top aspect-[3/4]"
+              loading="lazy"
+              decoding="async"
             />
           </motion.div>
           <motion.div
@@ -288,6 +292,7 @@ const Index = () => {
               muted
               loop
               playsInline
+              preload="none"
               className="rounded-3xl shadow-2xl w-full object-cover aspect-square"
             >
               <source src="/video/massage.mp4" type="video/mp4" />
@@ -643,7 +648,6 @@ const Index = () => {
                   width="100%"
                   height="250"
                   style={{ border: 0 }}
-                  allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />

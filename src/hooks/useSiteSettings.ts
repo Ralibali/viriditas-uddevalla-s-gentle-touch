@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 export function useSiteSettings() {
   return useQuery({
     queryKey: ["site-settings"],
+    staleTime: 5 * 60 * 1000, // 5 min cache
     queryFn: async () => {
       const { data, error } = await supabase
         .from("site_settings")
