@@ -12,6 +12,7 @@ export interface Review {
 export function useReviews() {
   return useQuery({
     queryKey: ["reviews"],
+    staleTime: 10 * 60 * 1000, // 10 min cache
     queryFn: async () => {
       const { data, error } = await supabase
         .from("reviews")
