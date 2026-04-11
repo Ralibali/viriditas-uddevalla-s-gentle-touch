@@ -1,11 +1,26 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { cmsAdminCall } from "@/lib/cmsAdmin";
 import type { SitePage, ContentBlock } from "@/types/cms";
 
 export function useSitePages() {
   return useQuery({
     queryKey: ["site-pages"],
     queryFn: async () => {
+      // Try admin endpoint first (for dashboard with all pages including unpublished)
+      const password = sessionStorage.getItem("dashboard-password");
+      if (password) {
+        try {
+          const data = await cmsAdminCall("list_pages");
+          return (data as any[]).map(row => ({
+            ...row,
+            content: (typeof row.content === 'string' ? JSON.parse(row.content) : row.content) as ContentBlock[],
+          })) as SitePage[];
+        } catch {
+          // fall through to public query
+        }
+      }
+      // Public: only published pages
       const { data, error } = await supabase
         .from("site_pages")
         .select("*")
@@ -46,21 +61,8 @@ export function useUpsertPage() {
       const payload = {
         ...page,
         content: JSON.stringify(page.content || []),
-        updated_at: new Date().toISOString(),
       };
-      
-      if (page.id) {
-        const { error } = await supabase
-          .from("site_pages")
-          .update(payload)
-          .eq("id", page.id);
-        if (error) throw error;
-      } else {
-        const { error } = await supabase
-          .from("site_pages")
-          .insert(payload);
-        if (error) throw error;
-      }
+      await cmsAdminCall("upsert_page", payload);
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["site-pages"] });
@@ -73,8 +75,7 @@ export function useDeletePage() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase.from("site_pages").delete().eq("id", id);
-      if (error) throw error;
+      await cmsAdminCall("delete_page", { id });
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["site-pages"] });

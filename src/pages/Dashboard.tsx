@@ -24,12 +24,8 @@ function useBookingClicks() {
   return useQuery({
     queryKey: ["booking-clicks-dashboard"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("booking_clicks")
-        .select("*")
-        .order("clicked_at", { ascending: false });
-      if (error) throw error;
-      return data;
+      const { cmsAdminCall } = await import("@/lib/cmsAdmin");
+      return await cmsAdminCall("get_booking_clicks");
     },
   });
 }
@@ -62,6 +58,7 @@ const Dashboard = () => {
               e.preventDefault();
               if (password === DASHBOARD_PASSWORD) {
                 sessionStorage.setItem("dashboard-auth", "true");
+                sessionStorage.setItem("dashboard-password", password);
                 setIsAuthed(true);
                 setError(false);
               } else {
