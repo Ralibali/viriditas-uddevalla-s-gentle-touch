@@ -346,8 +346,8 @@ const Index = () => {
               icon: Sparkles,
               title: t("treatment_recovery_title", "Återhämtningsmassage"),
               duration: "60 min",
-              price: t("treatment_recovery_price", "650 kr"),
-              desc: t("treatment_recovery_desc", "Mjuk och återställande behandling för dig som behöver lugn, vila och djup återhämtning – kropp och själ."),
+              price: t("treatment_recovery_price", "100 kr"),
+              desc: t("treatment_recovery_desc", "Reducerat pris för dig som är arbetslös eller har sjukersättning/sjukpenning. Mjuk och återställande behandling."),
               cta: "Boka tid",
             },
             {
