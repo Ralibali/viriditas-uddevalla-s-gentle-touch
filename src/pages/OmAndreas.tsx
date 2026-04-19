@@ -63,12 +63,11 @@ const OmAndreas = () => {
             },
             "workLocation": {
               "@type": "Place",
-              "name": "Hälsokraft",
+              "name": "Uddevalla Folkets Hus",
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "Norra Drottninggatan 2",
+                "streetAddress": "Göteborgsvägen 11B",
                 "addressLocality": "Uddevalla",
-                "postalCode": "451 30",
                 "addressCountry": "SE"
               }
             }
@@ -103,7 +102,7 @@ const OmAndreas = () => {
               Andreas har en synnedsättning som skärpt hans övriga sinnen på ett sätt som är svårt att förklara men lätt att känna. Varje behandling är djupt uppmärksam. Han lyssnar med händerna.
             </p>
             <p>
-              Han praktiserar på Hälsokraft, Norra Drottninggatan 2 i Uddevalla, och erbjuder klassisk massage anpassad efter varje persons unika behov – oavsett om du söker avkoppling, smärtlindring eller återhämtning.
+              Han praktiserar i Uddevalla Folkets Hus, Göteborgsvägen 11B, och erbjuder klassisk massage och återhämtningsmassage – anpassade efter varje persons unika behov, oavsett om du söker avkoppling, smärtlindring eller återhämtning.
             </p>
           </motion.div>
 
@@ -192,7 +191,7 @@ const OmAndreas = () => {
             <div>
               <h4 className="font-display font-semibold mb-4">Kontakt</h4>
               <div className="space-y-3 text-sm text-primary-foreground/70">
-                <p>Norra Drottninggatan 2, Uddevalla</p>
+                <p>Uddevalla Folkets Hus, Göteborgsvägen 11B</p>
                 <p>076-317 78 97</p>
               </div>
             </div>
