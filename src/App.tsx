@@ -5,6 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
+import MoveBanner from "./components/MoveBanner";
 
 const OmAndreas = lazy(() => import("./pages/OmAndreas.tsx"));
 const KlassiskMassage = lazy(() => import("./pages/KlassiskMassage.tsx"));
@@ -26,6 +27,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <MoveBanner />
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/" element={<Index />} />
