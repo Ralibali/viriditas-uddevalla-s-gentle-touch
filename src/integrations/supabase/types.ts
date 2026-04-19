@@ -128,6 +128,45 @@ export type Database = {
         }
         Relationships: []
       }
+      treatments: {
+        Row: {
+          created_at: string
+          description: string | null
+          duration_minutes: number | null
+          id: string
+          last_synced_at: string
+          peach_id: string
+          price_sek: number | null
+          source_url: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          last_synced_at?: string
+          peach_id: string
+          price_sek?: number | null
+          source_url: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          last_synced_at?: string
+          peach_id?: string
+          price_sek?: number | null
+          source_url?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
