@@ -16,7 +16,15 @@ const MoveBanner = () => {
   if (!visible) return null;
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[60] bg-amber-300 text-amber-950 border-b border-amber-500/50 shadow-sm">
+    <div
+      role="status"
+      className="fixed top-0 left-0 right-0 z-[60] shadow-sm"
+      style={{
+        background: "hsl(45 95% 60%)",
+        color: "hsl(35 80% 12%)",
+        borderBottom: "1px solid hsl(40 80% 40% / 0.4)",
+      }}
+    >
       <div className="max-w-6xl mx-auto px-6 py-2.5 flex items-center gap-3">
         <Info className="w-4 h-4 flex-shrink-0" aria-hidden />
         <p className="text-sm font-body leading-snug flex-1">
@@ -28,7 +36,7 @@ const MoveBanner = () => {
             sessionStorage.setItem(STORAGE_KEY, "1");
             setVisible(false);
           }}
-          className="p-1 rounded-full hover:bg-amber-400/60 transition-colors flex-shrink-0"
+          className="p-1 rounded-full hover:bg-black/10 transition-colors flex-shrink-0"
           aria-label="Stäng meddelande"
         >
           <X className="w-4 h-4" />
