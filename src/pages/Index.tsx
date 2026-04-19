@@ -596,6 +596,15 @@ const Index = () => {
                   <div>
                     <h3 className="font-display font-semibold text-foreground mb-1">Öppettider</h3>
                     <p className="text-muted-foreground whitespace-pre-line">{t("contact_hours_display", "Tis–Tors: 09:30–19:00\nFre: 13:30–17:30\nLör: 10:00–14:00\nSön & Mån: stängt")}</p>
+                    <a
+                      href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackBookingClick("contact-hours-schedule-link")}
+                      className="inline-flex items-center gap-1.5 text-primary font-body font-medium text-sm hover:underline mt-2"
+                    >
+                      Se alla lediga tider <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
                   </div>
                 </div>
 
