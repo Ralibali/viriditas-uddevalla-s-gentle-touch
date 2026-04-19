@@ -43,18 +43,27 @@ Deno.serve(async (req) => {
     const markdown = scrapeData.data?.markdown || scrapeData.markdown || '';
     console.log('Scraped markdown length:', markdown.length);
 
-    // Parse reviews from the markdown
-    const reviews = parseReviews(markdown);
-    console.log(`Parsed ${reviews.length} reviews`);
+    const { reviews, aggregate } = parseReviews(markdown);
+    console.log(`Parsed ${reviews.length} reviews, aggregate:`, aggregate);
+
+    // Persist aggregate rating + count to site_settings (used by hero + JSON-LD)
+    if (aggregate.rating !== null && aggregate.count !== null) {
+      await supabase.from('site_settings').upsert(
+        [
+          { setting_key: 'peach_rating_value', setting_value: aggregate.rating.toString() },
+          { setting_key: 'peach_review_count', setting_value: aggregate.count.toString() },
+        ],
+        { onConflict: 'setting_key' }
+      );
+    }
 
     if (reviews.length === 0) {
       return new Response(
-        JSON.stringify({ success: true, message: 'No reviews found to update', count: 0 }),
+        JSON.stringify({ success: true, message: 'No reviews found to update', count: 0, aggregate }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Upsert reviews
     const { error } = await supabase
       .from('reviews')
       .upsert(reviews, { onConflict: 'reviewer_name,review_date' });
@@ -66,7 +75,7 @@ Deno.serve(async (req) => {
     console.log(`Successfully upserted ${reviews.length} reviews`);
 
     return new Response(
-      JSON.stringify({ success: true, count: reviews.length }),
+      JSON.stringify({ success: true, count: reviews.length, aggregate }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {
@@ -78,7 +87,15 @@ Deno.serve(async (req) => {
   }
 });
 
-function parseReviews(markdown: string) {
+function parseReviews(markdown: string): {
+  reviews: Array<{
+    reviewer_name: string;
+    rating: number;
+    review_text: string | null;
+    review_date: string;
+  }>;
+  aggregate: { rating: number | null; count: number | null };
+} {
   const reviews: Array<{
     reviewer_name: string;
     rating: number;
@@ -86,48 +103,66 @@ function parseReviews(markdown: string) {
     review_date: string;
   }> = [];
 
-  const lines = markdown.split('\n').map(l => l.trim()).filter(Boolean);
+  // Parse aggregate rating from header: "## 4.7" followed by "(17reviews)" or "(17 reviews)"
+  let aggRating: number | null = null;
+  let aggCount: number | null = null;
+  const aggMatch = markdown.match(/##\s+(\d+(?:[.,]\d+)?)[\s\S]{0,80}?\((\d+)\s*reviews?\)/i);
+  if (aggMatch) {
+    aggRating = parseFloat(aggMatch[1].replace(',', '.'));
+    aggCount = parseInt(aggMatch[2], 10);
+  }
 
-  for (let i = 0; i < lines.length; i++) {
-    // Look for rating pattern like "5/5" or "4/5"
-    const ratingMatch = lines[i].match(/^(\d)\/5$/);
+  // Keep ALL lines (including blanks) so we can preserve newlines inside multi-line review texts
+  const rawLines = markdown.split('\n').map((l) => l.trim());
+
+  const isDateLine = (s: string) =>
+    /(mån|tis|ons|tors|fre|lör|sön)/i.test(s) &&
+    /(jan|feb|mars|apr|maj|jun|jul|aug|sep|okt|nov|dec)/i.test(s);
+
+  for (let i = 0; i < rawLines.length; i++) {
+    const ratingMatch = rawLines[i].match(/^(\d)\/5$/);
     if (!ratingMatch) continue;
+    const rating = parseInt(ratingMatch[1], 10);
 
-    const rating = parseInt(ratingMatch[1]);
-
-    // Next line should be the date
-    if (i + 1 >= lines.length) continue;
-    const date = lines[i + 1];
-
-    // Check if date looks like a date (contains Swedish day abbreviations or month names)
-    if (!date.match(/(mån|tis|ons|tors|fre|lör|sön|jan|feb|mars|apr|maj|jun|jul|aug|sep|okt|nov|dec)/i)) continue;
-
-    // Look for review text and reviewer name
-    let reviewText: string | null = null;
-    let reviewerName: string | null = null;
-
-    // Check subsequent lines for "— Name" pattern
-    for (let j = i + 2; j < Math.min(i + 5, lines.length); j++) {
-      const nameMatch = lines[j].match(/^—\s*(.+)$/);
-      if (nameMatch) {
-        reviewerName = nameMatch[1].trim();
-        // If there's a line between the date and the name, it's the review text
-        if (j > i + 2) {
-          reviewText = lines.slice(i + 2, j).join(' ').trim();
-        }
+    // Find the date line within the next few non-empty lines
+    let dateIdx = -1;
+    for (let j = i + 1; j < Math.min(i + 4, rawLines.length); j++) {
+      if (rawLines[j] && isDateLine(rawLines[j])) {
+        dateIdx = j;
         break;
       }
     }
+    if (dateIdx === -1) continue;
+    const date = rawLines[dateIdx];
 
-    if (reviewerName) {
-      reviews.push({
-        reviewer_name: reviewerName,
-        rating,
-        review_text: reviewText || null,
-        review_date: date,
-      });
+    // Now find the "— Name" line. Scan up to 30 lines ahead (multi-line text + blank lines).
+    let nameIdx = -1;
+    let reviewerName: string | null = null;
+    for (let j = dateIdx + 1; j < Math.min(dateIdx + 30, rawLines.length); j++) {
+      // Stop if we hit the next rating block — means no name found
+      if (/^\d\/5$/.test(rawLines[j])) break;
+      const nameMatch = rawLines[j].match(/^—\s*(.+)$/);
+      if (nameMatch) {
+        reviewerName = nameMatch[1].trim();
+        nameIdx = j;
+        break;
+      }
     }
+    if (!reviewerName || nameIdx === -1) continue;
+
+    // Review text = everything between date and name, joined with newlines, trimmed
+    const textLines = rawLines.slice(dateIdx + 1, nameIdx).filter((l) => l.length > 0);
+    const reviewText = textLines.length > 0 ? textLines.join('\n').trim() : null;
+
+    reviews.push({
+      reviewer_name: reviewerName,
+      rating,
+      review_text: reviewText,
+      review_date: date,
+    });
+
+    i = nameIdx;
   }
 
-  return reviews;
+  return { reviews, aggregate: { rating: aggRating, count: aggCount } };
 }

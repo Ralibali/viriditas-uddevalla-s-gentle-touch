@@ -27,10 +27,16 @@ const Index = () => {
 
   const featuredReviews = reviews?.filter(r => r.review_text) || [];
   const compactReviews = reviews?.filter(r => !r.review_text) || [];
-  const totalCount = reviews?.length || 0;
-  const avgRating = totalCount > 0
-    ? (reviews!.reduce((sum, r) => sum + r.rating, 0) / totalCount).toFixed(1)
-    : "0";
+
+  // Prefer Peach's official aggregate (synced from peach.nu/reviews) over local DB calculation
+  const peachRating = s?.peach_rating_value ? parseFloat(s.peach_rating_value) : null;
+  const peachCount = s?.peach_review_count ? parseInt(s.peach_review_count, 10) : null;
+  const localCount = reviews?.length || 0;
+  const localAvg = localCount > 0
+    ? reviews!.reduce((sum, r) => sum + r.rating, 0) / localCount
+    : 0;
+  const totalCount = peachCount ?? localCount;
+  const avgRating = (peachRating ?? localAvg).toFixed(1);
 
   return (
     <div className="min-h-screen bg-background">
@@ -51,6 +57,25 @@ const Index = () => {
           })
         }}
       />
+      {peachRating !== null && peachCount !== null && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "name": "Viriditas – Andreas Håman",
+              "url": "https://viriditasmassage.se",
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": peachRating.toFixed(1),
+                "reviewCount": peachCount.toString(),
+                "bestRating": "5"
+              }
+            })
+          }}
+        />
+      )}
       <Navbar />
 
       {/* Hero */}
