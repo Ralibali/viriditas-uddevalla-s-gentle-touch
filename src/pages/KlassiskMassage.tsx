@@ -19,7 +19,7 @@ const KlassiskMassage = () => {
     document.title = "Klassisk Massage Uddevalla – 550 kr | Viriditas";
     const meta = document.querySelector('meta[name="description"]');
     if (meta) {
-      meta.setAttribute("content", "Klassisk massage i Uddevalla från 550 kr. Diplomerad massageterapeut på Hälsokraft, Norra Drottninggatan 2. Boka online enkelt via peach.nu.");
+      meta.setAttribute("content", "Klassisk massage i Uddevalla från 550 kr. Diplomerad massageterapeut i Uddevalla Folkets Hus, Göteborgsvägen 11B. Boka online enkelt via peach.nu.");
     }
   }, []);
 
@@ -130,7 +130,7 @@ const KlassiskMassage = () => {
               <MapPin className="w-7 h-7 text-primary" /> Var ligger vi?
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed font-body">
-              Viriditas finns på Hälsokraft, Norra Drottninggatan 2 i Uddevalla. Enkel parkering och centralt läge.
+              Viriditas finns i Uddevalla Folkets Hus, Göteborgsvägen 11B. Enkel parkering och centralt läge.
             </p>
           </motion.div>
 
@@ -196,7 +196,7 @@ const KlassiskMassage = () => {
             <div>
               <h4 className="font-display font-semibold mb-4">Kontakt</h4>
               <div className="space-y-3 text-sm text-primary-foreground/70">
-                <p>Norra Drottninggatan 2, Uddevalla</p>
+                <p>Uddevalla Folkets Hus, Göteborgsvägen 11B</p>
                 <p>076-317 78 97</p>
               </div>
             </div>

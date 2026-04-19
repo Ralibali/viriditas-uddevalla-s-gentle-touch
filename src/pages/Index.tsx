@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
-import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote, HelpCircle, Leaf, Gift, Phone, Mail, ExternalLink } from "lucide-react";
+import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote, HelpCircle, Leaf, Gift, Phone, Mail, ExternalLink, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useReviews } from "@/hooks/useReviews";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import andreasGoliat from "@/assets/andreas-goliat.jpeg";
-import halsokraft from "@/assets/halsokraft.jpeg";
+
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { trackBookingClick } from "@/lib/trackBookingClick";
 import Navbar from "@/components/Navbar";
@@ -101,7 +101,7 @@ const Index = () => {
             custom={2}
             className="text-primary-foreground/70 text-lg md:text-xl font-body italic mb-8 max-w-xl mx-auto"
           >
-            {t("hero_description", "Diplomerad massageterapeut Andreas Håman – Hälsokraft, Norra Drottninggatan 2")}
+            {t("hero_description", "Diplomerad massageterapeut Andreas Håman – Uddevalla Folkets Hus, Göteborgsvägen 11B")}
           </motion.p>
 
           <motion.div
@@ -311,7 +311,7 @@ const Index = () => {
             variants={fadeUp}
             className="text-3xl md:text-5xl font-display font-semibold text-foreground mb-4"
           >
-            {t("treatments_title", "Klassisk massage – Behandlingar & priser")}
+            {t("treatments_title", "Behandlingar & priser")}
           </motion.h2>
           <motion.div
             initial="hidden"
@@ -323,7 +323,7 @@ const Index = () => {
           />
         </div>
 
-        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
             {
               icon: Clock,
@@ -341,6 +341,14 @@ const Index = () => {
               desc: t("treatment_60_desc", "En hel timmes avkopplande behandling som löser upp spänningar i hela kroppen."),
               cta: "Boka 60 min",
               featured: true,
+            },
+            {
+              icon: Sparkles,
+              title: t("treatment_recovery_title", "Återhämtningsmassage"),
+              duration: "60 min",
+              price: t("treatment_recovery_price", "650 kr"),
+              desc: t("treatment_recovery_desc", "Mjuk och återställande behandling för dig som behöver lugn, vila och djup återhämtning – kropp och själ."),
+              cta: "Boka tid",
             },
             {
               icon: Gift,
@@ -577,7 +585,7 @@ const Index = () => {
                   </div>
                   <div>
                     <h3 className="font-display font-semibold text-foreground mb-1">Adress</h3>
-                    <p className="text-muted-foreground whitespace-pre-line">{t("contact_address_full", "Hälsokraft, Norra Drottninggatan 2\n451 30 Uddevalla")}</p>
+                    <p className="text-muted-foreground whitespace-pre-line">{t("contact_address_full", "Uddevalla Folkets Hus\nGöteborgsvägen 11B, Uddevalla")}</p>
                   </div>
                 </div>
 
@@ -606,7 +614,7 @@ const Index = () => {
                 <motion.a
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
-                  href="https://maps.google.com/?q=Norra+Drottninggatan+2+Uddevalla"
+                  href="https://maps.google.com/?q=Uddevalla+Folkets+Hus+G%C3%B6teborgsv%C3%A4gen+11B+Uddevalla"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 bg-card border border-border text-foreground px-6 py-3 rounded-full font-body font-medium shadow-sm hover:shadow-md transition-shadow"
@@ -635,18 +643,12 @@ const Index = () => {
               custom={1}
               className="space-y-6"
             >
-              <img
-                src={halsokraft}
-                alt="Hälsokraft butiken på Norra Drottninggatan 2 i Uddevalla – här finns Viriditas massage"
-                className="w-full rounded-3xl shadow-lg object-cover max-h-[280px]"
-                loading="lazy"
-              />
               <div className="rounded-3xl overflow-hidden shadow-lg">
                 <iframe
-                  title="Karta till Hälsokraft Uddevalla"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2117.5!2d11.9338!3d58.3495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTjCsDIwJzU4LjIiTiAxMcKwNTYnMDEuNyJF!5e0!3m2!1ssv!2sse!4v1"
+                  title="Karta till Viriditas – Uddevalla Folkets Hus"
+                  src="https://www.google.com/maps?q=Uddevalla+Folkets+Hus,+G%C3%B6teborgsv%C3%A4gen+11B,+Uddevalla&output=embed"
                   width="100%"
-                  height="250"
+                  height="400"
                   style={{ border: 0 }}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -683,7 +685,7 @@ const Index = () => {
             <Accordion type="single" collapsible className="space-y-3">
               {[
                 { q: "Vad kostar massage hos Viriditas i Uddevalla?", a: "Klassisk massage 60 minuter kostar 650 kr och 45 minuter kostar 550 kr. Du bokar enkelt online." },
-                { q: "Var ligger Viriditas i Uddevalla?", a: "Viriditas finns på Hälsokraft, Norra Drottninggatan 2 i centrala Uddevalla." },
+                { q: "Var ligger Viriditas i Uddevalla?", a: "Viriditas finns i Uddevalla Folkets Hus, Göteborgsvägen 11B." },
                 { q: "Hur bokar jag tid för massage?", a: 'Du bokar snabbt och enkelt online via vår bokningssida. Klicka på "Boka tid" här på sidan.' },
                 { q: "Vad är klassisk massage?", a: "Klassisk massage är den vanligaste massageformen i Sverige. Den löser upp spänningar, ökar blodcirkulationen och ger djup avkoppling för hela kroppen." },
                 { q: "Vem är massageterapeuten på Viriditas?", a: "Andreas Håman är diplomerad massageterapeut med bakgrund inom vården. Tack vare sin synnedsättning har han utvecklat en unik känslighet i sina händer, vilket gör hans behandlingar extra uppmärksamma och precisa." },
@@ -762,7 +764,7 @@ const Index = () => {
               <h4 className="font-display font-semibold mb-4">Kontakt</h4>
               <div className="space-y-3 text-sm text-primary-foreground/70">
                 <p className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4" /> {t("address", "Norra Drottninggatan 2, Uddevalla")}
+                  <MapPin className="w-4 h-4" /> {t("address", "Uddevalla Folkets Hus, Göteborgsvägen 11B")}
                 </p>
                 <p className="flex items-center gap-2">
                   <Phone className="w-4 h-4" /> {t("phone", "076-317 78 97")}

@@ -15,7 +15,7 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
       { key: "business_name", label: "Företagsnamn", placeholder: "Viriditas" },
       { key: "phone", label: "Telefon", placeholder: "076-317 78 97" },
       { key: "email", label: "E-post", placeholder: "info@viriditas.se" },
-      { key: "address", label: "Adress", placeholder: "Norra Drottninggatan 2, Uddevalla" },
+      { key: "address", label: "Adress", placeholder: "Uddevalla Folkets Hus, Göteborgsvägen 11B" },
       { key: "booking_url", label: "Boknings-URL", placeholder: "https://peach.nu/..." },
       { key: "opening_hours", label: "Öppettider", placeholder: "Fredagar & lördagar", type: "textarea" },
       { key: "footer_text", label: "Footer-text", placeholder: "Klassisk massage i Uddevalla...", type: "textarea" },
@@ -26,7 +26,7 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
     fields: [
       { key: "hero_title", label: "Rubrik", placeholder: "Massage i Uddevalla" },
       { key: "hero_subtitle", label: "Underrubrik", placeholder: "– Känn skillnaden med Viriditas" },
-      { key: "hero_description", label: "Beskrivning", placeholder: "Diplomerad massageterapeut Andreas Håman – Hälsokraft, Norra Drottninggatan 2" },
+      { key: "hero_description", label: "Beskrivning", placeholder: "Diplomerad massageterapeut Andreas Håman – Uddevalla Folkets Hus, Göteborgsvägen 11B" },
       { key: "hero_availability", label: "Tillgänglighet", placeholder: "Tider tillgängliga fredagar & lördagar" },
       { key: "hero_price_from", label: "Pris från", placeholder: "Från 550 kr" },
     ],
@@ -77,7 +77,7 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
     label: "Kontakt-sektion",
     fields: [
       { key: "contact_title", label: "Rubrik", placeholder: "Boka massage Uddevalla – Hitta hit" },
-      { key: "contact_address_full", label: "Adress (visas)", placeholder: "Hälsokraft, Norra Drottninggatan 2\n451 30 Uddevalla", type: "textarea" },
+      { key: "contact_address_full", label: "Adress (visas)", placeholder: "Uddevalla Folkets Hus\nGöteborgsvägen 11B, Uddevalla", type: "textarea" },
       { key: "contact_hours_display", label: "Öppettider (visas)", placeholder: "Mån–Fre: 09:00–18:00\nLör: 10:00–15:00", type: "textarea" },
     ],
   },
