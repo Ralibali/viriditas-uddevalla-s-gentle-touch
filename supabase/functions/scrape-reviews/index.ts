@@ -43,18 +43,27 @@ Deno.serve(async (req) => {
     const markdown = scrapeData.data?.markdown || scrapeData.markdown || '';
     console.log('Scraped markdown length:', markdown.length);
 
-    // Parse reviews from the markdown
-    const reviews = parseReviews(markdown);
-    console.log(`Parsed ${reviews.length} reviews`);
+    const { reviews, aggregate } = parseReviews(markdown);
+    console.log(`Parsed ${reviews.length} reviews, aggregate:`, aggregate);
+
+    // Persist aggregate rating + count to site_settings (used by hero + JSON-LD)
+    if (aggregate.rating !== null && aggregate.count !== null) {
+      await supabase.from('site_settings').upsert(
+        [
+          { setting_key: 'peach_rating_value', setting_value: aggregate.rating.toString() },
+          { setting_key: 'peach_review_count', setting_value: aggregate.count.toString() },
+        ],
+        { onConflict: 'setting_key' }
+      );
+    }
 
     if (reviews.length === 0) {
       return new Response(
-        JSON.stringify({ success: true, message: 'No reviews found to update', count: 0 }),
+        JSON.stringify({ success: true, message: 'No reviews found to update', count: 0, aggregate }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Upsert reviews
     const { error } = await supabase
       .from('reviews')
       .upsert(reviews, { onConflict: 'reviewer_name,review_date' });
@@ -66,7 +75,7 @@ Deno.serve(async (req) => {
     console.log(`Successfully upserted ${reviews.length} reviews`);
 
     return new Response(
-      JSON.stringify({ success: true, count: reviews.length }),
+      JSON.stringify({ success: true, count: reviews.length, aggregate }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {
