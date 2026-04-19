@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useReviews } from "@/hooks/useReviews";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import andreasGoliat from "@/assets/andreas-goliat.jpeg";
-import halsokraft from "@/assets/halsokraft.jpeg";
+
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { trackBookingClick } from "@/lib/trackBookingClick";
 import Navbar from "@/components/Navbar";
