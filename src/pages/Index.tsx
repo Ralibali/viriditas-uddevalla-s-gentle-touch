@@ -138,7 +138,7 @@ const Index = () => {
             className="text-primary-foreground/60 text-sm font-body mt-4 flex items-center justify-center gap-2"
           >
             <Calendar className="w-4 h-4" />
-            {t("hero_availability", "Tider tillgängliga fredagar & lördagar")}
+            {t("hero_availability", "Tider tillgängliga tisdag–lördag")}
           </motion.p>
 
           <motion.div
@@ -595,7 +595,7 @@ const Index = () => {
                   </div>
                   <div>
                     <h3 className="font-display font-semibold text-foreground mb-1">Öppettider</h3>
-                    <p className="text-muted-foreground whitespace-pre-line">{t("contact_hours_display", "Mån–Fre: 09:00–18:00\nLör: 10:00–15:00")}</p>
+                    <p className="text-muted-foreground whitespace-pre-line">{t("contact_hours_display", "Tis–Tors: 09:30–19:00\nFre: 13:30–17:30\nLör: 10:00–14:00\nSön & Mån: stängt")}</p>
                   </div>
                 </div>
 
