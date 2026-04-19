@@ -62,6 +62,45 @@ export type Database = {
         }
         Relationships: []
       }
+      schedule_slots: {
+        Row: {
+          activity_peach_id: string | null
+          activity_title: string
+          booking_id: string
+          booking_url: string
+          created_at: string
+          id: string
+          last_synced_at: string
+          location: string | null
+          price_sek: number | null
+          starts_at: string
+        }
+        Insert: {
+          activity_peach_id?: string | null
+          activity_title: string
+          booking_id: string
+          booking_url: string
+          created_at?: string
+          id?: string
+          last_synced_at?: string
+          location?: string | null
+          price_sek?: number | null
+          starts_at: string
+        }
+        Update: {
+          activity_peach_id?: string | null
+          activity_title?: string
+          booking_id?: string
+          booking_url?: string
+          created_at?: string
+          id?: string
+          last_synced_at?: string
+          location?: string | null
+          price_sek?: number | null
+          starts_at?: string
+        }
+        Relationships: []
+      }
       site_pages: {
         Row: {
           content: Json
