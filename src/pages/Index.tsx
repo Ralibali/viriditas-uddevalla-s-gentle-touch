@@ -57,6 +57,25 @@ const Index = () => {
           })
         }}
       />
+      {peachRating !== null && peachCount !== null && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "name": "Viriditas – Andreas Håman",
+              "url": "https://viriditasmassage.se",
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": peachRating.toFixed(1),
+                "reviewCount": peachCount.toString(),
+                "bestRating": "5"
+              }
+            })
+          }}
+        />
+      )}
       <Navbar />
 
       {/* Hero */}
