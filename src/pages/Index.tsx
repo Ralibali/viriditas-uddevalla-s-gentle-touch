@@ -414,7 +414,7 @@ const Index = () => {
               title: t("treatment_60_title", "Klassisk massage"),
               duration: "60 min",
               price: t("treatment_60_price", "650 kr"),
-              desc: t("treatment_60_desc", "En hel timmes avkopplande behandling som löser upp spänningar i hela kroppen."),
+              desc: t("treatment_60_desc", "En hel timmes lugn avslappningsmassage som löser upp spänningar i hela kroppen – populärast bland alla våra behandlingar för massage i Uddevalla."),
               cta: "Boka 60 min",
               featured: true,
             },
