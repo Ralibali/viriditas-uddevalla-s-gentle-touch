@@ -326,6 +326,36 @@ const Index = () => {
         </div>
       </section>
 
+      {/* SEO-introtext: Massage i Uddevalla */}
+      <section className="py-24 px-6">
+        <div className="max-w-3xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={fadeUp}
+            className="space-y-6 text-center"
+          >
+            <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground">
+              {t("seo_intro_title", "Massage i Uddevalla – närvaro, kvalitet och omtanke")}
+            </h2>
+            <div className="w-20 h-1 bg-primary rounded-full mx-auto" />
+            <p className="text-lg text-muted-foreground leading-relaxed font-body">
+              {t(
+                "seo_intro_text_1",
+                "Söker du professionell massage i Uddevalla? Hos Viriditas möts du av en diplomerad massageterapeut som tar sig tid att förstå just din kropp – oavsett om du vill släppa nackspänningar, mjuka upp en stel rygg eller bara unna dig en stunds djup avslappning."
+              )}
+            </p>
+            <p className="text-base text-muted-foreground leading-relaxed font-body">
+              {t(
+                "seo_intro_text_2",
+                "Behandlingarna utgår från klassisk svensk massage och anpassas efter dina behov, från fokuserade 45-minuterspass till en hel timmes lugn återhämtning. Det är enkelt att boka massage i Uddevalla online – välj en tid som passar dig och kom till en stilla, omsorgsfullt förberedd lokal."
+              )}
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Behandlingar */}
       <section id="behandlingar" className="py-28 px-6">
         <div className="max-w-4xl mx-auto text-center mb-16">
