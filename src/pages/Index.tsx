@@ -374,7 +374,7 @@ const Index = () => {
             variants={fadeUp}
             className="text-3xl md:text-5xl font-display font-semibold text-foreground mb-4"
           >
-            {t("treatments_title", "Behandlingar & priser")}
+            {t("treatments_title", "Behandlingar & priser – massage i Uddevalla")}
           </motion.h2>
           <motion.div
             initial="hidden"
@@ -384,6 +384,19 @@ const Index = () => {
             custom={1}
             className="w-20 h-1 bg-primary rounded-full mx-auto"
           />
+          <motion.p
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            custom={2}
+            className="text-lg text-muted-foreground leading-relaxed font-body mt-6 max-w-2xl mx-auto"
+          >
+            {t(
+              "treatments_intro",
+              "Här hittar du alla behandlingar – från fokuserad klassisk massage till lugn avslappningsmassage. Allt utförs av samma diplomerade terapeut, med tid att verkligen lyssna på din kropp."
+            )}
+          </motion.p>
         </div>
 
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
