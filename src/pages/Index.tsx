@@ -574,6 +574,68 @@ const Index = () => {
               </div>
             </div>
           </motion.div>
+
+          {/* FAQ – Återhämtningsmassage */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={fadeUp}
+            className="mt-16"
+          >
+            <div className="text-center mb-8">
+              <h3 className="text-2xl md:text-3xl font-display font-semibold text-foreground">
+                {t("recovery_faq_title", "Vanliga frågor om återhämtningsmassagen")}
+              </h3>
+              <div className="w-16 h-1 bg-primary rounded-full mx-auto mt-3" />
+            </div>
+
+            <Accordion type="single" collapsible className="space-y-3">
+              {[
+                {
+                  q: t("recovery_faq_q1", "Vem kan boka 100 kr-priset?"),
+                  a: t(
+                    "recovery_faq_a1",
+                    "Återhämtningspriset på 100 kr riktar sig till dig som är arbetslös eller lever på sjukersättning eller sjukpenning. Tanken är att massage ska vara tillgängligt även när ekonomin är ansträngd – ingen ska behöva avstå från återhämtning av den anledningen."
+                  ),
+                },
+                {
+                  q: t("recovery_faq_q2", "Hur säger jag till vid bokning?"),
+                  a: t(
+                    "recovery_faq_a2",
+                    "Du behöver inte visa något intyg. Skriv en kort kommentar i bokningen att du vill ha återhämtningsmassagen, eller hör av dig på telefon innan tiden så löser vi det smidigt på plats."
+                  ),
+                },
+                {
+                  q: t("recovery_faq_q3", "Gäller det alla tider?"),
+                  a: t(
+                    "recovery_faq_a3",
+                    "Återhämtningsmassagen kan bokas när det finns lediga tider i schemat. Vid hög efterfrågan prioriteras ordinarie bokningar, men det finns oftast tider att hitta – särskilt under dagtid mitt i veckan. Hör av dig om du inte hittar en tid som passar, så försöker vi lösa det."
+                  ),
+                },
+                {
+                  q: t("recovery_faq_q4", "Är behandlingen kortare eller annorlunda?"),
+                  a: t(
+                    "recovery_faq_a4",
+                    "Nej. Du får samma 60 minuter, samma terapeut och samma omsorg som ordinarie behandling. Återhämtningsmassagen utförs i ett lugnare tempo med mjukare tryck – likt en avslappningsmassage – men inget dras ner på kvaliteten."
+                  ),
+                },
+              ].map((faq, i) => (
+                <AccordionItem
+                  key={i}
+                  value={`recovery-faq-${i}`}
+                  className="bg-background rounded-2xl border border-border px-6"
+                >
+                  <AccordionTrigger className="text-left font-display text-foreground hover:no-underline">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed font-body">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </motion.div>
         </div>
       </section>
 
