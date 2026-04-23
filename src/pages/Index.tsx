@@ -487,6 +487,86 @@ const Index = () => {
             Läs mer om klassisk massage <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
+
+        {/* Återhämtningsmassage – framträdande highlight */}
+        <div className="max-w-5xl mx-auto mt-20">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={fadeUp}
+            className="relative overflow-hidden rounded-3xl border border-primary/20 bg-card shadow-xl"
+          >
+            <div className="grid md:grid-cols-5 gap-0">
+              <div className="md:col-span-2 bg-primary/10 p-10 flex flex-col justify-center items-start gap-4">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/15">
+                  <Sparkles className="w-7 h-7 text-primary" />
+                </div>
+                <span className="text-sm font-body uppercase tracking-[0.25em] text-primary">
+                  {t("recovery_eyebrow", "Tillgänglig massage")}
+                </span>
+                <p className="text-5xl md:text-6xl font-display font-bold text-foreground leading-none">
+                  100 kr
+                </p>
+                <span className="text-sm font-body text-muted-foreground">
+                  {t("recovery_duration_label", "60 minuter · reducerat pris")}
+                </span>
+              </div>
+
+              <div className="md:col-span-3 p-10 space-y-5">
+                <h3 className="text-2xl md:text-3xl font-display font-semibold text-foreground">
+                  {t("recovery_section_title", "Återhämtningsmassage – en stund av lugn för fler")}
+                </h3>
+                <div className="w-16 h-1 bg-primary rounded-full" />
+                <p className="text-muted-foreground leading-relaxed font-body">
+                  {t(
+                    "recovery_section_text_1",
+                    "Återhämtningsmassagen är en mjuk, lugn behandling som påminner om en klassisk avslappningsmassage – långa, varma drag och ett tempo där kropp och nervsystem hinner släppa taget. Den passar dig som behöver hämta andan, sänka stressnivån eller bara ge dig själv en stunds omsorg."
+                  )}
+                </p>
+                <p className="text-muted-foreground leading-relaxed font-body">
+                  {t(
+                    "recovery_section_text_2",
+                    "För att göra återhämtning mer tillgänglig erbjuds behandlingen för 100 kr om du är arbetslös eller lever på sjukersättning eller sjukpenning. Inga bevis krävs – det räcker att du nämner det vid bokning."
+                  )}
+                </p>
+
+                <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-foreground/80 font-body pt-2">
+                  <li className="flex items-start gap-2">
+                    <Leaf className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                    {t("recovery_bullet_1", "Lugn, avslappnande takt")}
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Leaf className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                    {t("recovery_bullet_2", "Mjukare tryck än klassisk massage")}
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Leaf className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                    {t("recovery_bullet_3", "Skön vid stress och trötthet")}
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Leaf className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                    {t("recovery_bullet_4", "Samma omtanke, samma terapeut")}
+                  </li>
+                </ul>
+
+                <div className="pt-2">
+                  <motion.a
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                    href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackBookingClick("recovery-highlight")}
+                    className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full font-body font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
+                  >
+                    {t("recovery_cta", "Boka återhämtningsmassage")} <Calendar className="w-4 h-4" />
+                  </motion.a>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       {/* Omdömen */}
