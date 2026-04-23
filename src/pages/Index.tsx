@@ -677,6 +677,88 @@ const Index = () => {
             </div>
           </motion.div>
 
+          {/* Social proof – Återhämtning, lugn, stress */}
+          {(() => {
+            const recoveryReviews = (reviews || []).filter(
+              (r) =>
+                r.review_text &&
+                /stress|lugn|avslapp|återhämt|avkopp|sl[äa]ppa|tyst|värme/i.test(r.review_text)
+            ).slice(0, 3);
+            if (recoveryReviews.length === 0) return null;
+            return (
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+                variants={fadeUp}
+                className="mt-16"
+              >
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl md:text-3xl font-display font-semibold text-foreground">
+                    {t("recovery_social_title", "Andras upplevelser av lugn & återhämtning")}
+                  </h3>
+                  <div className="w-16 h-1 bg-primary rounded-full mx-auto mt-3" />
+                  <p className="text-muted-foreground font-body mt-4 max-w-2xl mx-auto">
+                    {t(
+                      "recovery_social_intro",
+                      "Röster från gäster som sökt en stund av stillhet – ord om stress som släpper, värme som sprider sig och kropp och själ som hinner ifatt."
+                    )}
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-6">
+                  {recoveryReviews.map((r, i) => (
+                    <motion.div
+                      key={r.id}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      variants={fadeUp}
+                      custom={i}
+                      className="relative bg-card rounded-3xl p-8 border border-primary/15 shadow-md hover:shadow-lg transition-shadow flex flex-col"
+                    >
+                      <div className="absolute -top-4 left-8 inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary/15 border border-primary/20">
+                        <Leaf className="w-5 h-5 text-primary" />
+                      </div>
+                      <Quote className="w-8 h-8 text-primary/15 absolute top-6 right-6" />
+                      <div className="flex gap-0.5 mb-4 mt-2">
+                        {[...Array(5)].map((_, j) => (
+                          <Star
+                            key={j}
+                            className={`w-4 h-4 ${
+                              j < r.rating ? "text-amber-500 fill-amber-500" : "text-border"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      <p className="text-foreground/90 text-sm leading-relaxed italic font-body flex-1">
+                        "{r.review_text}"
+                      </p>
+                      <div className="flex items-center justify-between border-t border-border/60 pt-4 mt-6">
+                        <span className="text-foreground font-medium text-sm">{r.reviewer_name}</span>
+                        <span className="text-muted-foreground/60 text-xs">{r.review_date}</span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <div className="text-center mt-8">
+                  <motion.a
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                    href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackBookingClick("recovery-social-proof")}
+                    className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full font-body font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
+                  >
+                    {t("recovery_social_cta", "Unna dig en stund av lugn")} <Calendar className="w-4 h-4" />
+                  </motion.a>
+                </div>
+              </motion.div>
+            );
+          })()}
+
           {/* FAQ – Återhämtningsmassage */}
           <motion.div
             initial="hidden"
