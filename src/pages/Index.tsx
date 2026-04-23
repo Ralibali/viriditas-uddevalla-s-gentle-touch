@@ -341,16 +341,24 @@ const Index = () => {
             </h2>
             <div className="w-20 h-1 bg-primary rounded-full mx-auto" />
             <p className="text-lg text-muted-foreground leading-relaxed font-body">
-              {t(
-                "seo_intro_text_1",
-                "Söker du professionell massage i Uddevalla? Hos Viriditas möts du av en diplomerad massageterapeut som tar sig tid att förstå just din kropp – oavsett om du vill släppa nackspänningar, mjuka upp en stel rygg eller bara unna dig en stunds djup avslappning."
-              )}
+              Söker du professionell massage i Uddevalla? Hos Viriditas möts du av en diplomerad massageterapeut som tar sig tid att förstå just din kropp – oavsett om du vill släppa nackspänningar, mjuka upp en stel rygg eller bara unna dig en stunds djup avslappning. Läs mer om{" "}
+              <Link
+                to="/klassisk-massage"
+                className="text-primary font-medium underline-offset-4 hover:underline"
+              >
+                klassisk massage Uddevalla centrum
+              </Link>
+              .
             </p>
             <p className="text-base text-muted-foreground leading-relaxed font-body">
-              {t(
-                "seo_intro_text_2",
-                "Behandlingarna utgår från klassisk svensk massage och anpassas efter dina behov, från fokuserade 45-minuterspass till en hel timmes lugn återhämtning. Det är enkelt att boka massage i Uddevalla online – välj en tid som passar dig och kom till en stilla, omsorgsfullt förberedd lokal."
-              )}
+              Behandlingarna utgår från klassisk svensk massage och anpassas efter dina behov, från fokuserade 45-minuterspass till en hel timmes lugn återhämtning. Vill du veta mer om terapeuten bakom Viriditas och vår plats för{" "}
+              <Link
+                to="/om-andreas"
+                className="text-primary font-medium underline-offset-4 hover:underline"
+              >
+                massage i Bohuslän
+              </Link>
+              ? Det är enkelt att boka tid online – välj en stund som passar dig och kom till en stilla, omsorgsfullt förberedd lokal.
             </p>
           </motion.div>
         </div>
