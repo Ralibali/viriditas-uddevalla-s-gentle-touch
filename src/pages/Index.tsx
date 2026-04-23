@@ -588,6 +588,95 @@ const Index = () => {
             </div>
           </motion.div>
 
+          {/* Prisjämförelse */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={fadeUp}
+            className="mt-16"
+          >
+            <div className="text-center mb-8">
+              <h3 className="text-2xl md:text-3xl font-display font-semibold text-foreground">
+                {t("compare_title", "Klassisk vs. återhämtningsmassage – vad får du?")}
+              </h3>
+              <div className="w-16 h-1 bg-primary rounded-full mx-auto mt-3" />
+              <p className="text-muted-foreground font-body mt-4 max-w-2xl mx-auto">
+                {t(
+                  "compare_intro",
+                  "Båda behandlingarna håller samma kvalitet och utförs av samma terapeut. Skillnaden är tempot, trycket och vem behandlingen är till för."
+                )}
+              </p>
+            </div>
+
+            <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
+              <div className="grid grid-cols-3 bg-primary/5 border-b border-border">
+                <div className="p-4 md:p-5 text-xs md:text-sm font-body uppercase tracking-wider text-muted-foreground">
+                  {t("compare_col_label", "Jämför")}
+                </div>
+                <div className="p-4 md:p-5 text-center border-l border-border">
+                  <div className="font-display font-semibold text-foreground text-sm md:text-base">
+                    {t("compare_col_classic", "Klassisk massage")}
+                  </div>
+                  <div className="text-lg md:text-2xl font-display font-bold text-foreground mt-1">
+                    {t("compare_col_classic_price", "550–650 kr")}
+                  </div>
+                </div>
+                <div className="p-4 md:p-5 text-center border-l border-border bg-primary/10">
+                  <div className="font-display font-semibold text-foreground text-sm md:text-base">
+                    {t("compare_col_recovery", "Återhämtning")}
+                  </div>
+                  <div className="text-lg md:text-2xl font-display font-bold text-primary mt-1">
+                    100 kr
+                  </div>
+                </div>
+              </div>
+
+              {[
+                { label: t("compare_row1_label", "Längd"), classic: t("compare_row1_classic", "45 eller 60 min"), recovery: t("compare_row1_recovery", "60 min") },
+                { label: t("compare_row2_label", "Tempo & tryck"), classic: t("compare_row2_classic", "Anpassat – mjukt till kraftfullt"), recovery: t("compare_row2_recovery", "Lugnt tempo, mjukare tryck") },
+                { label: t("compare_row3_label", "Fokus"), classic: t("compare_row3_classic", "Spänningar, problemområden, hela kroppen"), recovery: t("compare_row3_recovery", "Avslappning, stressdämpning, återhämtning") },
+                { label: t("compare_row4_label", "Passar dig som"), classic: t("compare_row4_classic", "Vill släppa stelhet eller unna dig en stund"), recovery: t("compare_row4_recovery", "Är arbetslös eller har sjukersättning/sjukpenning") },
+                { label: t("compare_row5_label", "Terapeut"), classic: t("compare_row5_classic", "Andreas Håman – diplomerad"), recovery: t("compare_row5_recovery", "Andreas Håman – diplomerad") },
+                { label: t("compare_row6_label", "Bokning"), classic: t("compare_row6_classic", "Online när som helst"), recovery: t("compare_row6_recovery", "Online + nämn vid bokning") },
+              ].map((row, i) => (
+                <div
+                  key={i}
+                  className={`grid grid-cols-3 ${i % 2 === 0 ? "bg-background" : "bg-card"} border-b border-border last:border-b-0`}
+                >
+                  <div className="p-4 md:p-5 text-xs md:text-sm font-body font-medium text-foreground">{row.label}</div>
+                  <div className="p-4 md:p-5 text-xs md:text-sm font-body text-muted-foreground border-l border-border text-center">{row.classic}</div>
+                  <div className="p-4 md:p-5 text-xs md:text-sm font-body text-muted-foreground border-l border-border text-center bg-primary/[0.03]">{row.recovery}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
+              <motion.a
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackBookingClick("compare-classic")}
+                className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full font-body font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
+              >
+                {t("compare_cta_classic", "Boka klassisk massage")} <Calendar className="w-4 h-4" />
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackBookingClick("compare-recovery")}
+                className="inline-flex items-center justify-center gap-2 bg-card border border-primary/30 text-foreground px-6 py-3 rounded-full font-body font-medium hover:shadow-md transition-shadow"
+              >
+                {t("compare_cta_recovery", "Boka återhämtningsmassage")} <Calendar className="w-4 h-4" />
+              </motion.a>
+            </div>
+          </motion.div>
+
           {/* FAQ – Återhämtningsmassage */}
           <motion.div
             initial="hidden"
