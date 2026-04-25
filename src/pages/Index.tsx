@@ -559,7 +559,7 @@ const Index = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <Leaf className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                    {t("recovery_bullet_2", "Mjukare tryck än klassisk massage")}
+                    {t("recovery_bullet_2", "Mjukare eller fastare – som du vill")}
                   </li>
                   <li className="flex items-start gap-2">
                     <Leaf className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
