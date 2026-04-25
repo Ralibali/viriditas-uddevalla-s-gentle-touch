@@ -695,24 +695,24 @@ const Index = () => {
                   ),
                 },
                 {
-                  q: t("recovery_faq_q2", "Hur säger jag till vid bokning?"),
+                  q: t("recovery_faq_q2", "Hur bokar jag?"),
                   a: t(
                     "recovery_faq_a2",
-                    "Du behöver inte visa något intyg. Skriv en kort kommentar i bokningen att du vill ha återhämtningsmassagen, eller hör av dig på telefon innan tiden så löser vi det smidigt på plats."
+                    "Du bokar precis som vanligt online. De två tiderna på tisdagsförmiddagar som är reserverade för återhämtningsmassagen syns i bokningssystemet – välj en av dem så är allt klart. Inget intyg behövs."
                   ),
                 },
                 {
                   q: t("recovery_faq_q3", "Gäller det alla tider?"),
                   a: t(
                     "recovery_faq_a3",
-                    "Återhämtningsmassagen kan bokas när det finns lediga tider i schemat. Vid hög efterfrågan prioriteras ordinarie bokningar, men det finns oftast tider att hitta – särskilt under dagtid mitt i veckan. Hör av dig om du inte hittar en tid som passar, så försöker vi lösa det."
+                    "Nej, det reducerade priset gäller två specifika tider per vecka, på tisdagsförmiddagar. De är inlagda separat i bokningssystemet så att de är lätta att hitta. Hör av dig om du inte ser någon ledig tid, så försöker vi lösa det."
                   ),
                 },
                 {
                   q: t("recovery_faq_q4", "Är behandlingen kortare eller annorlunda?"),
                   a: t(
                     "recovery_faq_a4",
-                    "Nej. Du får samma 60 minuter, samma terapeut och samma omsorg som ordinarie behandling. Återhämtningsmassagen utförs i ett lugnare tempo med mjukare tryck – likt en avslappningsmassage – men inget dras ner på kvaliteten."
+                    "Nej. Det är samma klassiska massage som vanligt, samma 60 minuter, samma terapeut. Den utförs helt efter dina önskemål – mjukare och lugnare om du vill koppla av, eller med fastare tryck om du behöver lösa upp spänningar."
                   ),
                 },
               ].map((faq, i) => (
