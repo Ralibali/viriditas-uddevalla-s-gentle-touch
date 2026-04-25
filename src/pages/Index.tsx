@@ -691,7 +691,7 @@ const Index = () => {
                   q: t("recovery_faq_q1", "Vem kan boka 100 kr-priset?"),
                   a: t(
                     "recovery_faq_a1",
-                    "Återhämtningspriset på 100 kr riktar sig till dig som är arbetslös eller lever på sjukersättning eller sjukpenning. Tanken är att massage ska vara tillgängligt även när ekonomin är ansträngd – ingen ska behöva avstå från återhämtning av den anledningen."
+                    "Återhämtningspriset på 100 kr riktar sig till dig som är arbetslös eller lever på sjukersättning eller sjukpenning. Tanken är att massage ska vara tillgängligt även när ekonomin är ansträngd – ingen ska behöva avstå av den anledningen. Inga intyg krävs."
                   ),
                 },
                 {
