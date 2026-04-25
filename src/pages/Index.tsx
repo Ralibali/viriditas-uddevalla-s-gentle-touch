@@ -542,13 +542,13 @@ const Index = () => {
                 <p className="text-muted-foreground leading-relaxed font-body">
                   {t(
                     "recovery_section_text_1",
-                    "Återhämtningsmassagen är en mjuk, lugn behandling som påminner om en klassisk avslappningsmassage – långa, varma drag och ett tempo där kropp och nervsystem hinner släppa taget. Den passar dig som behöver hämta andan, sänka stressnivån eller bara ge dig själv en stunds omsorg."
+                    "Återhämtningsmassagen är samma klassiska massage som vanligt – utförd helt efter dina önskemål. Vill du ha en lugnare, mjukare behandling så anpassas den åt det hållet; vill du ha ett fastare tryck går det också bra. Två tider per vecka, på tisdagsförmiddagar, är reserverade för det reducerade priset."
                   )}
                 </p>
                 <p className="text-muted-foreground leading-relaxed font-body">
                   {t(
                     "recovery_section_text_2",
-                    "För att göra återhämtning mer tillgänglig erbjuds behandlingen för 100 kr om du är arbetslös eller lever på sjukersättning eller sjukpenning. Inga bevis krävs – det räcker att du nämner det vid bokning."
+                    "För att göra massage mer tillgänglig erbjuds dessa två tider för 100 kr om du är arbetslös eller lever på sjukersättning eller sjukpenning. Du bokar precis som vanligt online – inga bevis krävs."
                   )}
                 </p>
 
