@@ -542,13 +542,13 @@ const Index = () => {
                 <p className="text-muted-foreground leading-relaxed font-body">
                   {t(
                     "recovery_section_text_1",
-                    "Återhämtningsmassagen är en mjuk, lugn behandling som påminner om en klassisk avslappningsmassage – långa, varma drag och ett tempo där kropp och nervsystem hinner släppa taget. Den passar dig som behöver hämta andan, sänka stressnivån eller bara ge dig själv en stunds omsorg."
+                    "Återhämtningsmassagen är samma klassiska massage som vanligt – utförd helt efter dina önskemål. Vill du ha en lugnare, mjukare behandling så anpassas den åt det hållet; vill du ha ett fastare tryck går det också bra. Två tider per vecka, på tisdagsförmiddagar, är reserverade för det reducerade priset."
                   )}
                 </p>
                 <p className="text-muted-foreground leading-relaxed font-body">
                   {t(
                     "recovery_section_text_2",
-                    "För att göra återhämtning mer tillgänglig erbjuds behandlingen för 100 kr om du är arbetslös eller lever på sjukersättning eller sjukpenning. Inga bevis krävs – det räcker att du nämner det vid bokning."
+                    "För att göra massage mer tillgänglig erbjuds dessa två tider för 100 kr om du är arbetslös eller lever på sjukersättning eller sjukpenning. Du bokar precis som vanligt online – inga bevis krävs."
                   )}
                 </p>
 
@@ -559,7 +559,7 @@ const Index = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <Leaf className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                    {t("recovery_bullet_2", "Mjukare tryck än klassisk massage")}
+                    {t("recovery_bullet_2", "Mjukare eller fastare – som du vill")}
                   </li>
                   <li className="flex items-start gap-2">
                     <Leaf className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
@@ -585,95 +585,6 @@ const Index = () => {
                   </motion.a>
                 </div>
               </div>
-            </div>
-          </motion.div>
-
-          {/* Prisjämförelse */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            variants={fadeUp}
-            className="mt-16"
-          >
-            <div className="text-center mb-8">
-              <h3 className="text-2xl md:text-3xl font-display font-semibold text-foreground">
-                {t("compare_title", "Klassisk vs. återhämtningsmassage – vad får du?")}
-              </h3>
-              <div className="w-16 h-1 bg-primary rounded-full mx-auto mt-3" />
-              <p className="text-muted-foreground font-body mt-4 max-w-2xl mx-auto">
-                {t(
-                  "compare_intro",
-                  "Båda behandlingarna håller samma kvalitet och utförs av samma terapeut. Skillnaden är tempot, trycket och vem behandlingen är till för."
-                )}
-              </p>
-            </div>
-
-            <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
-              <div className="grid grid-cols-3 bg-primary/5 border-b border-border">
-                <div className="p-4 md:p-5 text-xs md:text-sm font-body uppercase tracking-wider text-muted-foreground">
-                  {t("compare_col_label", "Jämför")}
-                </div>
-                <div className="p-4 md:p-5 text-center border-l border-border">
-                  <div className="font-display font-semibold text-foreground text-sm md:text-base">
-                    {t("compare_col_classic", "Klassisk massage")}
-                  </div>
-                  <div className="text-lg md:text-2xl font-display font-bold text-foreground mt-1">
-                    {t("compare_col_classic_price", "550–650 kr")}
-                  </div>
-                </div>
-                <div className="p-4 md:p-5 text-center border-l border-border bg-primary/10">
-                  <div className="font-display font-semibold text-foreground text-sm md:text-base">
-                    {t("compare_col_recovery", "Återhämtning")}
-                  </div>
-                  <div className="text-lg md:text-2xl font-display font-bold text-primary mt-1">
-                    100 kr
-                  </div>
-                </div>
-              </div>
-
-              {[
-                { label: t("compare_row1_label", "Längd"), classic: t("compare_row1_classic", "45 eller 60 min"), recovery: t("compare_row1_recovery", "60 min") },
-                { label: t("compare_row2_label", "Tempo & tryck"), classic: t("compare_row2_classic", "Anpassat – mjukt till kraftfullt"), recovery: t("compare_row2_recovery", "Lugnt tempo, mjukare tryck") },
-                { label: t("compare_row3_label", "Fokus"), classic: t("compare_row3_classic", "Spänningar, problemområden, hela kroppen"), recovery: t("compare_row3_recovery", "Avslappning, stressdämpning, återhämtning") },
-                { label: t("compare_row4_label", "Passar dig som"), classic: t("compare_row4_classic", "Vill släppa stelhet eller unna dig en stund"), recovery: t("compare_row4_recovery", "Är arbetslös eller har sjukersättning/sjukpenning") },
-                { label: t("compare_row5_label", "Terapeut"), classic: t("compare_row5_classic", "Andreas Håman – diplomerad"), recovery: t("compare_row5_recovery", "Andreas Håman – diplomerad") },
-                { label: t("compare_row6_label", "Bokning"), classic: t("compare_row6_classic", "Online när som helst"), recovery: t("compare_row6_recovery", "Online + nämn vid bokning") },
-              ].map((row, i) => (
-                <div
-                  key={i}
-                  className={`grid grid-cols-3 ${i % 2 === 0 ? "bg-background" : "bg-card"} border-b border-border last:border-b-0`}
-                >
-                  <div className="p-4 md:p-5 text-xs md:text-sm font-body font-medium text-foreground">{row.label}</div>
-                  <div className="p-4 md:p-5 text-xs md:text-sm font-body text-muted-foreground border-l border-border text-center">{row.classic}</div>
-                  <div className="p-4 md:p-5 text-xs md:text-sm font-body text-muted-foreground border-l border-border text-center bg-primary/[0.03]">{row.recovery}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
-              <motion.a
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-                href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackBookingClick("compare-classic")}
-                className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full font-body font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
-              >
-                {t("compare_cta_classic", "Boka klassisk massage")} <Calendar className="w-4 h-4" />
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-                href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackBookingClick("compare-recovery")}
-                className="inline-flex items-center justify-center gap-2 bg-card border border-primary/30 text-foreground px-6 py-3 rounded-full font-body font-medium hover:shadow-md transition-shadow"
-              >
-                {t("compare_cta_recovery", "Boka återhämtningsmassage")} <Calendar className="w-4 h-4" />
-              </motion.a>
             </div>
           </motion.div>
 
@@ -780,28 +691,28 @@ const Index = () => {
                   q: t("recovery_faq_q1", "Vem kan boka 100 kr-priset?"),
                   a: t(
                     "recovery_faq_a1",
-                    "Återhämtningspriset på 100 kr riktar sig till dig som är arbetslös eller lever på sjukersättning eller sjukpenning. Tanken är att massage ska vara tillgängligt även när ekonomin är ansträngd – ingen ska behöva avstå från återhämtning av den anledningen."
+                    "Återhämtningspriset på 100 kr riktar sig till dig som är arbetslös eller lever på sjukersättning eller sjukpenning. Tanken är att massage ska vara tillgängligt även när ekonomin är ansträngd – ingen ska behöva avstå av den anledningen. Inga intyg krävs."
                   ),
                 },
                 {
-                  q: t("recovery_faq_q2", "Hur säger jag till vid bokning?"),
+                  q: t("recovery_faq_q2", "Hur bokar jag?"),
                   a: t(
                     "recovery_faq_a2",
-                    "Du behöver inte visa något intyg. Skriv en kort kommentar i bokningen att du vill ha återhämtningsmassagen, eller hör av dig på telefon innan tiden så löser vi det smidigt på plats."
+                    "Du bokar precis som vanligt online. De två tiderna på tisdagsförmiddagar som är reserverade för återhämtningsmassagen syns i bokningssystemet – välj en av dem så är allt klart. Inget intyg behövs."
                   ),
                 },
                 {
                   q: t("recovery_faq_q3", "Gäller det alla tider?"),
                   a: t(
                     "recovery_faq_a3",
-                    "Återhämtningsmassagen kan bokas när det finns lediga tider i schemat. Vid hög efterfrågan prioriteras ordinarie bokningar, men det finns oftast tider att hitta – särskilt under dagtid mitt i veckan. Hör av dig om du inte hittar en tid som passar, så försöker vi lösa det."
+                    "Nej, det reducerade priset gäller två specifika tider per vecka, på tisdagsförmiddagar. De är inlagda separat i bokningssystemet så att de är lätta att hitta. Hör av dig om du inte ser någon ledig tid, så försöker vi lösa det."
                   ),
                 },
                 {
                   q: t("recovery_faq_q4", "Är behandlingen kortare eller annorlunda?"),
                   a: t(
                     "recovery_faq_a4",
-                    "Nej. Du får samma 60 minuter, samma terapeut och samma omsorg som ordinarie behandling. Återhämtningsmassagen utförs i ett lugnare tempo med mjukare tryck – likt en avslappningsmassage – men inget dras ner på kvaliteten."
+                    "Nej. Det är samma klassiska massage som vanligt, samma 60 minuter, samma terapeut. Den utförs helt efter dina önskemål – mjukare och lugnare om du vill koppla av, eller med fastare tryck om du behöver lösa upp spänningar."
                   ),
                 },
               ].map((faq, i) => (
