@@ -8,6 +8,7 @@ import andreasGoliat from "@/assets/andreas-goliat.jpeg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { trackBookingClick } from "@/lib/trackBookingClick";
 import Navbar from "@/components/Navbar";
+import SeoHead from "@/components/SeoHead";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -40,6 +41,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SeoHead
+        title="Massage Uddevalla | Viriditas – Diplomerad Massageterapeut Andreas Håman"
+        description="Boka klassisk massage och återhämtningsmassage i Uddevalla hos Viriditas. Diplomerad massageterapeut Andreas Håman i Uddevalla Folkets Hus, Göteborgsvägen 11B. Från 550 kr."
+        path="/"
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

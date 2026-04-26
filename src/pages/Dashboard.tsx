@@ -9,6 +9,7 @@ import type { SitePage } from "@/types/cms";
 import PageList from "@/components/cms/PageList";
 import PageEditor from "@/components/cms/PageEditor";
 import SettingsEditor from "@/components/cms/SettingsEditor";
+import SeoHead from "@/components/SeoHead";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
