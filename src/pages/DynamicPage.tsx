@@ -1,24 +1,14 @@
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSitePage } from "@/hooks/useSitePages";
 import { PageBlocks } from "@/components/cms/BlockRenderer";
 import Navbar from "@/components/Navbar";
+import SeoHead from "@/components/SeoHead";
 import { Link } from "react-router-dom";
 import { MapPin, Phone } from "lucide-react";
 
 const DynamicPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: page, isLoading } = useSitePage(slug || "");
-
-  useEffect(() => {
-    if (page) {
-      document.title = page.title + " | Viriditas";
-      const meta = document.querySelector('meta[name="description"]');
-      if (meta && page.meta_description) {
-        meta.setAttribute("content", page.meta_description);
-      }
-    }
-  }, [page]);
 
   if (isLoading) {
     return (
@@ -34,6 +24,11 @@ const DynamicPage = () => {
   if (!page) {
     return (
       <div className="min-h-screen bg-background">
+        <SeoHead
+          title="Sidan hittades inte | Viriditas"
+          description="Sidan du letar efter finns inte längre."
+          noindex
+        />
         <Navbar />
         <div className="pt-32 pb-20 px-6 text-center">
           <h1 className="text-4xl font-display font-semibold text-foreground mb-4">404</h1>
@@ -44,8 +39,17 @@ const DynamicPage = () => {
     );
   }
 
+  const description =
+    page.meta_description ||
+    `${page.title} – läs mer hos Viriditas, klassisk massage i Uddevalla.`;
+
   return (
     <div className="min-h-screen bg-background">
+      <SeoHead
+        title={`${page.title} | Viriditas`}
+        description={description}
+        path={`/p/${page.slug}`}
+      />
       <Navbar />
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-3xl mx-auto">

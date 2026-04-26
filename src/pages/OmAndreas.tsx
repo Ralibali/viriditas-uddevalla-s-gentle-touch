@@ -1,9 +1,9 @@
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Calendar, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { trackBookingClick } from "@/lib/trackBookingClick";
 import Navbar from "@/components/Navbar";
+import SeoHead from "@/components/SeoHead";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -15,16 +15,13 @@ const fadeUp = {
 };
 
 const OmAndreas = () => {
-  useEffect(() => {
-    document.title = "Om Andreas Håman – Diplomerad Massageterapeut Uddevalla | Viriditas";
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) {
-      meta.setAttribute("content", "Andreas Håman är diplomerad massageterapeut i Uddevalla med bakgrund inom vården. Hans unika känslighet gör varje massagebehandling hos Viriditas exceptionell.");
-    }
-  }, []);
-
   return (
     <div className="min-h-screen bg-background">
+      <SeoHead
+        title="Om Andreas Håman – Diplomerad Massageterapeut Uddevalla | Viriditas"
+        description="Andreas Håman är diplomerad massageterapeut i Uddevalla med bakgrund inom vården. Hans unika känslighet gör varje massagebehandling hos Viriditas exceptionell."
+        path="/om-andreas"
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

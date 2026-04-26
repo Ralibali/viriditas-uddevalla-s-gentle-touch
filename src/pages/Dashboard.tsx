@@ -9,6 +9,7 @@ import type { SitePage } from "@/types/cms";
 import PageList from "@/components/cms/PageList";
 import PageEditor from "@/components/cms/PageEditor";
 import SettingsEditor from "@/components/cms/SettingsEditor";
+import SeoHead from "@/components/SeoHead";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -45,6 +46,7 @@ const Dashboard = () => {
   if (!isAuthed) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center px-6">
+        <SeoHead title="Dashboard | Viriditas" description="Intern dashboard." noindex />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -96,6 +98,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SeoHead title="Dashboard | Viriditas" description="Intern dashboard." noindex />
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl md:text-4xl font-display font-semibold text-foreground flex items-center gap-3">

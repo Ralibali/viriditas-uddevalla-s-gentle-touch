@@ -1,9 +1,9 @@
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Calendar, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { trackBookingClick } from "@/lib/trackBookingClick";
 import Navbar from "@/components/Navbar";
+import SeoHead from "@/components/SeoHead";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -15,16 +15,44 @@ const fadeUp = {
 };
 
 const KlassiskMassage = () => {
-  useEffect(() => {
-    document.title = "Klassisk Massage Uddevalla – 550 kr | Viriditas";
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) {
-      meta.setAttribute("content", "Klassisk massage i Uddevalla från 550 kr. Diplomerad massageterapeut i Uddevalla Folkets Hus, Göteborgsvägen 11B. Boka online enkelt via peach.nu.");
-    }
-  }, []);
-
   return (
     <div className="min-h-screen bg-background">
+      <SeoHead
+        title="Klassisk Massage Uddevalla – 550 kr | Viriditas"
+        description="Klassisk massage i Uddevalla från 550 kr. Diplomerad massageterapeut i Uddevalla Folkets Hus, Göteborgsvägen 11B. Boka online enkelt via peach.nu."
+        path="/klassisk-massage"
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Klassisk massage",
+            "serviceType": "Klassisk massage",
+            "provider": {
+              "@type": "HealthAndBeautyBusiness",
+              "name": "Viriditas",
+              "url": "https://viriditasmassage.se",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Göteborgsvägen 11B (Uddevalla Folkets Hus)",
+                "addressLocality": "Uddevalla",
+                "addressCountry": "SE",
+              },
+            },
+            "areaServed": [
+              { "@type": "City", "name": "Uddevalla" },
+              { "@type": "AdministrativeArea", "name": "Bohuslän" },
+            ],
+            "url": "https://viriditasmassage.se/klassisk-massage",
+            "offers": [
+              { "@type": "Offer", "price": "550", "priceCurrency": "SEK", "name": "45 min" },
+              { "@type": "Offer", "price": "650", "priceCurrency": "SEK", "name": "60 min" },
+            ],
+          }),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
