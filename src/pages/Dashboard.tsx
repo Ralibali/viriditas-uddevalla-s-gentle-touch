@@ -46,6 +46,7 @@ const Dashboard = () => {
   if (!isAuthed) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center px-6">
+        <SeoHead title="Dashboard | Viriditas" description="Intern dashboard." noindex />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
