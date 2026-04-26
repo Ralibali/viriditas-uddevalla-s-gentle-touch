@@ -98,6 +98,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SeoHead title="Dashboard | Viriditas" description="Intern dashboard." noindex />
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl md:text-4xl font-display font-semibold text-foreground flex items-center gap-3">
