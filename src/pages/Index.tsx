@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useReviews } from "@/hooks/useReviews";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import andreasGoliat from "@/assets/andreas-goliat.jpeg";
+import folketsHus from "@/assets/folkets-hus.jpeg";
+import folketsHusEntre from "@/assets/folkets-hus-entre.jpeg";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { trackBookingClick } from "@/lib/trackBookingClick";
@@ -958,12 +960,30 @@ const Index = () => {
               custom={1}
               className="space-y-6"
             >
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-3xl overflow-hidden shadow-lg aspect-[4/5]">
+                  <img
+                    src={folketsHus}
+                    alt="Uddevalla Folkets Hus – fasad med entré"
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="rounded-3xl overflow-hidden shadow-lg aspect-[4/5]">
+                  <img
+                    src={folketsHusEntre}
+                    alt="Entrén till Uddevalla Folkets Hus, Göteborgsvägen 11B"
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
               <div className="rounded-3xl overflow-hidden shadow-lg">
                 <iframe
                   title="Karta till Viriditas – Uddevalla Folkets Hus"
                   src="https://www.google.com/maps?q=Uddevalla+Folkets+Hus,+G%C3%B6teborgsv%C3%A4gen+11B,+Uddevalla&output=embed"
                   width="100%"
-                  height="400"
+                  height="280"
                   style={{ border: 0 }}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
