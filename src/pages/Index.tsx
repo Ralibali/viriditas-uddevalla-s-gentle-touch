@@ -119,7 +119,7 @@ const Index = () => {
             custom={1}
             className="text-5xl md:text-7xl font-display font-semibold text-primary-foreground mb-6 leading-tight"
           >
-            {t("hero_title", "Massage i Uddevalla")}
+            {t("hero_title", "Uddevallas blinde massör")}
             <span className="block text-3xl md:text-4xl font-normal mt-2 text-primary-foreground/80">
               {t("hero_subtitle", "– Känn skillnaden med Viriditas")}
             </span>
@@ -428,7 +428,7 @@ const Index = () => {
               icon: Sparkles,
               title: t("treatment_recovery_title", "Återhämtningsmassage"),
               duration: "60 min",
-              price: t("treatment_recovery_price", "100 kr"),
+              price: t("treatment_recovery_price", "200 kr"),
               desc: t("treatment_recovery_desc", "Reducerat pris för dig som är arbetslös eller har sjukersättning/sjukpenning. Mjuk och återställande behandling."),
               cta: "Boka tid",
             },
@@ -533,7 +533,7 @@ const Index = () => {
                   {t("recovery_eyebrow", "Tillgänglig massage")}
                 </span>
                 <p className="text-5xl md:text-6xl font-display font-bold text-foreground leading-none">
-                  100 kr
+                  200 kr
                 </p>
                 <span className="text-sm font-body text-muted-foreground">
                   {t("recovery_duration_label", "60 minuter · reducerat pris")}
@@ -554,7 +554,7 @@ const Index = () => {
                 <p className="text-muted-foreground leading-relaxed font-body">
                   {t(
                     "recovery_section_text_2",
-                    "För att göra massage mer tillgänglig erbjuds dessa två tider för 100 kr om du är arbetslös eller lever på sjukersättning eller sjukpenning. Du bokar precis som vanligt online – inga bevis krävs."
+                    "För att göra massage mer tillgänglig erbjuds dessa två tider för 200 kr om du är arbetslös eller lever på sjukersättning eller sjukpenning. Du bokar precis som vanligt online – inga bevis krävs."
                   )}
                 </p>
 
@@ -694,10 +694,10 @@ const Index = () => {
             <Accordion type="single" collapsible className="space-y-3">
               {[
                 {
-                  q: t("recovery_faq_q1", "Vem kan boka 100 kr-priset?"),
+                  q: t("recovery_faq_q1", "Vem kan boka 200 kr-priset?"),
                   a: t(
                     "recovery_faq_a1",
-                    "Återhämtningspriset på 100 kr riktar sig till dig som är arbetslös eller lever på sjukersättning eller sjukpenning. Tanken är att massage ska vara tillgängligt även när ekonomin är ansträngd – ingen ska behöva avstå av den anledningen. Inga intyg krävs."
+                    "Återhämtningspriset på 200 kr riktar sig till dig som är arbetslös eller lever på sjukersättning eller sjukpenning. Tanken är att massage ska vara tillgängligt även när ekonomin är ansträngd – ingen ska behöva avstå av den anledningen. Inga intyg krävs."
                   ),
                 },
                 {
