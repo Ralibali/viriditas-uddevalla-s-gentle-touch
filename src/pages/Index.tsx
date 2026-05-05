@@ -65,6 +65,33 @@ const Index = () => {
           })
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Återhämtningsmassage",
+            "serviceType": "Massage",
+            "description": "Mjuk och återställande massage till reducerat pris (200 kr) för dig som är arbetslös eller har sjukersättning/sjukpenning. Två tider per vecka i Uddevalla Folkets Hus.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "Viriditas – Andreas Håman",
+              "url": "https://viriditasmassage.se"
+            },
+            "areaServed": { "@type": "City", "name": "Uddevalla" },
+            "url": "https://viriditasmassage.se/#aterhamtningsmassage",
+            "offers": {
+              "@type": "Offer",
+              "price": "200",
+              "priceCurrency": "SEK",
+              "availability": "https://schema.org/InStock",
+              "url": "https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule",
+              "eligibleCustomerType": "Personer som är arbetslösa eller har sjukersättning/sjukpenning"
+            }
+          })
+        }}
+      />
       {peachRating !== null && peachCount !== null && (
         <script
           type="application/ld+json"
