@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote, HelpCircle, Leaf, Gift, Phone, Mail, ExternalLink, Sparkles } from "lucide-react";
+import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote, Leaf, Gift, Phone, ExternalLink, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useReviews } from "@/hooks/useReviews";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
@@ -9,6 +9,7 @@ import folketsHusEntre from "@/assets/folkets-hus-entre.jpeg";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { trackBookingClick } from "@/lib/trackBookingClick";
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import SeoHead from "@/components/SeoHead";
 
@@ -1097,51 +1098,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-16 px-6 border-t border-border bg-foreground text-primary-foreground">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-12 mb-12">
-            {/* Brand */}
-            <div>
-              <h3 className="font-display text-2xl font-semibold mb-4">Viriditas</h3>
-              <p className="text-primary-foreground/70 text-sm leading-relaxed">
-                {t("footer_text", "Klassisk massage i Uddevalla. Diplomerad massageterapeut med passion för välmående.")}
-              </p>
-            </div>
-
-            {/* Snabblänkar */}
-            <div>
-              <h4 className="font-display font-semibold mb-4">Snabblänkar</h4>
-              <div className="space-y-2">
-                <Link to="/om-andreas" className="block text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors">Om Andreas</Link>
-                <Link to="/klassisk-massage" className="block text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors">Klassisk massage</Link>
-                <a href="#behandlingar" className="block text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors">Behandlingar</a>
-                <a href="#kontakt" className="block text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors">Hitta hit</a>
-                <a href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule" target="_blank" rel="noopener noreferrer" className="block text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors">Boka online</a>
-              </div>
-            </div>
-
-            {/* Kontakt */}
-            <div>
-              <h4 className="font-display font-semibold mb-4">Kontakt</h4>
-              <div className="space-y-3 text-sm text-primary-foreground/70">
-                <p className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4" /> {t("address", "Uddevalla Folkets Hus, Göteborgsvägen 11B")}
-                </p>
-                <p className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" /> {t("phone", "076-317 78 97")}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-primary-foreground/20 pt-8 text-center">
-            <p className="text-primary-foreground/50 text-sm">
-              &copy; {new Date().getFullYear()} Viriditas – Andreas Håman. Alla rättigheter förbehållna.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

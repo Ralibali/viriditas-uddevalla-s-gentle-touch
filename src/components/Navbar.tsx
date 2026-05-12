@@ -31,9 +31,14 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="font-display text-2xl font-semibold text-foreground">
+        <Link
+          to="/"
+          className={`font-display text-2xl font-semibold transition-colors duration-300 ${
+            scrolled ? "text-foreground" : "text-white"
+          }`}
+        >
           Viriditas
-        </a>
+        </Link>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
@@ -42,7 +47,11 @@ const Navbar = () => {
               <Link
                 key={link.href}
                 to={link.href}
-                className="text-sm font-body text-muted-foreground hover:text-foreground transition-colors"
+                className={`text-sm font-body transition-colors duration-300 ${
+                  scrolled
+                    ? "text-muted-foreground hover:text-foreground"
+                    : "text-white/80 hover:text-white"
+                }`}
               >
                 {link.label}
               </Link>
@@ -50,7 +59,11 @@ const Navbar = () => {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm font-body text-muted-foreground hover:text-foreground transition-colors"
+                className={`text-sm font-body transition-colors duration-300 ${
+                  scrolled
+                    ? "text-muted-foreground hover:text-foreground"
+                    : "text-white/80 hover:text-white"
+                }`}
               >
                 {link.label}
               </a>
@@ -70,7 +83,9 @@ const Navbar = () => {
         {/* Mobile toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-foreground p-2"
+          className={`md:hidden p-2 transition-colors duration-300 ${
+            scrolled ? "text-foreground" : "text-white"
+          }`}
           aria-label="Meny"
         >
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
