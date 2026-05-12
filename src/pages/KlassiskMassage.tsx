@@ -77,7 +77,7 @@ const KlassiskMassage = () => {
           })
         }}
       />
-      <Navbar />
+      <Navbar alwaysSolid />
 
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-3xl mx-auto">

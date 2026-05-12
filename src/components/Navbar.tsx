@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { trackBookingClick } from "@/lib/trackBookingClick";
 
 const navLinks = [
@@ -12,7 +12,11 @@ const navLinks = [
   { label: "Kontakt", href: "/#kontakt" },
 ];
 
-const Navbar = () => {
+interface NavbarProps {
+  alwaysSolid?: boolean;
+}
+
+const Navbar = ({ alwaysSolid = false }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -22,10 +26,12 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const solid = alwaysSolid || scrolled;
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+        solid
           ? "backdrop-blur-md bg-background/80 border-b border-border/40 shadow-sm"
           : "bg-transparent"
       }`}
@@ -34,7 +40,7 @@ const Navbar = () => {
         <Link
           to="/"
           className={`font-display text-2xl font-semibold transition-colors duration-300 ${
-            scrolled ? "text-foreground" : "text-white"
+            solid ? "text-foreground" : "text-white"
           }`}
         >
           Viriditas
@@ -48,7 +54,7 @@ const Navbar = () => {
                 key={link.href}
                 to={link.href}
                 className={`text-sm font-body transition-colors duration-300 ${
-                  scrolled
+                  solid
                     ? "text-muted-foreground hover:text-foreground"
                     : "text-white/80 hover:text-white"
                 }`}
@@ -60,7 +66,7 @@ const Navbar = () => {
                 key={link.href}
                 href={link.href}
                 className={`text-sm font-body transition-colors duration-300 ${
-                  scrolled
+                  solid
                     ? "text-muted-foreground hover:text-foreground"
                     : "text-white/80 hover:text-white"
                 }`}
@@ -84,7 +90,7 @@ const Navbar = () => {
         <button
           onClick={() => setIsOpen(!isOpen)}
           className={`md:hidden p-2 transition-colors duration-300 ${
-            scrolled ? "text-foreground" : "text-white"
+            solid ? "text-foreground" : "text-white"
           }`}
           aria-label="Meny"
         >

@@ -12,7 +12,7 @@ const DynamicPage = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <Navbar />
+        <Navbar alwaysSolid />
         <div className="pt-32 pb-20 px-6 text-center">
           <p className="text-muted-foreground font-body">Laddar...</p>
         </div>
@@ -28,7 +28,7 @@ const DynamicPage = () => {
           description="Sidan du letar efter finns inte längre."
           noindex
         />
-        <Navbar />
+        <Navbar alwaysSolid />
         <div className="pt-32 pb-20 px-6 text-center">
           <h1 className="text-4xl font-display font-semibold text-foreground mb-4">404</h1>
           <p className="text-muted-foreground font-body">Sidan hittades inte.</p>
@@ -49,7 +49,7 @@ const DynamicPage = () => {
         description={description}
         path={`/p/${page.slug}`}
       />
-      <Navbar />
+      <Navbar alwaysSolid />
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-3xl mx-auto">
           <PageBlocks blocks={page.content} />
