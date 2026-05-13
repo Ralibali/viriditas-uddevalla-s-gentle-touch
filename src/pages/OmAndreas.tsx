@@ -19,8 +19,8 @@ const OmAndreas = () => {
   return (
     <div className="min-h-screen bg-background">
       <SeoHead
-        title="Om Andreas Håman – Diplomerad Massageterapeut Uddevalla | Viriditas"
-        description="Andreas Håman är diplomerad massageterapeut i Uddevalla med bakgrund inom vården. Hans unika känslighet gör varje massagebehandling hos Viriditas exceptionell."
+        title="Om Andreas Håman | Massageterapeut i Uddevalla"
+        description="Andreas Håman – diplomerad massageterapeut i Uddevalla med bakgrund inom vården. Lär känna mannen bakom Viriditas och ledarhunden Goliat."
         path="/om-andreas"
       />
       <script
