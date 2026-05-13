@@ -6,6 +6,10 @@ import { useSiteSettings } from "@/hooks/useSiteSettings";
 import andreasGoliat from "@/assets/andreas-goliat.jpeg";
 import folketsHus from "@/assets/folkets-hus.jpeg";
 import folketsHusEntre from "@/assets/folkets-hus-entre.jpeg";
+import salonRoomPainting from "@/assets/salon-room-painting.jpg";
+import salonWindowLogo from "@/assets/salon-window-logo.jpg";
+import salonTableWindow from "@/assets/salon-table-window.jpg";
+import salonWindowsill from "@/assets/salon-windowsill.jpg";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { trackBookingClick } from "@/lib/trackBookingClick";
@@ -1017,6 +1021,90 @@ const Index = () => {
                   referrerPolicy="no-referrer-when-downgrade"
                 />
               </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Inne i salongen */}
+      <section className="py-28 px-6 bg-card">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={fadeUp}
+            className="text-center mb-14 max-w-2xl mx-auto space-y-4"
+          >
+            <h2 className="text-3xl md:text-5xl font-display font-semibold text-foreground">
+              Inne i salongen
+            </h2>
+            <div className="w-20 h-1 bg-primary rounded-full mx-auto" />
+            <p className="text-lg text-muted-foreground leading-relaxed font-body">
+              En lugn och omsorgsfullt förberedd plats i Uddevalla Folkets Hus – med dagsljus, mjuka filtar och små detaljer som får dig att landa direkt.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              custom={0}
+              className="md:row-span-2 rounded-3xl overflow-hidden shadow-lg"
+            >
+              <img
+                src={salonRoomPainting}
+                alt="Behandlingsrum hos Viriditas i Uddevalla med massagebänk, mjuka handdukar och tavla av grön skog"
+                loading="lazy"
+                className="w-full h-full object-cover aspect-[3/4] md:aspect-auto"
+              />
+            </motion.div>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              custom={1}
+              className="rounded-3xl overflow-hidden shadow-lg"
+            >
+              <img
+                src={salonTableWindow}
+                alt="Massagebänk vid fönstret med dagsljus i Viriditas behandlingsrum"
+                loading="lazy"
+                className="w-full h-full object-cover aspect-[4/3]"
+              />
+            </motion.div>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              custom={2}
+              className="rounded-3xl overflow-hidden shadow-lg"
+            >
+              <img
+                src={salonWindowsill}
+                alt="Fönsterbräda med saltkristallampa, ängel och växter i Viriditas salong"
+                loading="lazy"
+                className="w-full h-full object-cover aspect-[4/3]"
+              />
+            </motion.div>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              custom={3}
+              className="md:col-span-2 rounded-3xl overflow-hidden shadow-lg"
+            >
+              <img
+                src={salonWindowLogo}
+                alt="Viriditas massage – logotyp i fönstret på salongen i Uddevalla"
+                loading="lazy"
+                className="w-full h-full object-cover aspect-[16/9]"
+              />
             </motion.div>
           </div>
         </div>
