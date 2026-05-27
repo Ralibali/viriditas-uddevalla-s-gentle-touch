@@ -49,8 +49,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SeoHead
-        title="Massage Uddevalla | Viriditas – Diplomerad Massageterapeut Andreas Håman"
-        description="Boka klassisk massage och återhämtningsmassage i Uddevalla hos Viriditas. Diplomerad massageterapeut Andreas Håman i Uddevalla Folkets Hus, Göteborgsvägen 11B. Från 550 kr."
+        title="Massage Uddevalla | Viriditas – Andreas Håman"
+        description="Boka klassisk massage i Uddevalla hos Viriditas. Diplomerad massör Andreas Håman, Folkets Hus, Göteborgsvägen 11B. Från 550 kr."
         path="/"
       />
       <script
