@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote, Leaf, Gift, Phone, ExternalLink, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useReviews } from "@/hooks/useReviews";
@@ -17,7 +17,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import SeoHead from "@/components/SeoHead";
 
-const fadeUp = {
+const baseFadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number = 0) => ({
     opacity: 1,
@@ -26,9 +26,16 @@ const fadeUp = {
   }),
 };
 
+const noMotion = {
+  hidden: { opacity: 1, y: 0 },
+  visible: () => ({ opacity: 1, y: 0 }),
+};
+
 const Index = () => {
   const { data: reviews } = useReviews();
   const { data: s } = useSiteSettings();
+  const reduceMotion = useReducedMotion();
+  const fadeUp = reduceMotion ? noMotion : baseFadeUp;
 
   // Helper: get setting value or fallback
   const t = (key: string, fallback: string) => s?.[key] || fallback;
@@ -47,7 +54,13 @@ const Index = () => {
   const avgRating = (peachRating ?? localAvg).toFixed(1);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-5 focus:py-3 focus:font-body focus:font-medium focus:text-primary-foreground focus:shadow-lg"
+      >
+        Hoppa till innehåll
+      </a>
       <SeoHead
         title="Massage Uddevalla | Viriditas – Andreas Håman"
         description="Boka klassisk massage i Uddevalla hos Viriditas. Diplomerad massör Andreas Håman, Folkets Hus, Göteborgsvägen 11B. Från 550 kr."
@@ -118,19 +131,31 @@ const Index = () => {
       )}
       <Navbar />
 
+      <main id="main-content">
       {/* Hero */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/video/massage-2-poster.jpg"
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/video/massage-2.mp4" type="video/mp4" />
-        </video>
+        {reduceMotion ? (
+          <img
+            src="/video/massage-2-poster.jpg"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/video/massage-2-poster.jpg"
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/video/massage-2.webm" type="video/webm" />
+            <source src="/video/massage-2.mp4" type="video/mp4" />
+          </video>
+        )}
         <div className="absolute inset-0 bg-black/50" />
 
         <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
@@ -352,16 +377,27 @@ const Index = () => {
             custom={1}
             className="order-1 md:order-2"
           >
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="none"
-              className="rounded-3xl shadow-2xl w-full object-cover aspect-square"
-            >
-              <source src="/video/massage.mp4" type="video/mp4" />
-            </video>
+            {reduceMotion ? (
+              <img
+                src="/video/massage-poster.jpg"
+                alt=""
+                aria-hidden="true"
+                className="rounded-3xl shadow-2xl w-full object-cover aspect-square"
+              />
+            ) : (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster="/video/massage-poster.jpg"
+                aria-hidden="true"
+                className="rounded-3xl shadow-2xl w-full object-cover aspect-square"
+              >
+                <source src="/video/massage.mp4" type="video/mp4" />
+              </video>
+            )}
           </motion.div>
         </div>
       </section>
@@ -1185,8 +1221,25 @@ const Index = () => {
           </motion.div>
         </div>
       </section>
+      </main>
 
       <Footer />
+
+      {/* Mobil sticky CTA */}
+      <div
+        className="md:hidden fixed inset-x-0 bottom-0 z-50 p-4 pointer-events-none"
+        style={{ paddingBottom: "calc(1rem + env(safe-area-inset-bottom))" }}
+      >
+        <a
+          href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackBookingClick("sticky-mobile")}
+          className="pointer-events-auto flex items-center justify-center gap-2 bg-primary text-primary-foreground py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/30"
+        >
+          Boka tid <Calendar className="w-5 h-5" />
+        </a>
+      </div>
     </div>
   );
 };

@@ -22,7 +22,7 @@
     --secondary-foreground: 150 20% 15%;
 
     --muted: 40 20% 90%;
-    --muted-foreground: 150 10% 45%;
+    --muted-foreground: 150 12% 38%;
 
     --accent: 145 25% 40%;
     --accent-foreground: 40 33% 96%;
@@ -62,8 +62,37 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
   }
+
+  /* Tydliga, synliga fokusmarkeringar med projektets ring-token */
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: var(--radius);
+  }
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-bounce {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
