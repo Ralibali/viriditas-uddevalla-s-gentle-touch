@@ -1221,8 +1221,25 @@ const Index = () => {
           </motion.div>
         </div>
       </section>
+      </main>
 
       <Footer />
+
+      {/* Mobil sticky CTA */}
+      <div
+        className="md:hidden fixed inset-x-0 bottom-0 z-50 p-4 pointer-events-none"
+        style={{ paddingBottom: "calc(1rem + env(safe-area-inset-bottom))" }}
+      >
+        <a
+          href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackBookingClick("sticky-mobile")}
+          className="pointer-events-auto flex items-center justify-center gap-2 bg-primary text-primary-foreground py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/30"
+        >
+          Boka tid <Calendar className="w-5 h-5" />
+        </a>
+      </div>
     </div>
   );
 };
