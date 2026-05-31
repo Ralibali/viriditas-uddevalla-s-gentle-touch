@@ -54,7 +54,13 @@ const Index = () => {
   const avgRating = (peachRating ?? localAvg).toFixed(1);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-5 focus:py-3 focus:font-body focus:font-medium focus:text-primary-foreground focus:shadow-lg"
+      >
+        Hoppa till innehåll
+      </a>
       <SeoHead
         title="Massage Uddevalla | Viriditas – Andreas Håman"
         description="Boka klassisk massage i Uddevalla hos Viriditas. Diplomerad massör Andreas Håman, Folkets Hus, Göteborgsvägen 11B. Från 550 kr."
