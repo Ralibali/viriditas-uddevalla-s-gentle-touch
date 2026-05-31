@@ -131,19 +131,31 @@ const Index = () => {
       )}
       <Navbar />
 
+      <main id="main-content">
       {/* Hero */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/video/massage-2-poster.jpg"
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/video/massage-2.mp4" type="video/mp4" />
-        </video>
+        {reduceMotion ? (
+          <img
+            src="/video/massage-2-poster.jpg"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/video/massage-2-poster.jpg"
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/video/massage-2.webm" type="video/webm" />
+            <source src="/video/massage-2.mp4" type="video/mp4" />
+          </video>
+        )}
         <div className="absolute inset-0 bg-black/50" />
 
         <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
