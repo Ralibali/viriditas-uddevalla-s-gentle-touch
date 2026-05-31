@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote, Leaf, Gift, Phone, ExternalLink, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useReviews } from "@/hooks/useReviews";
