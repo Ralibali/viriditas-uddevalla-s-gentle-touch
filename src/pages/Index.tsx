@@ -377,16 +377,27 @@ const Index = () => {
             custom={1}
             className="order-1 md:order-2"
           >
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="none"
-              className="rounded-3xl shadow-2xl w-full object-cover aspect-square"
-            >
-              <source src="/video/massage.mp4" type="video/mp4" />
-            </video>
+            {reduceMotion ? (
+              <img
+                src="/video/massage-poster.jpg"
+                alt=""
+                aria-hidden="true"
+                className="rounded-3xl shadow-2xl w-full object-cover aspect-square"
+              />
+            ) : (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster="/video/massage-poster.jpg"
+                aria-hidden="true"
+                className="rounded-3xl shadow-2xl w-full object-cover aspect-square"
+              >
+                <source src="/video/massage.mp4" type="video/mp4" />
+              </video>
+            )}
           </motion.div>
         </div>
       </section>
