@@ -34,6 +34,8 @@ const noMotion = {
 const Index = () => {
   const { data: reviews } = useReviews();
   const { data: s } = useSiteSettings();
+  const reduceMotion = useReducedMotion();
+  const fadeUp = reduceMotion ? noMotion : baseFadeUp;
 
   // Helper: get setting value or fallback
   const t = (key: string, fallback: string) => s?.[key] || fallback;
