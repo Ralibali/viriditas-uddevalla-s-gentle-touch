@@ -1,5 +1,6 @@
 import { MapPin, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
+import logoLight from "@/assets/viriditas-logo-light.png.asset.json";
 
 const Footer = () => (
   <footer className="py-16 px-6 border-t border-border bg-foreground text-primary-foreground">
