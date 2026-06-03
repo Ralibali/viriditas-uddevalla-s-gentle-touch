@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { trackBookingClick } from "@/lib/trackBookingClick";
+import logoColor from "@/assets/viriditas-logo.png.asset.json";
+import logoLight from "@/assets/viriditas-logo-light.png.asset.json";
 
 const navLinks = [
   { label: "Hem", href: "/", isRoute: true },
