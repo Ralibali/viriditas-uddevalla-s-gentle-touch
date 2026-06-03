@@ -39,13 +39,12 @@ const Navbar = ({ alwaysSolid = false }: NavbarProps) => {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link
-          to="/"
-          className={`font-display text-2xl font-semibold transition-colors duration-300 ${
-            solid ? "text-foreground" : "text-white"
-          }`}
-        >
-          Viriditas
+        <Link to="/" className="flex items-center" aria-label="Viriditas Massage – till startsidan">
+          <img
+            src={solid ? logoColor.url : logoLight.url}
+            alt="Viriditas Massage"
+            className="h-11 md:h-12 w-auto transition-opacity duration-300"
+          />
         </Link>
 
         {/* Desktop */}
