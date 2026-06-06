@@ -26,7 +26,7 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
     fields: [
       { key: "hero_title", label: "Rubrik", placeholder: "Massage i Uddevalla" },
       { key: "hero_subtitle", label: "Underrubrik", placeholder: "– Känn skillnaden med Viriditas" },
-      { key: "hero_description", label: "Beskrivning", placeholder: "Diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage, Andreas Håman – Uddevalla Folkets Hus, Göteborgsvägen 11B" },
+      { key: "hero_description", label: "Beskrivning", placeholder: "Diplomerad massageterapeut och certifierad massör, Andreas Håman – Uddevalla Folkets Hus, Göteborgsvägen 11B" },
       { key: "hero_availability", label: "Tillgänglighet", placeholder: "Tider tillgängliga fredagar & lördagar" },
       { key: "hero_price_from", label: "Pris från", placeholder: "Från 550 kr" },
     ],
