@@ -10,6 +10,7 @@ const BLOCK_TYPES: { type: BlockType; label: string; icon: React.ElementType }[]
   { type: "cta_button", label: "Knapp (CTA)", icon: MousePointerClick },
   { type: "list", label: "Lista", icon: List },
   { type: "quote", label: "Citat", icon: Quote },
+  { type: "faq", label: "FAQ", icon: HelpCircle },
   { type: "divider", label: "Avdelare", icon: Minus },
 ];
 
