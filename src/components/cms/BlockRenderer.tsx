@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Calendar, ArrowRight } from "lucide-react";
 import type { ContentBlock } from "@/types/cms";
 import { trackBookingClick } from "@/lib/trackBookingClick";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
