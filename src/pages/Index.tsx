@@ -159,18 +159,6 @@ const Index = () => {
         <div className="absolute inset-0 bg-black/50" />
 
         <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={0}
-            className="flex items-center justify-center gap-2 mb-6"
-          >
-            <Leaf className="w-5 h-5 text-primary-foreground/70" />
-            <span className="text-primary-foreground/70 tracking-[0.3em] uppercase text-sm font-body">Viriditas</span>
-            <Leaf className="w-5 h-5 text-primary-foreground/70" />
-          </motion.div>
-
           <motion.h1
             initial="hidden"
             animate="visible"
