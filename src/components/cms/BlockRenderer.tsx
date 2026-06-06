@@ -124,6 +124,32 @@ export function BlockRenderer({ block }: { block: ContentBlock }) {
     case "divider":
       return <hr className="border-border my-8" />;
 
+    case "faq": {
+      const items = (data.items || []) as { question: string; answer: string }[];
+      return (
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          className="my-8"
+        >
+          <Accordion type="single" collapsible className="w-full">
+            {items.map((item, i) => (
+              <AccordionItem key={i} value={`faq-${i}`} className="border-b border-border">
+                <AccordionTrigger className="text-left text-foreground font-body font-medium text-lg hover:no-underline py-4">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground font-body text-base leading-relaxed pb-4">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </motion.div>
+      );
+    }
+
     default:
       return null;
   }
