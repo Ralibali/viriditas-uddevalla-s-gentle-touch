@@ -34,10 +34,9 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
   {
     label: "Om Andreas",
     fields: [
-      { key: "about_title", label: "Rubrik", placeholder: "Om Andreas & Goliat" },
+      { key: "about_title", label: "Rubrik", placeholder: "Om Andreas" },
       { key: "about_text_1", label: "Stycke 1", placeholder: "Andreas Håman är diplomerad massageterapeut...", type: "textarea" },
       { key: "about_text_2", label: "Stycke 2", placeholder: "Tidigare har han arbetat inom personlig assistans...", type: "textarea" },
-      { key: "about_text_goliat", label: "Text om Goliat", placeholder: "Min bästa vän och ledarhund Goliat...", type: "textarea" },
       { key: "about_quote", label: "Citat", placeholder: "Jag lyssnar med händerna." },
     ],
   },
