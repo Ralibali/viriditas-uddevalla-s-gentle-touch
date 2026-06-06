@@ -19,8 +19,8 @@ const OmAndreas = () => {
   return (
     <div className="min-h-screen bg-background">
       <SeoHead
-        title="Om Andreas Håman | Massageterapeut i Uddevalla"
-        description="Andreas Håman – certifierad massageterapeut i Uddevalla med bakgrund inom vården. Lär känna mannen bakom Viriditas."
+        title="Om Andreas Håman | Certifierad massör i Uddevalla"
+        description="Andreas Håman – diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage i Uddevalla. Lär känna mannen bakom Viriditas."
         path="/om-andreas"
       />
       <script
@@ -53,7 +53,7 @@ const OmAndreas = () => {
             "@context": "https://schema.org",
             "@type": "Person",
             "name": "Andreas Håman",
-            "jobTitle": "Certifierad Massageterapeut",
+            "jobTitle": "Certifierad massör",
             "worksFor": {
               "@type": "HealthAndBeautyBusiness",
               "name": "Viriditas",
@@ -83,7 +83,7 @@ const OmAndreas = () => {
             custom={0}
             className="text-4xl md:text-5xl font-display font-semibold text-foreground mb-8 leading-tight"
           >
-            Andreas Håman – Certifierad Massageterapeut i Uddevalla
+            Andreas Håman – Certifierad massör i Uddevalla
           </motion.h1>
 
           <motion.div
@@ -94,7 +94,7 @@ const OmAndreas = () => {
             className="space-y-6 text-lg text-muted-foreground leading-relaxed font-body"
           >
             <p>
-              Andreas Håman är certifierad massageterapeut med bakgrund inom vården. Hans resa till massageyrket är ovanlig – och det är just det som gör hans behandlingar unika.
+              Andreas Håman är diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage med bakgrund inom vården. Hans resa till massageyrket är ovanlig – och det är just det som gör hans behandlingar unika.
             </p>
             <p>
               Andreas har en synnedsättning som skärpt hans övriga sinnen på ett sätt som är svårt att förklara men lätt att känna. Varje behandling är djupt uppmärksam. Han lyssnar med händerna.

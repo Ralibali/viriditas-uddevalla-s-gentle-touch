@@ -26,7 +26,7 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
     fields: [
       { key: "hero_title", label: "Rubrik", placeholder: "Massage i Uddevalla" },
       { key: "hero_subtitle", label: "Underrubrik", placeholder: "– Känn skillnaden med Viriditas" },
-      { key: "hero_description", label: "Beskrivning", placeholder: "Certifierad massageterapeut Andreas Håman – Uddevalla Folkets Hus, Göteborgsvägen 11B" },
+      { key: "hero_description", label: "Beskrivning", placeholder: "Diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage, Andreas Håman – Uddevalla Folkets Hus, Göteborgsvägen 11B" },
       { key: "hero_availability", label: "Tillgänglighet", placeholder: "Tider tillgängliga fredagar & lördagar" },
       { key: "hero_price_from", label: "Pris från", placeholder: "Från 550 kr" },
     ],
@@ -35,7 +35,7 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
     label: "Om Andreas",
     fields: [
       { key: "about_title", label: "Rubrik", placeholder: "Om Andreas" },
-      { key: "about_text_1", label: "Stycke 1", placeholder: "Andreas Håman är certifierad massageterapeut...", type: "textarea" },
+      { key: "about_text_1", label: "Stycke 1", placeholder: "Andreas Håman är diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage...", type: "textarea" },
       { key: "about_text_2", label: "Stycke 2", placeholder: "Tidigare har han arbetat inom personlig assistans...", type: "textarea" },
       { key: "about_quote", label: "Citat", placeholder: "Jag lyssnar med händerna." },
     ],
