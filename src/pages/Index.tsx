@@ -63,7 +63,7 @@ const Index = () => {
       </a>
       <SeoHead
         title="Massage Uddevalla | Viriditas – Andreas Håman"
-        description="Boka klassisk massage i Uddevalla hos Viriditas. Diplomerad massör Andreas Håman, Folkets Hus, Göteborgsvägen 11B. Från 550 kr."
+        description="Boka klassisk massage i Uddevalla hos Viriditas. Certifierad massör Andreas Håman, Folkets Hus, Göteborgsvägen 11B. Från 550 kr."
         path="/"
       />
       <script
@@ -179,7 +179,7 @@ const Index = () => {
             custom={2}
             className="text-primary-foreground/70 text-lg md:text-xl font-body italic mb-8 max-w-xl mx-auto"
           >
-            {t("hero_description", "Diplomerad massageterapeut Andreas Håman – Uddevalla Folkets Hus, Göteborgsvägen 11B")}
+            {t("hero_description", "Certifierad massageterapeut Andreas Håman – Uddevalla Folkets Hus, Göteborgsvägen 11B")}
           </motion.p>
 
           <motion.div
@@ -278,7 +278,7 @@ const Index = () => {
              </h2>
             <div className="w-20 h-1 bg-primary rounded-full" />
             <p className="text-muted-foreground leading-relaxed text-lg">
-              {t("about_text_1", "Andreas Håman är diplomerad massageterapeut med bakgrund inom vården. Hans unika känslighet – skärpt av en synnedsättning – gör varje behandling mycket uppmärksam och personlig.")}
+              {t("about_text_1", "Andreas Håman är certifierad massageterapeut med bakgrund inom vården. Hans unika känslighet – skärpt av en synnedsättning – gör varje behandling mycket uppmärksam och personlig.")}
             </p>
             <p className="text-muted-foreground leading-relaxed">
               {t("about_text_2", "Tidigare har han arbetat inom personlig assistans, psykiatrin och äldreboende. I massagen har han funnit något som ger samma känsla av kreativitet som konsten en gång gav.")}
@@ -399,7 +399,7 @@ const Index = () => {
             </h2>
             <div className="w-20 h-1 bg-primary rounded-full mx-auto" />
             <p className="text-lg text-muted-foreground leading-relaxed font-body">
-              Söker du professionell massage i Uddevalla? Hos Viriditas möts du av en diplomerad massageterapeut som tar sig tid att förstå just din kropp – oavsett om du vill släppa nackspänningar, mjuka upp en stel rygg eller bara unna dig en stunds djup avslappning. Läs mer om{" "}
+              Söker du professionell massage i Uddevalla? Hos Viriditas möts du av en certifierad massageterapeut som tar sig tid att förstå just din kropp – oavsett om du vill släppa nackspänningar, mjuka upp en stel rygg eller bara unna dig en stunds djup avslappning. Läs mer om{" "}
               <Link
                 to="/klassisk-massage"
                 className="text-primary font-medium underline-offset-4 hover:underline"
@@ -452,7 +452,7 @@ const Index = () => {
           >
             {t(
               "treatments_intro",
-              "Här hittar du alla behandlingar – från fokuserad klassisk massage till lugn avslappningsmassage. Allt utförs av samma diplomerade terapeut, med tid att verkligen lyssna på din kropp."
+              "Här hittar du alla behandlingar – från fokuserad klassisk massage till lugn avslappningsmassage. Allt utförs av samma certifierade terapeut, med tid att verkligen lyssna på din kropp."
             )}
           </motion.p>
         </div>
@@ -1157,7 +1157,7 @@ const Index = () => {
                 { q: "Var ligger Viriditas i Uddevalla?", a: "Viriditas finns i Uddevalla Folkets Hus, Göteborgsvägen 11B." },
                 { q: "Hur bokar jag tid för massage?", a: 'Du bokar snabbt och enkelt online via vår bokningssida. Klicka på "Boka tid" här på sidan.' },
                 { q: "Vad är klassisk massage?", a: "Klassisk massage är den vanligaste massageformen i Sverige. Den löser upp spänningar, ökar blodcirkulationen och ger djup avkoppling för hela kroppen." },
-                { q: "Vem är massageterapeuten på Viriditas?", a: "Andreas Håman är diplomerad massageterapeut med bakgrund inom vården. Tack vare sin synnedsättning har han utvecklat en unik känslighet i sina händer, vilket gör hans behandlingar extra uppmärksamma och precisa." },
+                { q: "Vem är massageterapeuten på Viriditas?", a: "Andreas Håman är certifierad massageterapeut med bakgrund inom vården. Tack vare sin synnedsättning har han utvecklat en unik känslighet i sina händer, vilket gör hans behandlingar extra uppmärksamma och precisa." },
               ].map((faq, i) => (
                 <AccordionItem key={i} value={`faq-${i}`} className="bg-background rounded-2xl border border-border px-6">
                   <AccordionTrigger className="text-left font-display text-foreground hover:no-underline">

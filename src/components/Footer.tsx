@@ -8,7 +8,7 @@ const Footer = () => (
         <div>
           <h3 className="font-display font-semibold text-2xl mb-4">Viriditas</h3>
           <p className="text-primary-foreground/70 text-sm leading-relaxed">
-            Klassisk massage i Uddevalla. Diplomerad massageterapeut med passion för välmående.
+            Klassisk massage i Uddevalla. Certifierad massageterapeut med passion för välmående.
           </p>
         </div>
         <div>
