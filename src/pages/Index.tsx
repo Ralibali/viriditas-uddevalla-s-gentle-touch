@@ -179,7 +179,7 @@ const Index = () => {
             custom={2}
             className="text-primary-foreground/70 text-lg md:text-xl font-body italic mb-8 max-w-xl mx-auto"
           >
-            {t("hero_description", "Diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage, Andreas Håman – Uddevalla Folkets Hus, Göteborgsvägen 11B")}
+            {t("hero_description", "Diplomerad massageterapeut och certifierad massör, Andreas Håman – Uddevalla Folkets Hus, Göteborgsvägen 11B")}
           </motion.p>
 
           <motion.div
