@@ -63,7 +63,7 @@ const Index = () => {
       </a>
       <SeoHead
         title="Massage Uddevalla | Viriditas – Andreas Håman"
-        description="Boka klassisk massage i Uddevalla hos Viriditas. Diplomerad massör Andreas Håman, Folkets Hus, Göteborgsvägen 11B. Från 550 kr."
+        description="Boka klassisk massage i Uddevalla hos Viriditas. Certifierad massör Andreas Håman, Folkets Hus, Göteborgsvägen 11B. Från 550 kr."
         path="/"
       />
       <script
@@ -179,7 +179,7 @@ const Index = () => {
             custom={2}
             className="text-primary-foreground/70 text-lg md:text-xl font-body italic mb-8 max-w-xl mx-auto"
           >
-            {t("hero_description", "Diplomerad massageterapeut Andreas Håman – Uddevalla Folkets Hus, Göteborgsvägen 11B")}
+            {t("hero_description", "Certifierad massageterapeut Andreas Håman – Uddevalla Folkets Hus, Göteborgsvägen 11B")}
           </motion.p>
 
           <motion.div
@@ -278,7 +278,7 @@ const Index = () => {
              </h2>
             <div className="w-20 h-1 bg-primary rounded-full" />
             <p className="text-muted-foreground leading-relaxed text-lg">
-              {t("about_text_1", "Andreas Håman är diplomerad massageterapeut med bakgrund inom vården. Hans unika känslighet – skärpt av en synnedsättning – gör varje behandling mycket uppmärksam och personlig.")}
+              {t("about_text_1", "Andreas Håman är certifierad massageterapeut med bakgrund inom vården. Hans unika känslighet – skärpt av en synnedsättning – gör varje behandling mycket uppmärksam och personlig.")}
             </p>
             <p className="text-muted-foreground leading-relaxed">
               {t("about_text_2", "Tidigare har han arbetat inom personlig assistans, psykiatrin och äldreboende. I massagen har han funnit något som ger samma känsla av kreativitet som konsten en gång gav.")}
