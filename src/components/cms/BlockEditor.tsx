@@ -27,6 +27,7 @@ function defaultData(type: BlockType): Record<string, any> {
     case "cta_button": return { text: "Boka tid", url: "https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule", variant: "default", trackSource: "", external: true };
     case "list": return { items: ["Punkt 1", "Punkt 2"] };
     case "quote": return { text: "", author: "" };
+    case "faq": return { items: [{ question: "Vanlig fråga?", answer: "Svar här..." }] };
     case "divider": return {};
     default: return {};
   }
