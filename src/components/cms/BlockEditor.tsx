@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Trash2, GripVertical, ChevronUp, ChevronDown, Type, AlignLeft, Image, Video, MousePointerClick, List, Quote, Minus } from "lucide-react";
+import { Plus, Trash2, GripVertical, ChevronUp, ChevronDown, Type, AlignLeft, Image, Video, MousePointerClick, List, Quote, Minus, HelpCircle } from "lucide-react";
 import type { ContentBlock, BlockType } from "@/types/cms";
 
 const BLOCK_TYPES: { type: BlockType; label: string; icon: React.ElementType }[] = [
@@ -10,6 +10,7 @@ const BLOCK_TYPES: { type: BlockType; label: string; icon: React.ElementType }[]
   { type: "cta_button", label: "Knapp (CTA)", icon: MousePointerClick },
   { type: "list", label: "Lista", icon: List },
   { type: "quote", label: "Citat", icon: Quote },
+  { type: "faq", label: "FAQ", icon: HelpCircle },
   { type: "divider", label: "Avdelare", icon: Minus },
 ];
 
@@ -26,6 +27,7 @@ function defaultData(type: BlockType): Record<string, any> {
     case "cta_button": return { text: "Boka tid", url: "https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule", variant: "default", trackSource: "", external: true };
     case "list": return { items: ["Punkt 1", "Punkt 2"] };
     case "quote": return { text: "", author: "" };
+    case "faq": return { items: [{ question: "Vanlig fråga?", answer: "Svar här..." }] };
     case "divider": return {};
     default: return {};
   }
@@ -170,6 +172,62 @@ function BlockFields({ block, onChange }: { block: ContentBlock; onChange: (data
       );
     case "divider":
       return <p className="text-xs text-muted-foreground font-body">Horisontell avskiljare – inga inställningar.</p>;
+
+    case "faq": {
+      const items = (data.items || []) as { question: string; answer: string }[];
+      return (
+        <div className="space-y-4">
+          {items.map((item: { question: string; answer: string }, idx: number) => (
+            <div key={idx} className="space-y-2 p-3 border border-border rounded-lg bg-muted/30">
+              <div>
+                <label className="text-xs text-muted-foreground font-body block mb-1">Fråga</label>
+                <input
+                  type="text"
+                  value={item.question}
+                  onChange={(e) => {
+                    const updated = [...items];
+                    updated[idx] = { ...item, question: e.target.value };
+                    onChange({ ...data, items: updated });
+                  }}
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm font-body"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground font-body block mb-1">Svar</label>
+                <textarea
+                  value={item.answer}
+                  onChange={(e) => {
+                    const updated = [...items];
+                    updated[idx] = { ...item, answer: e.target.value };
+                    onChange({ ...data, items: updated });
+                  }}
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm font-body resize-y min-h-[60px]"
+                />
+              </div>
+              <button
+                onClick={() => {
+                  const updated = items.filter((_, i) => i !== idx);
+                  onChange({ ...data, items: updated });
+                }}
+                className="text-xs text-destructive hover:text-destructive/80 font-body"
+              >
+                Ta bort fråga
+              </button>
+            </div>
+          ))}
+          <button
+            onClick={() => {
+              const updated = [...items, { question: "Ny fråga", answer: "Svar..." }];
+              onChange({ ...data, items: updated });
+            }}
+            className="flex items-center gap-1 text-sm text-primary font-body hover:underline"
+          >
+            <Plus className="w-4 h-4" /> Lägg till fråga
+          </button>
+        </div>
+      );
+    }
+
     default:
       return null;
   }

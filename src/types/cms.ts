@@ -6,7 +6,8 @@ export type BlockType =
   | "list"
   | "quote"
   | "divider"
-  | "video";
+  | "video"
+  | "faq";
 
 export interface ContentBlock {
   id: string;
