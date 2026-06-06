@@ -20,7 +20,7 @@ const OmAndreas = () => {
     <div className="min-h-screen bg-background">
       <SeoHead
         title="Om Andreas Håman | Massageterapeut i Uddevalla"
-        description="Andreas Håman – diplomerad massageterapeut i Uddevalla med bakgrund inom vården. Lär känna mannen bakom Viriditas och ledarhunden Goliat."
+        description="Andreas Håman – diplomerad massageterapeut i Uddevalla med bakgrund inom vården. Lär känna mannen bakom Viriditas."
         path="/om-andreas"
       />
       <script
