@@ -3,7 +3,7 @@ import { MapPin, Clock, Star, Heart, Calendar, ArrowRight, Quote, Leaf, Gift, Ph
 import { Link } from "react-router-dom";
 import { useReviews } from "@/hooks/useReviews";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
-import andreasGoliat from "@/assets/andreas-goliat.jpeg";
+import andreasPortrait from "@/assets/andreas-portrait.jpeg";
 import folketsHus from "@/assets/folkets-hus.jpeg";
 import folketsHusEntre from "@/assets/folkets-hus-entre.jpeg";
 import salonRoomPainting from "@/assets/salon-room-painting.jpg";
@@ -258,8 +258,8 @@ const Index = () => {
             variants={fadeUp}
           >
             <img
-              src={andreasGoliat}
-              alt="Andreas Håman, massageterapeut på Viriditas i Uddevalla, med ledarhunden Goliat"
+              src={andreasPortrait}
+              alt="Andreas Håman, massageterapeut på Viriditas i Uddevalla"
               className="rounded-3xl shadow-2xl w-full object-cover object-top aspect-[3/4]"
               loading="lazy"
               decoding="async"
@@ -274,7 +274,7 @@ const Index = () => {
             className="space-y-6"
           >
              <h2 className="text-3xl md:text-5xl font-display font-semibold text-foreground">
-               {t("about_title", "Om Andreas & Goliat")}
+               {t("about_title", "Om Andreas")}
              </h2>
             <div className="w-20 h-1 bg-primary rounded-full" />
             <p className="text-muted-foreground leading-relaxed text-lg">
@@ -282,12 +282,6 @@ const Index = () => {
             </p>
             <p className="text-muted-foreground leading-relaxed">
               {t("about_text_2", "Tidigare har han arbetat inom personlig assistans, psykiatrin och äldreboende. I massagen har han funnit något som ger samma känsla av kreativitet som konsten en gång gav.")}
-            </p>
-            <p className="text-muted-foreground leading-relaxed flex items-start gap-2">
-              <Heart className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-               <span>
-                 {t("about_text_goliat", "Min bästa vän och ledarhund Goliat hjälper mig i vardagen och är också med i behandlingsrummet – en lugn och trygg närvaro.")}
-               </span>
             </p>
             <blockquote className="border-l-4 border-primary pl-6 mt-8">
                <p className="text-xl font-body italic text-foreground">
