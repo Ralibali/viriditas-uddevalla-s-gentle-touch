@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Trash2, GripVertical, ChevronUp, ChevronDown, Type, AlignLeft, Image, Video, MousePointerClick, List, Quote, Minus } from "lucide-react";
+import { Plus, Trash2, GripVertical, ChevronUp, ChevronDown, Type, AlignLeft, Image, Video, MousePointerClick, List, Quote, Minus, HelpCircle } from "lucide-react";
 import type { ContentBlock, BlockType } from "@/types/cms";
 
 const BLOCK_TYPES: { type: BlockType; label: string; icon: React.ElementType }[] = [
