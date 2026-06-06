@@ -233,7 +233,11 @@ const Index = () => {
           transition={{ delay: 1.5, duration: 1 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
         >
-          <a href="#om" className="text-primary-foreground/50 animate-bounce block">
+          <a
+            href="#om"
+            aria-label="Scrolla till om-sektionen"
+            className="text-primary-foreground/80 animate-bounce block"
+          >
             <ArrowRight className="w-6 h-6 rotate-90" />
           </a>
         </motion.div>
