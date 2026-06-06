@@ -13,7 +13,7 @@ Viriditas drivs av Andreas Håman – diplomerad massageterapeut med bakgrund in
 ## Pages
 
 - [Startsida](/): Översikt, behandlingar, omdömen och bokning.
-- [Om Andreas](/om-andreas): Andreas Håmans bakgrund, utbildning och berättelsen om Goliat.
+- [Om Andreas](/om-andreas): Andreas Håmans bakgrund och utbildning.
 - [Klassisk massage](/klassisk-massage): Vad klassisk massage är och hur den hjälper mot spänningar och stress.
 
 ## Optional
