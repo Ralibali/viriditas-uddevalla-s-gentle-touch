@@ -6,7 +6,7 @@ const Footer = () => (
     <div className="max-w-5xl mx-auto">
       <div className="grid md:grid-cols-3 gap-12 mb-12">
         <div>
-          <img src={logoLight.url} alt="Viriditas Massage" className="h-20 w-auto mb-4" />
+          <h3 className="font-display font-semibold text-2xl mb-4">Viriditas</h3>
           <p className="text-primary-foreground/70 text-sm leading-relaxed">
             Klassisk massage i Uddevalla. Diplomerad massageterapeut med passion för välmående.
           </p>
