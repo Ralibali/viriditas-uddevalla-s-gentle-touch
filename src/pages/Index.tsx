@@ -172,15 +172,6 @@ const Index = () => {
             </span>
           </motion.h1>
 
-          <motion.p
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={2}
-            className="text-primary-foreground/70 text-lg md:text-xl font-body italic mb-8 max-w-xl mx-auto"
-          >
-            {t("hero_description", "Diplomerad massageterapeut och certifierad massör, Andreas Håman – Uddevalla Folkets Hus, Göteborgsvägen 11B")}
-          </motion.p>
 
           <motion.div
             initial="hidden"
