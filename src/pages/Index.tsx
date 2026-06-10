@@ -166,9 +166,9 @@ const Index = () => {
             custom={1}
             className="text-5xl md:text-7xl font-display font-semibold text-primary-foreground mb-6 leading-tight"
           >
-            {t("hero_title", "Uddevallas blinde massör")}
+            {t("hero_title", "Massage i Uddevalla")}
             <span className="block text-3xl md:text-4xl font-normal mt-2 text-primary-foreground/80">
-              {t("hero_subtitle", "– Känn skillnaden med Viriditas")}
+              {t("hero_subtitle", "– hos Uddevallas blinde massör Andreas Håman")}
             </span>
           </motion.h1>
 

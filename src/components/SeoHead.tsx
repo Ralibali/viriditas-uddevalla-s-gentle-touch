@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 
 const SITE_URL = "https://viriditasmassage.se";
-const DEFAULT_OG_IMAGE =
-  "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c139f0bb-c10a-4d6f-af73-c16abdc24204/id-preview-8e640e36--c65f5dbf-cd56-4678-96d6-5be810085b4c.lovable.app-1773182059283.png";
+const DEFAULT_OG_IMAGE = "https://viriditasmassage.se/og-image.jpg";
 
 export interface SeoHeadProps {
   /** Page title – will be used as-is (no automatic " | Viriditas" suffix). */
