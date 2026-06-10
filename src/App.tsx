@@ -8,6 +8,10 @@ import Index from "./pages/Index.tsx";
 
 const OmAndreas = lazy(() => import("./pages/OmAndreas.tsx"));
 const KlassiskMassage = lazy(() => import("./pages/KlassiskMassage.tsx"));
+const AvslappningsmassageUddevalla = lazy(() => import("./pages/AvslappningsmassageUddevalla.tsx"));
+const MassageMotNackspanning = lazy(() => import("./pages/MassageMotNackspanning.tsx"));
+const FriskvardsbidragMassageUddevalla = lazy(() => import("./pages/FriskvardsbidragMassageUddevalla.tsx"));
+const MassageLjungskile = lazy(() => import("./pages/MassageLjungskile.tsx"));
 const Dashboard = lazy(() => import("./pages/Dashboard.tsx"));
 const DynamicPage = lazy(() => import("./pages/DynamicPage.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
@@ -31,6 +35,10 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/om-andreas" element={<OmAndreas />} />
             <Route path="/klassisk-massage" element={<KlassiskMassage />} />
+            <Route path="/avslappningsmassage-uddevalla" element={<AvslappningsmassageUddevalla />} />
+            <Route path="/massage-mot-nackspanning" element={<MassageMotNackspanning />} />
+            <Route path="/friskvardsbidrag-massage-uddevalla" element={<FriskvardsbidragMassageUddevalla />} />
+            <Route path="/massage-ljungskile" element={<MassageLjungskile />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/p/:slug" element={<DynamicPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
