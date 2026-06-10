@@ -12,7 +12,7 @@ import salonTableWindow from "@/assets/salon-table-window.jpg";
 import salonWindowsill from "@/assets/salon-windowsill.jpg";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { trackBookingClick } from "@/lib/trackBookingClick";
+import { trackBookingClick, trackPhoneClick } from "@/lib/trackBookingClick";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import SeoHead from "@/components/SeoHead";
