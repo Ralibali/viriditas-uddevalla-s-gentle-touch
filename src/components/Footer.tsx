@@ -61,7 +61,14 @@ const Footer = () => {
                 <MapPin className="w-4 h-4 flex-shrink-0" /> Uddevalla Folkets Hus, Göteborgsvägen 11B
               </p>
               <p className="flex items-center gap-2">
-                <Phone className="w-4 h-4 flex-shrink-0" /> 076-317 78 97
+                <Phone className="w-4 h-4 flex-shrink-0" />
+                <a
+                  href="tel:+46763177897"
+                  onClick={() => trackPhoneClick("footer")}
+                  className="hover:text-primary-foreground transition-colors"
+                >
+                  076-317 78 97
+                </a>
               </p>
             </div>
           </div>
