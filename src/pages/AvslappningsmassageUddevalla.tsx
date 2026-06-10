@@ -16,22 +16,24 @@ const fadeUp = {
   }),
 };
 
+const BOOKING_URL = "https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule";
+
 const faqs = [
   {
-    q: "Vad är skillnaden på avslappningsmassage och klassisk massage?",
-    a: "Avslappningsmassage bygger på samma teknik som klassisk svensk massage, men med ett lugnare tempo och mjukare tryck. Fokus ligger på att lugna nervsystemet och ge djup vila snarare än att bearbeta enskilda muskelknutor.",
+    q: "Hur skiljer sig avslappningsmassage från klassisk massage?",
+    a: "Avslappningsmassage använder samma grundtekniker som klassisk massage men med mjukare tryck och lugnare tempo. Fokus ligger på helhetsavslappning och stressreduktion snarare än djup bearbetning av enskilda muskler. Hos Viriditas anpassas varje behandling efter dina önskemål.",
   },
   {
-    q: "Kan massage hjälpa mot stress och sömnproblem?",
-    a: "Ja. Lugn, rytmisk massage sänker stresshormonet kortisol och aktiverar det parasympatiska nervsystemet – kroppens vilo- och återhämtningsläge. Många upplever bättre sömn redan natten efter en behandling.",
+    q: "Hur ofta bör jag gå på avslappningsmassage?",
+    a: "För att hantera vardagsstress fungerar en behandling per månad bra för de flesta. Under perioder av hög belastning kan tätare besök, exempelvis varannan vecka, ge bättre effekt.",
   },
   {
-    q: "Hur ofta bör jag boka avslappningsmassage?",
-    a: "Vid hög stress kan varannan vecka ge bäst effekt inledningsvis. För allmänt välmående räcker det ofta med en behandling i månaden som en stunds återhämtning.",
+    q: "Kan jag använda friskvårdsbidraget?",
+    a: "Ja. Massage hos diplomerad massör är godkänd friskvård enligt Skatteverket, och du får kvitto som du laddar upp i din arbetsgivares friskvårdsportal.",
   },
   {
-    q: "Hur lång är en behandling och vad kostar den?",
-    a: "Du väljer mellan 45 minuter för 550 kr eller 60 minuter för 650 kr. Sextiominuterspasset ger mer tid för djup avslappning från topp till tå.",
+    q: "Vad ska jag tänka på inför besöket?",
+    a: "Ingenting särskilt – kom som du är. Undvik gärna en stor måltid precis innan, och räkna med att ge dig själv några lugna minuter efter behandlingen i stället för att rusa vidare.",
   },
 ];
 
@@ -39,8 +41,8 @@ const AvslappningsmassageUddevalla = () => {
   return (
     <div className="min-h-screen bg-background">
       <SeoHead
-        title="Avslappningsmassage Uddevalla – lugn & återhämtning | Viriditas"
-        description="Avslappningsmassage i Uddevalla mot stress och sömnproblem. Lugn, mjuk massage hos diplomerad massör Andreas Håman. Från 550 kr – boka online."
+        title="Avslappningsmassage Uddevalla – Boka hos Viriditas | Från 550 kr"
+        description="Avslappningsmassage i Uddevalla hos diplomerad massör Andreas Håman. Minska stress, sov bättre och hitta lugnet. Folkets Hus, Göteborgsvägen 11B. Boka online."
         path="/avslappningsmassage-uddevalla"
       />
       <script
@@ -53,14 +55,9 @@ const AvslappningsmassageUddevalla = () => {
             "serviceType": "Avslappningsmassage",
             "provider": {
               "@type": "HealthAndBeautyBusiness",
+              "@id": "https://viriditasmassage.se/#business",
               "name": "Viriditas",
               "url": "https://viriditasmassage.se",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Göteborgsvägen 11B (Uddevalla Folkets Hus)",
-                "addressLocality": "Uddevalla",
-                "addressCountry": "SE",
-              },
             },
             "areaServed": [
               { "@type": "City", "name": "Uddevalla" },
@@ -112,51 +109,34 @@ const AvslappningsmassageUddevalla = () => {
             custom={0}
             className="text-4xl md:text-5xl font-display font-semibold text-foreground mb-8 leading-tight"
           >
-            Avslappningsmassage i Uddevalla – andas ut och återhämta dig
+            Avslappningsmassage i Uddevalla
           </motion.h1>
 
-          <motion.div
+          <motion.p
             initial="hidden"
             animate="visible"
             variants={fadeUp}
             custom={1}
-            className="space-y-6 text-lg text-muted-foreground leading-relaxed font-body"
+            className="text-lg text-muted-foreground leading-relaxed font-body"
           >
-            <p>
-              Lever du med ständig stress, orolig sömn eller en känsla av att aldrig riktigt landa? Avslappningsmassage hos Viriditas i Uddevalla är till för dig som behöver sänka varvtalet och ge kropp och själ en stunds äkta vila. I en lugn och omsorgsfullt förberedd lokal i Uddevalla Folkets Hus får du tid att bara vara.
-            </p>
-            <p>
-              Behandlingen utgår från klassisk svensk massage men hålls i ett medvetet långsamt tempo med mjukt, jämnt tryck. Långa, rytmiska strykningar lugnar nervsystemet, sänker pulsen och hjälper kroppen att gå från stresspåslag till återhämtning. Resultatet är en djup avspänning som ofta märks långt efter att du lämnat behandlingsbänken – i form av lättare axlar, klarare tankar och bättre sömn.
-            </p>
-
-            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">
-              När gör avslappningsmassage som mest nytta?
-            </h2>
-            <p>
-              Många av de som söker sig hit har ett högt tempo i vardagen: pressade arbetsdagar, ansvar hemma och en hjärna som sällan stänger av. Avslappningsmassage är särskilt värdefull vid långvarig stress, spänningar som sätter sig i nacke och axlar, sömnsvårigheter och allmän mental trötthet. Den passar också utmärkt som förebyggande egenvård – ett sätt att möta stressen innan den blir till värk.
-            </p>
-            <p>
-              Andreas Håman är diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage. Hans skärpta känsel – en följd av en synnedsättning – gör att han läser av kroppens spänningar med ovanlig precision och anpassar varje behandling efter just dig.
-            </p>
-          </motion.div>
+            Känner du dig stressad, spänd eller har svårt att varva ner? Hos Viriditas i centrala Uddevalla får du en avslappningsmassage som är skapad för att lugna nervsystemet, lösa upp ytliga spänningar och ge kroppen den återhämtning den behöver. Behandlingen utförs av Andreas Håman – diplomerad massageterapeut med bakgrund inom vården.
+          </motion.p>
 
           <motion.div
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            custom={2}
-            className="mt-12 bg-primary/5 border border-primary/20 rounded-3xl p-8 text-center"
+            custom={1.5}
+            className="mt-8"
           >
-            <p className="text-foreground font-display font-semibold text-xl mb-2">Dags att unna dig vila?</p>
-            <p className="text-muted-foreground font-body mb-4">Boka din avslappningsmassage – det tar under en minut.</p>
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackBookingClick("avslappningsmassage-mid")}
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full font-body font-medium shadow-lg shadow-primary/20 hover:shadow-xl transition-shadow"
+              onClick={() => trackBookingClick("avslappningsmassage-top")}
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
             >
               Boka tid <Calendar className="w-5 h-5" />
             </motion.a>
@@ -166,29 +146,48 @@ const AvslappningsmassageUddevalla = () => {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            custom={3}
+            custom={2}
             className="mt-12 space-y-6 text-lg text-muted-foreground leading-relaxed font-body"
           >
-            <h2 className="text-3xl font-display font-semibold text-foreground">
-              Så går behandlingen till
-            </h2>
+            <h2 className="text-3xl font-display font-semibold text-foreground">Vad är avslappningsmassage?</h2>
             <p>
-              Vi börjar med ett kort samtal om hur du mår och vad du behöver – vill du ha ren avkoppling eller lite mer fokus på spända områden? Sedan får du landa på en varm bänk medan lugn massage arbetar sig genom rygg, nacke, axlar och övriga kroppen. Du behöver inte prestera något; din enda uppgift är att andas och slappna av.
+              Avslappningsmassage är en mjukare form av klassisk massage där fokus ligger på långa, lugna strykningar och ett behagligt tryck snarare än djup muskelbearbetning. Syftet är inte i första hand att jobba bort enskilda muskelknutor, utan att sänka kroppens stressnivå som helhet.
             </p>
             <p>
-              Vill du veta mer om grundtekniken kan du läsa om{" "}
-              <Link to="/klassisk-massage" className="text-primary font-medium underline-offset-4 hover:underline">klassisk massage i Uddevalla</Link>. Bär du på spänningar som ger huvudvärk passar kanske{" "}
-              <Link to="/massage-mot-nackspanning" className="text-primary font-medium underline-offset-4 hover:underline">massage mot nackspänning</Link> bättre.
+              När kroppen får ro aktiveras det parasympatiska nervsystemet – kroppens "vila och återhämta"-läge. Pulsen går ner, andningen blir djupare och musklerna släpper gradvis sina spänningar. Många somnar nästan på bänken, och det är helt okej. Det är faktiskt ett kvitto på att behandlingen gör sitt jobb.
+            </p>
+
+            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Så kan avslappningsmassage hjälpa dig</h2>
+            <p>Regelbunden avslappningsmassage kan göra märkbar skillnad om du:</p>
+            <ul className="list-disc list-inside space-y-2">
+              <li>har en stressig vardag med jobb, familj och fullbokad kalender</li>
+              <li>sover dåligt eller har svårt att somna</li>
+              <li>känner dig spänd i axlar, nacke eller rygg utan att ha direkt smärta</li>
+              <li>vill förebygga stressrelaterade besvär innan de blir problem</li>
+              <li>helt enkelt behöver en stund som bara är din</li>
+            </ul>
+            <p>
+              Massage är en av få stunder i vardagen där du inte förväntas prestera någonting alls. Du ligger på bänken, terapeuten gör jobbet, och kroppen får lov att bara vara.
+            </p>
+
+            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">En massör som känner mer</h2>
+            <p>
+              Andreas Håman har en synnedsättning – något som skärpt hans övriga sinnen och gett honom en ovanligt utvecklad känslighet i händerna. Han läser av spänningar i din kropp som många andra missar, och anpassar tryck och tempo efter exakt vad du behöver just den dagen. I kombination med hans bakgrund inom vården får du en behandling som är både trygg och genuint lyhörd.
+            </p>
+
+            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Praktisk information</h2>
+            <p>
+              Viriditas finns i Uddevalla Folkets Hus på Göteborgsvägen 11B, mitt i centrala Uddevalla med goda parkeringsmöjligheter i närheten. Du bokar enkelt online via vår bokningssida – välj 45 minuter (550 kr) eller 60 minuter (650 kr). Behandlingen är godkänd för friskvårdsbidrag.
+            </p>
+            <p>
+              Läs mer om{" "}
+              <Link to="/klassisk-massage" className="text-primary font-medium underline-offset-4 hover:underline">klassisk massage i Uddevalla</Link>, om{" "}
+              <Link to="/massage-mot-nackspanning" className="text-primary font-medium underline-offset-4 hover:underline">massage mot nackspänning</Link> eller hur du använder ditt{" "}
+              <Link to="/friskvardsbidrag-massage-uddevalla" className="text-primary font-medium underline-offset-4 hover:underline">friskvårdsbidrag</Link>.
             </p>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={4}
-            className="mt-12"
-          >
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3} className="mt-12">
             <h2 className="text-3xl font-display font-semibold text-foreground mb-6">Vanliga frågor</h2>
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((f, i) => (
@@ -200,28 +199,22 @@ const AvslappningsmassageUddevalla = () => {
             </Accordion>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={5}
-            className="mt-12 space-y-6"
-          >
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={4} className="mt-12 space-y-6">
             <h2 className="text-3xl font-display font-semibold text-foreground">Boka avslappningsmassage i Uddevalla</h2>
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackBookingClick("avslappningsmassage")}
+              onClick={() => trackBookingClick("avslappningsmassage-bottom")}
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
             >
               Boka tid <Calendar className="w-5 h-5" />
             </motion.a>
           </motion.div>
 
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={6} className="mt-12">
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={5} className="mt-12">
             <Link to="/om-andreas" className="inline-flex items-center gap-2 text-primary font-body font-medium hover:underline">
               Läs mer om Andreas Håman <ArrowRight className="w-4 h-4" />
             </Link>
