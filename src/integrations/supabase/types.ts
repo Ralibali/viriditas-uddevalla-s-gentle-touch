@@ -16,18 +16,21 @@ export type Database = {
     Tables: {
       booking_clicks: {
         Row: {
+          click_type: string
           clicked_at: string
           id: string
           page_url: string | null
           source: string | null
         }
         Insert: {
+          click_type?: string
           clicked_at?: string
           id?: string
           page_url?: string | null
           source?: string | null
         }
         Update: {
+          click_type?: string
           clicked_at?: string
           id?: string
           page_url?: string | null

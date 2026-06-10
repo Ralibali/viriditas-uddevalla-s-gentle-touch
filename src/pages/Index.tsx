@@ -12,7 +12,7 @@ import salonTableWindow from "@/assets/salon-table-window.jpg";
 import salonWindowsill from "@/assets/salon-windowsill.jpg";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { trackBookingClick } from "@/lib/trackBookingClick";
+import { trackBookingClick, trackPhoneClick } from "@/lib/trackBookingClick";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import SeoHead from "@/components/SeoHead";
@@ -967,7 +967,13 @@ const Index = () => {
                   </div>
                   <div>
                     <h3 className="font-display font-semibold text-foreground mb-1">Telefon</h3>
-                    <p className="text-muted-foreground">{t("phone", "076-317 78 97")}</p>
+                    <a
+                      href="tel:+46763177897"
+                      onClick={() => trackPhoneClick("kontakt-phone")}
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {t("phone", "076-317 78 97")}
+                    </a>
                   </div>
                 </div>
               </div>
