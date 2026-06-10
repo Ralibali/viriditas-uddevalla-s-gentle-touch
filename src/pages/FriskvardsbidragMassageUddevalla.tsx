@@ -16,22 +16,24 @@ const fadeUp = {
   }),
 };
 
+const BOOKING_URL = "https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule";
+
 const faqs = [
   {
-    q: "Är massage godkänt som friskvård av Skatteverket?",
-    a: "Ja. Klassisk massage hos en utbildad massör räknas som enklare motion och friskvård enligt Skatteverket, och får betalas med friskvårdsbidrag. Det gäller behandlingar i förebyggande syfte – inte sjukvårdande behandling.",
+    q: "Hur mycket är friskvårdsbidraget på?",
+    a: "Det varierar mellan arbetsgivare, vanligtvis 1 500–5 000 kr per år. Skatteverkets tak för skattefritt friskvårdsbidrag är 5 000 kr per år. Fråga din HR-avdelning vad som gäller hos er.",
   },
   {
-    q: "Hur mycket friskvårdsbidrag får jag använda?",
-    a: "Arbetsgivaren får erbjuda upp till 5 000 kr per år skattefritt i friskvårdsbidrag. Hur mycket just du har beror på vad din arbetsgivare beslutat – fråga din chef eller HR om din nivå.",
+    q: "Funkar Epassi, Benify eller Wellnet hos er?",
+    a: "Du betalar din behandling direkt hos oss och laddar sedan upp kvittot i din portal för ersättning. Det fungerar med samtliga vanliga friskvårdsportaler som tillåter kvittoredovisning.",
   },
   {
-    q: "Hur gör jag för att använda mitt friskvårdsbidrag hos er?",
-    a: "Du betalar din behandling som vanligt och får ett kvitto. Kvittot laddar du sedan upp i din arbetsgivares system – exempelvis Epassi, Benify, ePassi, Söderberg & Partners eller direkt till HR – för att få pengarna återbetalda enligt era rutiner.",
+    q: "Kan jag köpa flera behandlingar på en gång?",
+    a: "Ja, du kan boka och betala flera behandlingar och redovisa kvittona mot ditt bidrag, så länge du håller dig inom din arbetsgivares regler och årsbelopp.",
   },
   {
-    q: "Får jag kvitto med all information som krävs?",
-    a: "Ja. Du får ett tydligt kvitto med datum, belopp, typ av behandling och uppgifter om Viriditas, så att det uppfyller arbetsgivarens och Skatteverkets krav för friskvårdsbidrag.",
+    q: "Gäller bidraget även återhämtningsmassage?",
+    a: "Återhämtningsmassagen (200 kr) är ett reducerat pris för dig som är arbetslös eller har sjukersättning/sjukpenning – då är friskvårdsbidrag via arbetsgivare oftast inte aktuellt. Kontakta oss om du är osäker på vad som gäller i din situation.",
   },
 ];
 
@@ -39,8 +41,8 @@ const FriskvardsbidragMassageUddevalla = () => {
   return (
     <div className="min-h-screen bg-background">
       <SeoHead
-        title="Friskvårdsbidrag på massage i Uddevalla – så funkar det | Viriditas"
-        description="Använd ditt friskvårdsbidrag på massage i Uddevalla. Skatteverket-godkänt hos diplomerad massör. Kvitto för Epassi, Benify m.fl. Boka online."
+        title="Friskvårdsbidrag för massage i Uddevalla | Viriditas"
+        description="Använd ditt friskvårdsbidrag för massage i Uddevalla. Klassisk massage hos diplomerad massör är godkänd friskvård enligt Skatteverket. Så funkar det – steg för steg."
         path="/friskvardsbidrag-massage-uddevalla"
       />
       <script
@@ -53,14 +55,9 @@ const FriskvardsbidragMassageUddevalla = () => {
             "serviceType": "Friskvårdsmassage",
             "provider": {
               "@type": "HealthAndBeautyBusiness",
+              "@id": "https://viriditasmassage.se/#business",
               "name": "Viriditas",
               "url": "https://viriditasmassage.se",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Göteborgsvägen 11B (Uddevalla Folkets Hus)",
-                "addressLocality": "Uddevalla",
-                "addressCountry": "SE",
-              },
             },
             "areaServed": [
               { "@type": "City", "name": "Uddevalla" },
@@ -112,55 +109,28 @@ const FriskvardsbidragMassageUddevalla = () => {
             custom={0}
             className="text-4xl md:text-5xl font-display font-semibold text-foreground mb-8 leading-tight"
           >
-            Friskvårdsbidrag på massage i Uddevalla – så använder du det
+            Använd friskvårdsbidraget för massage i Uddevalla
           </motion.h1>
 
-          <motion.div
+          <motion.p
             initial="hidden"
             animate="visible"
             variants={fadeUp}
             custom={1}
-            className="space-y-6 text-lg text-muted-foreground leading-relaxed font-body"
+            className="text-lg text-muted-foreground leading-relaxed font-body"
           >
-            <p>
-              Visste du att du kan låta arbetsgivaren betala din massage? Massage hos en diplomerad massör är godkänt som friskvård av Skatteverket, vilket betyder att du kan använda ditt friskvårdsbidrag för behandlingar hos Viriditas i Uddevalla. Det är ett av de enklaste och mest uppskattade sätten att omvandla en löneförmån till verkligt välmående.
-            </p>
-            <p>
-              På den här sidan går vi igenom hur friskvårdsbidraget fungerar, vad som gäller enligt Skatteverket, hur du får ut pengarna och vilka arbetsgivarportaler som är vanligast – så att du kan boka med gott samvete och utan krångel.
-            </p>
+            Visste du att din massage hos Viriditas kan vara helt eller delvis betald av din arbetsgivare? Klassisk massage hos diplomerad massör är godkänd friskvård enligt Skatteverkets regler – och de flesta arbetsgivare i Sverige erbjuder idag ett friskvårdsbidrag på mellan 1 500 och 5 000 kr per år. Här går vi igenom exakt hur det fungerar.
+          </motion.p>
 
-            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">
-              Vad är friskvårdsbidrag?
-            </h2>
-            <p>
-              Friskvårdsbidrag är en skattefri förmån som din arbetsgivare kan erbjuda för motion och annan friskvård av enklare slag. Arbetsgivaren får ge upp till 5 000 kr per anställd och år utan att det beskattas. Massage räknas hit – så länge den ges i förebyggande, hälsofrämjande syfte och utförs av någon med relevant utbildning. Andreas Håman är diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage, vilket uppfyller kraven.
-            </p>
-
-            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">
-              Så får du ut pengarna – steg för steg
-            </h2>
-            <p>
-              Du betalar din behandling som vanligt och får ett komplett kvitto. Därefter laddar du upp kvittot i din arbetsgivares friskvårdssystem. De vanligaste portalerna är Epassi, Benify, Wellnet och Söderberg & Partners, men många arbetsgivare hanterar det också direkt via HR mot uppvisat kvitto. Hur återbetalningen sker – som utlägg eller via app – beror på era interna rutiner.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={2}
-            className="mt-12 bg-primary/5 border border-primary/20 rounded-3xl p-8 text-center"
-          >
-            <p className="text-foreground font-display font-semibold text-xl mb-2">Låt jobbet betala din massage</p>
-            <p className="text-muted-foreground font-body mb-4">Boka din tid – du får kvitto för friskvårdsbidraget.</p>
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1.5} className="mt-8">
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackBookingClick("friskvard-mid")}
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full font-body font-medium shadow-lg shadow-primary/20 hover:shadow-xl transition-shadow"
+              onClick={() => trackBookingClick("friskvard-top")}
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
             >
               Boka tid <Calendar className="w-5 h-5" />
             </motion.a>
@@ -170,29 +140,48 @@ const FriskvardsbidragMassageUddevalla = () => {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            custom={3}
+            custom={2}
             className="mt-12 space-y-6 text-lg text-muted-foreground leading-relaxed font-body"
           >
-            <h2 className="text-3xl font-display font-semibold text-foreground">
-              Bra att veta innan du bokar
-            </h2>
+            <h2 className="text-3xl font-display font-semibold text-foreground">Är massage godkänt som friskvård?</h2>
             <p>
-              Kontrollera gärna med din arbetsgivare vilken summa du har kvar av årets friskvårdsbidrag och vilket system ni använder. Tänk på att bidraget gäller per kalenderår och inte kan sparas till nästa år – så passa på att boka in regelbunden massage medan budgeten finns kvar. Du väljer mellan 45 minuter för 550 kr och 60 minuter för 650 kr.
+              Ja. Skatteverket klassar massage som en godkänd friskvårdsaktivitet när syftet är att förebygga eller motverka ömhet och stelhet – exempelvis behandling av nacke, axlar och rygg. Det gäller klassisk massage av precis den typ som Viriditas erbjuder. Behandlingen ska vara av enklare slag, vilket vanlig massage hos massör uppfyller.
             </p>
             <p>
-              Vill du läsa mer om själva behandlingen? Se sidan om{" "}
+              Det innebär att både vår klassiska massage på 45 minuter (550 kr) och 60 minuter (650 kr) går utmärkt att betala med friskvårdsbidraget.
+            </p>
+
+            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Så använder du bidraget – steg för steg</h2>
+            <ol className="list-decimal list-inside space-y-3">
+              <li><span className="font-medium text-foreground">Kolla ditt bidrag.</span> Hör med din arbetsgivare eller HR hur stort ditt friskvårdsbidrag är och hur det administreras. De flesta använder en portal som Epassi, Benify, Wellnet eller Söderberg & Partners – andra låter dig lämna in kvitto direkt.</li>
+              <li><span className="font-medium text-foreground">Boka och betala din massage.</span> Boka online och betala som vanligt med kort eller Swish på plats.</li>
+              <li><span className="font-medium text-foreground">Spara kvittot.</span> Du får alltid ett kvitto där behandling, datum och belopp framgår.</li>
+              <li><span className="font-medium text-foreground">Ladda upp eller lämna in.</span> Registrera kvittot i din friskvårdsportal eller lämna det till din arbetsgivare, så får du ersättningen utbetald.</li>
+            </ol>
+            <p>
+              Hela processen tar ett par minuter. Är du osäker på vad som ska stå på kvittot för just din portal – säg till vid besöket så löser vi det.
+            </p>
+
+            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Smart friskvård som faktiskt gör skillnad</h2>
+            <p>
+              Många låter friskvårdsbidraget brinna inne varje år. Det är synd – regelbunden massage är ett av de mest direkta sätten att använda bidraget på något som kroppen märker av. Spänningar i nacke och rygg byggs upp långsamt, och regelbunden behandling förebygger att de hinner bli till smärta, huvudvärk eller sjukskrivningsdagar.
+            </p>
+            <p>
+              Med ett bidrag på 3 000 kr räcker det till fyra till fem behandlingar per år – ungefär en per kvartal, vilket är en utmärkt grundrytm för de flesta.
+            </p>
+
+            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Diplomerad massör – det spelar roll</h2>
+            <p>
+              Hos Viriditas behandlas du av Andreas Håman, diplomerad massageterapeut certifierad enligt Branschrådet Svensk Massage, med bakgrund inom vården. För friskvårdsbidraget är det en trygghet att behandlingen utförs av utbildad och diplomerad massör – och för din kropp är det en ännu större.
+            </p>
+            <p>
+              Läs mer om{" "}
               <Link to="/klassisk-massage" className="text-primary font-medium underline-offset-4 hover:underline">klassisk massage i Uddevalla</Link> eller om{" "}
               <Link to="/massage-mot-nackspanning" className="text-primary font-medium underline-offset-4 hover:underline">massage mot nackspänning</Link> om du har besvär från skärmarbete.
             </p>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={4}
-            className="mt-12"
-          >
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3} className="mt-12">
             <h2 className="text-3xl font-display font-semibold text-foreground mb-6">Vanliga frågor</h2>
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((f, i) => (
@@ -204,28 +193,22 @@ const FriskvardsbidragMassageUddevalla = () => {
             </Accordion>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={5}
-            className="mt-12 space-y-6"
-          >
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={4} className="mt-12 space-y-6">
             <h2 className="text-3xl font-display font-semibold text-foreground">Boka massage med friskvårdsbidrag</h2>
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackBookingClick("friskvard")}
+              onClick={() => trackBookingClick("friskvard-bottom")}
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
             >
               Boka tid <Calendar className="w-5 h-5" />
             </motion.a>
           </motion.div>
 
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={6} className="mt-12">
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={5} className="mt-12">
             <Link to="/om-andreas" className="inline-flex items-center gap-2 text-primary font-body font-medium hover:underline">
               Läs mer om Andreas Håman <ArrowRight className="w-4 h-4" />
             </Link>

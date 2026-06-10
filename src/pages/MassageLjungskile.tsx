@@ -16,22 +16,24 @@ const fadeUp = {
   }),
 };
 
+const BOOKING_URL = "https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule";
+
 const faqs = [
   {
-    q: "Hur långt är det från Ljungskile till Viriditas?",
-    a: "Från Ljungskile tar bilresan till Uddevalla centrum ungefär 15–20 minuter längs E6/väg 44. Du kan också ta tåget eller bussen – Uddevalla har goda förbindelser med Ljungskile.",
+    q: "Hur lång tid tar det från Ljungskile till Viriditas?",
+    a: "Cirka 15 minuter med bil via E6. Med buss till Uddevalla centrum tar resan något längre, och därifrån är det en kort promenad till Folkets Hus på Göteborgsvägen 11B.",
   },
   {
-    q: "Finns det parkering vid mottagningen?",
-    a: "Ja. Viriditas finns i Uddevalla Folkets Hus på Göteborgsvägen 11B, med parkeringsmöjligheter i närheten och centralt läge som gör det enkelt att ta sig hit oavsett om du kör eller åker kollektivt.",
+    q: "Finns det parkering?",
+    a: "Ja, det finns goda parkeringsmöjligheter vid och i närheten av Uddevalla Folkets Hus.",
   },
   {
-    q: "Erbjuder ni samma behandlingar för oss som kommer från Ljungskile?",
-    a: "Självklart. Alla behandlingar – klassisk massage, avslappningsmassage och återhämtningsmassage – är desamma oavsett varifrån du kommer. Många av våra kunder reser in från Ljungskile och övriga Bohuslän.",
+    q: "Kan jag boka kvällstid efter jobbet?",
+    a: "Ja. Tisdag till torsdag finns tider fram till 19:00, vilket gör det enkelt att hinna med en behandling efter arbetsdagen även om du pendlar.",
   },
   {
-    q: "Hur bokar jag tid?",
-    a: "Du bokar enkelt online via vår bokningssida på peach.nu. Välj en tid som passar din resa in till Uddevalla, så är allt klart på under en minut.",
+    q: "Hur bokar jag?",
+    a: "Du bokar online via vår bokningssida där du ser alla lediga tider direkt. Det går också bra att ringa 076-317 78 97.",
   },
 ];
 
@@ -39,8 +41,8 @@ const MassageLjungskile = () => {
   return (
     <div className="min-h-screen bg-background">
       <SeoHead
-        title="Massage nära Ljungskile – i Uddevalla | Viriditas"
-        description="Massage nära Ljungskile – endast 15–20 min till Viriditas i Uddevalla. Klassisk massage hos diplomerad massör, enkel parkering. Boka online, från 550 kr."
+        title="Massage nära Ljungskile – Viriditas i Uddevalla | Boka online"
+        description="Söker du massage i Ljungskile? Viriditas i Uddevalla ligger 15 minuter bort – diplomerad massör, enkel parkering vid Folkets Hus och bokning online. Från 550 kr."
         path="/massage-ljungskile"
       />
       <script
@@ -53,24 +55,22 @@ const MassageLjungskile = () => {
             "serviceType": "Klassisk massage",
             "provider": {
               "@type": "HealthAndBeautyBusiness",
+              "@id": "https://viriditasmassage.se/#business",
               "name": "Viriditas",
               "url": "https://viriditasmassage.se",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Göteborgsvägen 11B (Uddevalla Folkets Hus)",
-                "addressLocality": "Uddevalla",
-                "addressCountry": "SE",
-              },
             },
             "areaServed": [
               { "@type": "City", "name": "Ljungskile" },
               { "@type": "City", "name": "Uddevalla" },
+              { "@type": "City", "name": "Munkedal" },
+              { "@type": "City", "name": "Lysekil" },
               { "@type": "AdministrativeArea", "name": "Bohuslän" },
             ],
             "url": "https://viriditasmassage.se/massage-ljungskile",
             "offers": [
               { "@type": "Offer", "price": "550", "priceCurrency": "SEK", "name": "45 min" },
               { "@type": "Offer", "price": "650", "priceCurrency": "SEK", "name": "60 min" },
+              { "@type": "Offer", "price": "200", "priceCurrency": "SEK", "name": "Återhämtningsmassage" },
             ],
           }),
         }}
@@ -116,52 +116,25 @@ const MassageLjungskile = () => {
             Massage nära Ljungskile – välkommen till Viriditas i Uddevalla
           </motion.h1>
 
-          <motion.div
+          <motion.p
             initial="hidden"
             animate="visible"
             variants={fadeUp}
             custom={1}
-            className="space-y-6 text-lg text-muted-foreground leading-relaxed font-body"
+            className="text-lg text-muted-foreground leading-relaxed font-body"
           >
-            <p>
-              Bor du i Ljungskile och letar efter en skicklig massör? Då har du Viriditas på bekvämt avstånd. Från Ljungskile tar du dig till vår mottagning i Uddevalla på bara 15–20 minuter, och väl framme möts du av lugn, omtanke och behandlingar som verkligen gör skillnad. Många av våra trognaste kunder reser just in från Ljungskile och resten av Bohuslän.
-            </p>
-            <p>
-              Viriditas drivs av Andreas Håman, diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage. Hans skärpta känsel – en följd av en synnedsättning – gör varje behandling ovanligt uppmärksam och personlig. Oavsett om du söker djup avslappning, lindring av nackspänning eller bara en stunds återhämtning är resan in till Uddevalla väl värd den.
-            </p>
+            Bor du i Ljungskile och letar efter en riktigt bra massör? Viriditas ligger i Uddevalla Folkets Hus, bara en kvarts bilresa från Ljungskile längs E6:an. Många av våra återkommande kunder kommer just från Ljungskile med omnejd – för en behandling som är värd den korta resan.
+          </motion.p>
 
-            <h2 className="text-3xl font-display font-semibold text-foreground pt-4 flex items-center gap-3">
-              <MapPin className="w-7 h-7 text-primary" /> Hitta hit från Ljungskile
-            </h2>
-            <p>
-              Viriditas finns i Uddevalla Folkets Hus, Göteborgsvägen 11B – centralt och lättillgängligt. Kör du från Ljungskile följer du E6/väg 44 norrut mot Uddevalla, och det finns goda parkeringsmöjligheter i närheten av Folkets Hus. Föredrar du att åka kollektivt går både tåg och buss smidigt mellan Ljungskile och Uddevalla, med kort promenad till mottagningen.
-            </p>
-
-            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">
-              Samma behandlingar – nära dig
-            </h2>
-            <p>
-              Hos Viriditas får du tillgång till hela utbudet: klassisk massage i 45 eller 60 minuter, avslappningsmassage för stress och sömn samt återhämtningsmassage till reducerat pris för dig som är arbetslös eller har sjukersättning. Behandlingarna anpassas alltid efter dina behov, oavsett om du kommer från Ljungskile, Uddevalla centrum eller någon annanstans i Bohuslän.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={2}
-            className="mt-12 bg-primary/5 border border-primary/20 rounded-3xl p-8 text-center"
-          >
-            <p className="text-foreground font-display font-semibold text-xl mb-2">Bara en kort resa bort</p>
-            <p className="text-muted-foreground font-body mb-4">Boka din massage i Uddevalla – enkelt och snabbt.</p>
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1.5} className="mt-8">
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackBookingClick("ljungskile-mid")}
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full font-body font-medium shadow-lg shadow-primary/20 hover:shadow-xl transition-shadow"
+              onClick={() => trackBookingClick("ljungskile-top")}
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
             >
               Boka tid <Calendar className="w-5 h-5" />
             </motion.a>
@@ -171,24 +144,49 @@ const MassageLjungskile = () => {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            custom={3}
+            custom={2}
             className="mt-12 space-y-6 text-lg text-muted-foreground leading-relaxed font-body"
           >
+            <h2 className="text-3xl font-display font-semibold text-foreground flex items-center gap-3">
+              <MapPin className="w-7 h-7 text-primary" /> Lätt att ta sig hit från Ljungskile
+            </h2>
             <p>
-              Vill du läsa mer innan du bokar? Se vår sida om{" "}
+              Från Ljungskile tar du dig enklast hit via E6 norrut mot Uddevalla – resan tar ungefär 15 minuter med bil. Viriditas finns i Uddevalla Folkets Hus på Göteborgsvägen 11B, centralt i Uddevalla med goda parkeringsmöjligheter i direkt anslutning. Åker du kollektivt går det täta bussförbindelser mellan Ljungskile och Uddevalla centrum, och från Kampenhof är det bara en kort promenad.
+            </p>
+            <p>
+              Tipset från våra Ljungskile-kunder: kombinera massagen med ett ärende i Uddevalla – behandlingen blir startskottet eller avslutningen på en stund i stan.
+            </p>
+
+            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Behandlingar och priser</h2>
+            <p>Hos Viriditas får du klassisk massage av Andreas Håman, diplomerad massageterapeut certifierad enligt Branschrådet Svensk Massage:</p>
+            <ul className="list-disc list-inside space-y-2">
+              <li><span className="font-medium text-foreground">Klassisk massage 60 min – 650 kr.</span> En hel timmes genomarbetad behandling av hela ryggsidan eller de områden du behöver.</li>
+              <li><span className="font-medium text-foreground">Klassisk massage 45 min – 550 kr.</span> Effektiv behandling med fokus på dina mest spända områden, ofta nacke, axlar och rygg.</li>
+              <li><span className="font-medium text-foreground">Återhämtningsmassage – 200 kr.</span> Mjuk, återställande behandling till reducerat pris för dig som är arbetslös eller har sjukersättning/sjukpenning.</li>
+            </ul>
+            <p>Alla behandlingar går att betala med friskvårdsbidrag, och vi tar emot Swish, kort och kontanter.</p>
+
+            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Därför åker Ljungskileborna till Viriditas</h2>
+            <p>
+              Andreas Håman är inte vilken massör som helst. Hans synnedsättning har gett honom en ovanligt utvecklad känslighet i händerna – han hittar spänningar och triggerpunkter med en precision som kunder ofta beskriver som något utöver det vanliga. Med bakgrund inom vården möter han dig dessutom med en trygghet och ett lugn som gör att även den som aldrig gått på massage tidigare snabbt känner sig hemma.
+            </p>
+            <p>
+              Tider finns tisdag till lördag, med kvällstider tisdag–torsdag fram till 19:00 och lördagstider för dig som vill kombinera med helgledighet. Du bokar enkelt online och ser direkt vilka tider som är lediga.
+            </p>
+
+            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Även för dig i Munkedal, Lysekil och övriga Bohuslän</h2>
+            <p>
+              Viriditas tar emot kunder från hela regionen – förutom Ljungskile kommer många från Munkedal, Lysekil, Trollhättan och övriga Bohuslän. Det centrala läget i Uddevalla gör oss lätta att nå oavsett varifrån du kommer.
+            </p>
+            <p>
+              Läs mer om{" "}
               <Link to="/klassisk-massage" className="text-primary font-medium underline-offset-4 hover:underline">klassisk massage i Uddevalla</Link>, om{" "}
               <Link to="/avslappningsmassage-uddevalla" className="text-primary font-medium underline-offset-4 hover:underline">avslappningsmassage</Link> eller hur du kan använda ditt{" "}
               <Link to="/friskvardsbidrag-massage-uddevalla" className="text-primary font-medium underline-offset-4 hover:underline">friskvårdsbidrag</Link>.
             </p>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={4}
-            className="mt-12"
-          >
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3} className="mt-12">
             <h2 className="text-3xl font-display font-semibold text-foreground mb-6">Vanliga frågor</h2>
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((f, i) => (
@@ -200,28 +198,22 @@ const MassageLjungskile = () => {
             </Accordion>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={5}
-            className="mt-12 space-y-6"
-          >
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={4} className="mt-12 space-y-6">
             <h2 className="text-3xl font-display font-semibold text-foreground">Boka massage – nära Ljungskile</h2>
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackBookingClick("ljungskile")}
+              onClick={() => trackBookingClick("ljungskile-bottom")}
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
             >
               Boka tid <Calendar className="w-5 h-5" />
             </motion.a>
           </motion.div>
 
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={6} className="mt-12">
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={5} className="mt-12">
             <Link to="/om-andreas" className="inline-flex items-center gap-2 text-primary font-body font-medium hover:underline">
               Läs mer om Andreas Håman <ArrowRight className="w-4 h-4" />
             </Link>
