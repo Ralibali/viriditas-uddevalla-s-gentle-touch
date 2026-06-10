@@ -16,22 +16,24 @@ const fadeUp = {
   }),
 };
 
+const BOOKING_URL = "https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule";
+
 const faqs = [
   {
-    q: "Kan massage hjälpa mot spänningshuvudvärk?",
-    a: "Ja. Spänningshuvudvärk beror ofta på stram muskulatur i nacke, axlar och käke. Genom att lösa upp dessa spänningar minskar trycket på nerver och blodkärl, vilket för många lindrar både huvudvärk och tryckkänsla.",
+    q: "Hjälper massage verkligen mot spänningshuvudvärk?",
+    a: "Ja, för många gör den stor skillnad. Spänningshuvudvärk orsakas ofta av spända muskler i nacke och skuldror, och när massagen löser upp dessa minskar trycket som utlöser värken. Vid frekvent eller ovanlig huvudvärk bör du dock alltid också rådgöra med läkare.",
   },
   {
-    q: "Jag sitter framför datorn hela dagen – kan ni hjälpa?",
-    a: "Absolut. Kontorsarbete med statisk hållning är en av de vanligaste orsakerna till stel nacke och ömma axlar. Behandlingen fokuserar på de muskelgrupper som belastas av skärmarbete och kombineras gärna med tips på rörelse i vardagen.",
+    q: "Gör behandlingen ont?",
+    a: "Den ska inte göra ont. Vissa spända punkter kan kännas ömma när de bearbetas – många beskriver det som \"gott ont\" – men trycket anpassas alltid efter dig. Säg till under behandlingen så justerar Andreas direkt.",
   },
   {
-    q: "Hur många behandlingar behöver jag?",
-    a: "Vid akuta besvär kan det krävas några behandlingar tätare inpå varandra, exempelvis varje vecka inledningsvis. När spänningarna släppt räcker ofta underhåll varje månad för att hålla nacke och axlar mjuka.",
+    q: "Hur många behandlingar behövs?",
+    a: "Det beror på hur länge besvären funnits. Akuta spänningar kan släppa på en eller två behandlingar, medan spänningar som byggts upp under år ofta behöver en serie på tre till fem behandlingar för varaktig effekt.",
   },
   {
-    q: "Ska massage mot nackspänning göra ont?",
-    a: "Nej. Trycket anpassas efter dig – från mjukt till djupare bearbetning. Det kan kännas en behaglig ömhet i spända partier, men behandlingen ska aldrig vara smärtsam. Säg alltid till om något känns fel.",
+    q: "Kan jag träna efter massagen?",
+    a: "Vänta gärna till dagen efter med hård träning. Lätt rörelse som en promenad går utmärkt och hjälper cirkulationen.",
   },
 ];
 
@@ -39,8 +41,8 @@ const MassageMotNackspanning = () => {
   return (
     <div className="min-h-screen bg-background">
       <SeoHead
-        title="Massage mot nackspänning & huvudvärk – Uddevalla | Viriditas"
-        description="Massage mot nackspänning, stela axlar och spänningshuvudvärk i Uddevalla. Perfekt för dig med kontorsjobb. Diplomerad massör, från 550 kr. Boka online."
+        title="Massage mot nackspänning i Uddevalla | Viriditas – Andreas Håman"
+        description="Stel nacke, spända axlar eller spänningshuvudvärk? Massage mot nackspänning i Uddevalla hos diplomerad massör. Folkets Hus, Göteborgsvägen 11B. Boka online."
         path="/massage-mot-nackspanning"
       />
       <script
@@ -53,14 +55,9 @@ const MassageMotNackspanning = () => {
             "serviceType": "Massage mot nackspänning",
             "provider": {
               "@type": "HealthAndBeautyBusiness",
+              "@id": "https://viriditasmassage.se/#business",
               "name": "Viriditas",
               "url": "https://viriditasmassage.se",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Göteborgsvägen 11B (Uddevalla Folkets Hus)",
-                "addressLocality": "Uddevalla",
-                "addressCountry": "SE",
-              },
             },
             "areaServed": [
               { "@type": "City", "name": "Uddevalla" },
@@ -112,51 +109,28 @@ const MassageMotNackspanning = () => {
             custom={0}
             className="text-4xl md:text-5xl font-display font-semibold text-foreground mb-8 leading-tight"
           >
-            Massage mot nackspänning och huvudvärk i Uddevalla
+            Massage mot nackspänning och spänningshuvudvärk i Uddevalla
           </motion.h1>
 
-          <motion.div
+          <motion.p
             initial="hidden"
             animate="visible"
             variants={fadeUp}
             custom={1}
-            className="space-y-6 text-lg text-muted-foreground leading-relaxed font-body"
+            className="text-lg text-muted-foreground leading-relaxed font-body"
           >
-            <p>
-              Stel nacke, ömma axlar och en molande huvudvärk som kommer tillbaka dag efter dag? Du är långt ifrån ensam. Spänningar i nacke och skuldror är ett av de vanligaste skälen till att människor i Uddevalla söker massage – och ofta är orsaken vardaglig: timmar framför skärmen, en framåtlutad hållning och stress som biter sig fast i musklerna.
-            </p>
-            <p>
-              Hos Viriditas i Uddevalla Folkets Hus får du en behandling som riktar sig direkt mot de muskelgrupper som skapar besvären. Genom klassisk massageteknik – strykningar, knådning och riktat tryck mot nacke, skulderparti och övre rygg – löser vi gradvis upp den stramhet som ger spänningshuvudvärk och nedsatt rörlighet.
-            </p>
+            Stel nacke när du vaknar. Axlar som sitter uppe vid öronen efter en dag framför skärmen. Huvudvärk som smyger sig på under eftermiddagen. Känner du igen dig? Du är långt ifrån ensam – nack- och axelspänningar är ett av de absolut vanligaste besvären vi behandlar hos Viriditas i Uddevalla.
+          </motion.p>
 
-            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">
-              Varför uppstår nackspänning?
-            </h2>
-            <p>
-              När vi sitter still och belastar samma muskler under lång tid – vid datorn, i bilen eller med mobilen – arbetar nack- och skuldermusklerna statiskt utan paus. Det leder till syrebrist, slaggprodukter och till slut spända, ömma muskler. Lägg till stress, som får oss att dra upp axlarna mot öronen, och du har den perfekta grogrunden för huvudvärk och stelhet.
-            </p>
-            <p>
-              Massage bryter den onda cirkeln: blodcirkulationen ökar, muskeln får syre och näring, och nervsystemet får signalen att slappna av. Många märker direkt att huvudet känns lättare och att rörligheten i nacken förbättras redan efter ett pass.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={2}
-            className="mt-12 bg-primary/5 border border-primary/20 rounded-3xl p-8 text-center"
-          >
-            <p className="text-foreground font-display font-semibold text-xl mb-2">Trött på spänningshuvudvärken?</p>
-            <p className="text-muted-foreground font-body mb-4">Boka en behandling som riktar sig mot nacke och axlar.</p>
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1.5} className="mt-8">
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackBookingClick("nackspanning-mid")}
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full font-body font-medium shadow-lg shadow-primary/20 hover:shadow-xl transition-shadow"
+              onClick={() => trackBookingClick("nackspanning-top")}
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
             >
               Boka tid <Calendar className="w-5 h-5" />
             </motion.a>
@@ -166,29 +140,46 @@ const MassageMotNackspanning = () => {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            custom={3}
+            custom={2}
             className="mt-12 space-y-6 text-lg text-muted-foreground leading-relaxed font-body"
           >
-            <h2 className="text-3xl font-display font-semibold text-foreground">
-              För dig som jobbar vid skärm
-            </h2>
+            <h2 className="text-3xl font-display font-semibold text-foreground">Varför blir man spänd i nacke och axlar?</h2>
             <p>
-              Är du kontorsarbetare, programmerare, ekonom eller jobbar på annat sätt mycket vid datorn? Då hör du till den grupp som har allra mest att vinna på regelbunden massage. Behandlingen kombineras gärna med enkla råd om hur du kan variera din arbetsställning och bryta stillasittandet under dagen, så att effekten håller i sig längre.
+              Nacken bär ditt huvud – cirka fem kilo – hela dagen. När du sitter framåtlutad mot en skärm eller tittar ner i mobilen ökar belastningen kraftigt, och musklerna i nacke, axlar och övre rygg jobbar konstant på övertid. Lägg till stress, som får oss att omedvetet dra upp axlarna, och du har receptet på kroniska spänningar.
             </p>
             <p>
-              Söker du i stället ren återhämtning kan du läsa om{" "}
-              <Link to="/avslappningsmassage-uddevalla" className="text-primary font-medium underline-offset-4 hover:underline">avslappningsmassage i Uddevalla</Link>, och vill du veta mer om grundtekniken finns en utförlig sida om{" "}
+              Med tiden blir musklerna korta, hårda och ömma. Blodcirkulationen i området försämras, vilket gör att slaggprodukter stannar kvar i muskulaturen. Det är ofta då huvudvärken kommer – spänningshuvudvärk uppstår när spända muskler i nacke och skuldror skapar tryck och refererad smärta upp mot huvudet.
+            </p>
+
+            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Hur hjälper massage?</h2>
+            <p>Klassisk massage är en av de mest beprövade behandlingarna mot just den här typen av besvär. Genom knådningar, strykningar och riktat tryck:</p>
+            <ul className="list-disc list-inside space-y-2">
+              <li>mjukas spända och förkortade muskler upp</li>
+              <li>ökar blodcirkulationen så att muskulaturen får syre och näring</li>
+              <li>minskar trycket på nerver och blodkärl som orsakar huvudvärk</li>
+              <li>återfår nacken sin naturliga rörlighet</li>
+            </ul>
+            <p>
+              De flesta känner skillnad redan efter första behandlingen. Vid långvariga besvär brukar en serie behandlingar med en till två veckors mellanrum ge bäst resultat, följt av glesare underhållsbehandlingar.
+            </p>
+
+            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Behandling med ovanlig precision</h2>
+            <p>
+              Andreas Håman arbetar med en känslighet utöver det vanliga. Hans synnedsättning har gett honom händer som hittar exakt var spänningen sitter – även de djupa triggerpunkter som du själv inte visste fanns förrän de släpper. Med bakgrund inom vården vet han också när besvär bör utredas vidare av läkare, vilket ger en extra trygghet.
+            </p>
+
+            <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Sitter du mycket vid skrivbord?</h2>
+            <p>
+              Kontorsarbete är den enskilt vanligaste orsaken till nackspänning. Kombinera gärna regelbunden massage med små vanor i vardagen: res dig varje halvtimme, sänk axlarna medvetet några gånger per dag och placera skärmen i ögonhöjd. Massagen löser upp det som redan satt sig – vanorna förebygger att det kommer tillbaka lika fort.
+            </p>
+            <p>
+              Vill du ha ren återhämtning passar kanske{" "}
+              <Link to="/avslappningsmassage-uddevalla" className="text-primary font-medium underline-offset-4 hover:underline">avslappningsmassage i Uddevalla</Link>, och du kan läsa mer om grundtekniken på sidan om{" "}
               <Link to="/klassisk-massage" className="text-primary font-medium underline-offset-4 hover:underline">klassisk massage</Link>.
             </p>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={4}
-            className="mt-12"
-          >
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3} className="mt-12">
             <h2 className="text-3xl font-display font-semibold text-foreground mb-6">Vanliga frågor</h2>
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((f, i) => (
@@ -200,28 +191,22 @@ const MassageMotNackspanning = () => {
             </Accordion>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={5}
-            className="mt-12 space-y-6"
-          >
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={4} className="mt-12 space-y-6">
             <h2 className="text-3xl font-display font-semibold text-foreground">Boka massage mot nackspänning</h2>
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackBookingClick("nackspanning")}
+              onClick={() => trackBookingClick("nackspanning-bottom")}
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
             >
               Boka tid <Calendar className="w-5 h-5" />
             </motion.a>
           </motion.div>
 
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={6} className="mt-12">
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={5} className="mt-12">
             <Link to="/om-andreas" className="inline-flex items-center gap-2 text-primary font-body font-medium hover:underline">
               Läs mer om Andreas Håman <ArrowRight className="w-4 h-4" />
             </Link>
