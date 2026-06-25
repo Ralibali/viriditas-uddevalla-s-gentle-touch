@@ -115,9 +115,30 @@ function parseReviews(markdown: string): {
   // Keep ALL lines (including blanks) so we can preserve newlines inside multi-line review texts
   const rawLines = markdown.split('\n').map((l) => l.trim());
 
+  const SWEDISH_DAYS = /(mån|tis|ons|tors|fre|lör|sön)/i;
+  const SWEDISH_MONTHS = /(jan|feb|mars|apr|maj|jun|jul|aug|sep|okt|nov|dec)/i;
+
+  // New Peach format is English, e.g. "Fri, Jun 19", "Wed, May 13"
+  const EN_DAYS: Record<string, string> = {
+    mon: 'mån', tue: 'tis', wed: 'ons', thu: 'tors', fri: 'fre', sat: 'lör', sun: 'sön',
+  };
+  const EN_MONTHS: Record<string, string> = {
+    jan: 'jan.', feb: 'feb.', mar: 'mars', apr: 'apr.', may: 'maj', jun: 'juni',
+    jul: 'juli', aug: 'aug.', sep: 'sep.', oct: 'okt.', nov: 'nov.', dec: 'dec.',
+  };
+  const englishDateRe = /^(Mon|Tue|Wed|Thu|Fri|Sat|Sun),\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})$/i;
+
   const isDateLine = (s: string) =>
-    /(mån|tis|ons|tors|fre|lör|sön)/i.test(s) &&
-    /(jan|feb|mars|apr|maj|jun|jul|aug|sep|okt|nov|dec)/i.test(s);
+    (SWEDISH_DAYS.test(s) && SWEDISH_MONTHS.test(s)) || englishDateRe.test(s);
+
+  // Normalize an English date line to the existing Swedish format ("fre 19 juni")
+  const normalizeDate = (s: string): string => {
+    const m = s.match(englishDateRe);
+    if (!m) return s;
+    const day = EN_DAYS[m[1].toLowerCase()] ?? m[1].toLowerCase();
+    const month = EN_MONTHS[m[2].toLowerCase()] ?? m[2].toLowerCase();
+    return `${day} ${m[3]} ${month}`;
+  };
 
   for (let i = 0; i < rawLines.length; i++) {
     const ratingMatch = rawLines[i].match(/^(\d)\/5$/);
@@ -133,7 +154,7 @@ function parseReviews(markdown: string): {
       }
     }
     if (dateIdx === -1) continue;
-    const date = rawLines[dateIdx];
+    const date = normalizeDate(rawLines[dateIdx]);
 
     // Now find the "— Name" line. Scan up to 30 lines ahead (multi-line text + blank lines).
     let nameIdx = -1;
