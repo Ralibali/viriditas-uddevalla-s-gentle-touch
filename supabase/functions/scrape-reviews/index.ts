@@ -20,7 +20,7 @@ Deno.serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    console.log('Scraping reviews from Peach...');
+    console.log('Scraping reviews from Bokadirekt...');
 
     const scrapeResponse = await fetch('https://api.firecrawl.dev/v1/scrape', {
       method: 'POST',
@@ -29,7 +29,7 @@ Deno.serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        url: 'https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/reviews',
+        url: 'https://www.bokadirekt.se/places/viriditas-massage-136924',
         formats: ['markdown'],
         onlyMainContent: true,
       }),
@@ -50,8 +50,8 @@ Deno.serve(async (req) => {
     if (aggregate.rating !== null && aggregate.count !== null) {
       await supabase.from('site_settings').upsert(
         [
-          { setting_key: 'peach_rating_value', setting_value: aggregate.rating.toString() },
-          { setting_key: 'peach_review_count', setting_value: aggregate.count.toString() },
+          { setting_key: 'review_rating_value', setting_value: aggregate.rating.toString() },
+          { setting_key: 'review_count', setting_value: aggregate.count.toString() },
         ],
         { onConflict: 'setting_key' }
       );
