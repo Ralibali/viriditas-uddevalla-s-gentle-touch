@@ -43,15 +43,15 @@ const Index = () => {
   const featuredReviews = reviews?.filter(r => r.review_text) || [];
   const compactReviews = reviews?.filter(r => !r.review_text) || [];
 
-  // Aggregate rating synced from Bokadirekt/reviews (falls back to local DB average)
-  const peachRating = s?.peach_rating_value ? parseFloat(s.peach_rating_value) : null;
-  const peachCount = s?.peach_review_count ? parseInt(s.peach_review_count, 10) : null;
+  // Aggregate rating from imported reviews (falls back to local DB average)
+  const aggRating = s?.review_rating_value ? parseFloat(s.review_rating_value) : null;
+  const aggCount = s?.review_count ? parseInt(s.review_count, 10) : null;
   const localCount = reviews?.length || 0;
   const localAvg = localCount > 0
     ? reviews!.reduce((sum, r) => sum + r.rating, 0) / localCount
     : 0;
-  const totalCount = peachCount ?? localCount;
-  const avgRating = (peachRating ?? localAvg).toFixed(1);
+  const totalCount = aggCount ?? localCount;
+  const avgRating = (aggRating ?? localAvg).toFixed(1);
 
   return (
     <div className="min-h-screen bg-background pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0">
