@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
 export interface Treatment {
-  peach_id: string;
+  service_ref: string;
   title: string;
   duration_minutes: number | null;
   price_sek: number | null;
@@ -19,7 +19,7 @@ export function useTreatments() {
     (async () => {
       const { data, error } = await supabase
         .from("treatments")
-        .select("peach_id,title,duration_minutes,price_sek,description,source_url");
+        .select("service_ref,title,duration_minutes,price_sek,description,source_url");
       if (!mounted) return;
       if (error) {
         console.error("Failed to load treatments", error);
@@ -33,7 +33,7 @@ export function useTreatments() {
     };
   }, []);
 
-  const byPeachId = (id: string) => treatments.find((t) => t.peach_id === id);
+  const byServiceRef = (id: string) => treatments.find((t) => t.service_ref === id);
 
-  return { treatments, loading, byPeachId };
+  return { treatments, loading, byServiceRef };
 }
