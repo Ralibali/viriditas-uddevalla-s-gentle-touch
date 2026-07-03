@@ -65,45 +65,6 @@ export type Database = {
         }
         Relationships: []
       }
-      schedule_slots: {
-        Row: {
-          activity_peach_id: string | null
-          activity_title: string
-          booking_id: string
-          booking_url: string
-          created_at: string
-          id: string
-          last_synced_at: string
-          location: string | null
-          price_sek: number | null
-          starts_at: string
-        }
-        Insert: {
-          activity_peach_id?: string | null
-          activity_title: string
-          booking_id: string
-          booking_url: string
-          created_at?: string
-          id?: string
-          last_synced_at?: string
-          location?: string | null
-          price_sek?: number | null
-          starts_at: string
-        }
-        Update: {
-          activity_peach_id?: string | null
-          activity_title?: string
-          booking_id?: string
-          booking_url?: string
-          created_at?: string
-          id?: string
-          last_synced_at?: string
-          location?: string | null
-          price_sek?: number | null
-          starts_at?: string
-        }
-        Relationships: []
-      }
       site_pages: {
         Row: {
           content: Json
@@ -177,8 +138,8 @@ export type Database = {
           duration_minutes: number | null
           id: string
           last_synced_at: string
-          peach_id: string
           price_sek: number | null
+          service_ref: string
           source_url: string
           title: string
           updated_at: string
@@ -189,8 +150,8 @@ export type Database = {
           duration_minutes?: number | null
           id?: string
           last_synced_at?: string
-          peach_id: string
           price_sek?: number | null
+          service_ref: string
           source_url: string
           title: string
           updated_at?: string
@@ -201,8 +162,8 @@ export type Database = {
           duration_minutes?: number | null
           id?: string
           last_synced_at?: string
-          peach_id?: string
           price_sek?: number | null
+          service_ref?: string
           source_url?: string
           title?: string
           updated_at?: string

@@ -20,7 +20,7 @@ Deno.serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    console.log('Scraping reviews from Peach...');
+    console.log('Scraping reviews from Bokadirekt...');
 
     const scrapeResponse = await fetch('https://api.firecrawl.dev/v1/scrape', {
       method: 'POST',
@@ -29,7 +29,7 @@ Deno.serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        url: 'https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/reviews',
+        url: 'https://www.bokadirekt.se/places/viriditas-massage-136924',
         formats: ['markdown'],
         onlyMainContent: true,
       }),
@@ -50,8 +50,8 @@ Deno.serve(async (req) => {
     if (aggregate.rating !== null && aggregate.count !== null) {
       await supabase.from('site_settings').upsert(
         [
-          { setting_key: 'peach_rating_value', setting_value: aggregate.rating.toString() },
-          { setting_key: 'peach_review_count', setting_value: aggregate.count.toString() },
+          { setting_key: 'review_rating_value', setting_value: aggregate.rating.toString() },
+          { setting_key: 'review_count', setting_value: aggregate.count.toString() },
         ],
         { onConflict: 'setting_key' }
       );
@@ -103,10 +103,10 @@ function parseReviews(markdown: string): {
     review_date: string;
   }> = [];
 
-  // Parse aggregate rating from header: "## 4.7" followed by "(17reviews)" or "(17 reviews)"
+  // Aggregate rating from header, e.g. "## 4.8" then "(28 omdömen)" / "(28 reviews)"
   let aggRating: number | null = null;
   let aggCount: number | null = null;
-  const aggMatch = markdown.match(/##\s+(\d+(?:[.,]\d+)?)[\s\S]{0,80}?\((\d+)\s*reviews?\)/i);
+  const aggMatch = markdown.match(/##\s+(\d+(?:[.,]\d+)?)[\s\S]{0,80}?\((\d+)\s*(?:omdöme|omdömen|reviews?)\)/i);
   if (aggMatch) {
     aggRating = parseFloat(aggMatch[1].replace(',', '.'));
     aggCount = parseInt(aggMatch[2], 10);

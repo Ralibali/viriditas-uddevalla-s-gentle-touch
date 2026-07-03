@@ -28,7 +28,7 @@ const Footer = () => {
               <Link to="/friskvardsbidrag-massage-uddevalla" className="block text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors">Friskvårdsbidrag</Link>
               <Link to="/massage-ljungskile" className="block text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors">Massage Ljungskile</Link>
               <a
-                href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+                href="https://www.bokadirekt.se/places/viriditas-massage-136924"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors"

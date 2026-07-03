@@ -77,7 +77,7 @@ const Navbar = ({ alwaysSolid = false }: NavbarProps) => {
             )
           )}
           <a
-            href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+            href="https://www.bokadirekt.se/places/viriditas-massage-136924"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackBookingClick("navbar")}
@@ -132,7 +132,7 @@ const Navbar = ({ alwaysSolid = false }: NavbarProps) => {
                 )
               )}
               <a
-                href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+                href="https://www.bokadirekt.se/places/viriditas-massage-136924"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {

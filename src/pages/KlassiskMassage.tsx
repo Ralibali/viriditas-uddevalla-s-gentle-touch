@@ -19,8 +19,8 @@ const KlassiskMassage = () => {
   return (
     <div className="min-h-screen bg-background">
       <SeoHead
-        title="Klassisk Massage Uddevalla – 550 kr | Viriditas"
-        description="Klassisk massage i Uddevalla från 550 kr. Certifierad massageterapeut i Uddevalla Folkets Hus, Göteborgsvägen 11B. Boka online enkelt via peach.nu."
+        title="Klassisk Massage Uddevalla – 595 kr | Viriditas"
+        description="Klassisk massage i Uddevalla från 595 kr. Certifierad massageterapeut i Uddevalla Folkets Hus, Göteborgsvägen 11B. Boka online enkelt via Bokadirekt."
         path="/klassisk-massage"
       />
       <script
@@ -48,8 +48,8 @@ const KlassiskMassage = () => {
             ],
             "url": "https://viriditasmassage.se/klassisk-massage",
             "offers": [
-              { "@type": "Offer", "price": "550", "priceCurrency": "SEK", "name": "45 min" },
-              { "@type": "Offer", "price": "650", "priceCurrency": "SEK", "name": "60 min" },
+              { "@type": "Offer", "price": "595", "priceCurrency": "SEK", "name": "45 min" },
+              { "@type": "Offer", "price": "720", "priceCurrency": "SEK", "name": "60 min" },
             ],
           }),
         }}
@@ -105,8 +105,8 @@ const KlassiskMassage = () => {
               Hos Viriditas i Uddevalla erbjuder vi klassisk massage i två längder:
             </p>
             <ul className="list-disc list-inside space-y-2 text-foreground font-medium">
-              <li>45 minuter – 550 kr</li>
-              <li>60 minuter – 650 kr</li>
+              <li>45 minuter – 595 kr</li>
+              <li>60 minuter – 720 kr</li>
             </ul>
           </motion.div>
 
@@ -138,7 +138,7 @@ const KlassiskMassage = () => {
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href="https://www.bokadirekt.se/places/viriditas-massage-136924"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookingClick("klassisk-massage-mid")}
@@ -176,7 +176,7 @@ const KlassiskMassage = () => {
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href="https://www.bokadirekt.se/places/viriditas-massage-136924"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookingClick("klassisk-massage")}

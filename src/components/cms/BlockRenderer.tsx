@@ -75,7 +75,7 @@ export function BlockRenderer({ block }: { block: ContentBlock }) {
           <motion.a
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            href={data.url || "https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"}
+            href={data.url || "https://www.bokadirekt.se/places/viriditas-massage-136924"}
             target={data.external !== false ? "_blank" : undefined}
             rel={data.external !== false ? "noopener noreferrer" : undefined}
             onClick={() => data.trackSource && trackBookingClick(data.trackSource)}

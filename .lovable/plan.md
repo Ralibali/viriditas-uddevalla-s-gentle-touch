@@ -14,7 +14,7 @@ Jag delar upp i två leveranser, precis som dina prompts.
   - Serverar `dist/` lokalt (statisk server på en ledig port).
   - Hämtar alla publicerade slugs från `site_pages` via anon-klienten.
   - Routelista: `/`, `/om-andreas`, `/klassisk-massage`, de fyra nya landningssidorna (leverans 2), samt `/p/<slug>` för varje publicerad CMS-sida.
-  - Kör Puppeteer mot varje route, väntar på `networkidle0` så Peach-rating + CMS-innehåll hinner in i DOM:en, sparar färdig HTML till `dist/<route>/index.html`.
+  - Kör Puppeteer mot varje route, väntar på `networkidle0` så Bokadirekt-betyg + CMS-innehåll hinner in i DOM:en, sparar färdig HTML till `dist/<route>/index.html`.
 - Lägg `"postbuild": "node scripts/prerender.mjs"` i `package.json`.
 
 **Riskflagga:** prerender körs i build-miljön och kräver att Chromium kan startas där. Om postbuild inte kan köra Puppeteer i hostingens build faller vi tillbaka på att behålla SPA + säkerställa att SeoHead/JSON-LD är korrekt (mindre effekt). Jag verifierar att build går igenom innan jag markerar klart.

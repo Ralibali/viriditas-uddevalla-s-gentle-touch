@@ -43,15 +43,15 @@ const Index = () => {
   const featuredReviews = reviews?.filter(r => r.review_text) || [];
   const compactReviews = reviews?.filter(r => !r.review_text) || [];
 
-  // Prefer Peach's official aggregate (synced from peach.nu/reviews) over local DB calculation
-  const peachRating = s?.peach_rating_value ? parseFloat(s.peach_rating_value) : null;
-  const peachCount = s?.peach_review_count ? parseInt(s.peach_review_count, 10) : null;
+  // Aggregate rating from imported reviews (falls back to local DB average)
+  const aggRating = s?.review_rating_value ? parseFloat(s.review_rating_value) : null;
+  const aggCount = s?.review_count ? parseInt(s.review_count, 10) : null;
   const localCount = reviews?.length || 0;
   const localAvg = localCount > 0
     ? reviews!.reduce((sum, r) => sum + r.rating, 0) / localCount
     : 0;
-  const totalCount = peachCount ?? localCount;
-  const avgRating = (peachRating ?? localAvg).toFixed(1);
+  const totalCount = aggCount ?? localCount;
+  const avgRating = (aggRating ?? localAvg).toFixed(1);
 
   return (
     <div className="min-h-screen bg-background pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0">
@@ -63,7 +63,7 @@ const Index = () => {
       </a>
       <SeoHead
         title="Massage Uddevalla | Viriditas – Andreas Håman"
-        description="Boka klassisk massage i Uddevalla hos Viriditas. Certifierad massör Andreas Håman, Folkets Hus, Göteborgsvägen 11B. Från 550 kr."
+        description="Boka klassisk massage i Uddevalla hos Viriditas. Certifierad massör Andreas Håman, Folkets Hus, Göteborgsvägen 11B. Från 595 kr."
         path="/"
       />
       <script
@@ -104,13 +104,13 @@ const Index = () => {
               "price": "200",
               "priceCurrency": "SEK",
               "availability": "https://schema.org/InStock",
-              "url": "https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule",
+              "url": "https://www.bokadirekt.se/places/viriditas-massage-136924",
               "eligibleCustomerType": "Personer som är arbetslösa eller har sjukersättning/sjukpenning"
             }
           })
         }}
       />
-      {peachRating !== null && peachCount !== null && (
+      {aggRating !== null && aggCount !== null && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -121,8 +121,8 @@ const Index = () => {
               "url": "https://viriditasmassage.se",
               "aggregateRating": {
                 "@type": "AggregateRating",
-                "ratingValue": peachRating.toFixed(1),
-                "reviewCount": peachCount.toString(),
+                "ratingValue": aggRating.toFixed(1),
+                "reviewCount": aggCount.toString(),
                 "bestRating": "5"
               }
             })
@@ -183,7 +183,7 @@ const Index = () => {
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href="https://www.bokadirekt.se/places/viriditas-massage-136924"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookingClick("hero")}
@@ -221,7 +221,7 @@ const Index = () => {
               <Star className="w-4 h-4 text-primary-foreground fill-primary-foreground" /> {avgRating} betyg
             </span>
             <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
-            <span>{t("hero_price_from", "Från 550 kr")}</span>
+            <span>{t("hero_price_from", "Från 595 kr")}</span>
             <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
             <span>{totalCount}+ omdömen</span>
           </motion.div>
@@ -313,7 +313,7 @@ const Index = () => {
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href="https://www.bokadirekt.se/places/viriditas-massage-136924"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookingClick("cta-after-about")}
@@ -456,9 +456,17 @@ const Index = () => {
           {[
             {
               icon: Clock,
+              title: t("treatment_30_title", "Klassisk massage"),
+              duration: "30 min",
+              price: t("treatment_30_price", "450 kr"),
+              desc: t("treatment_30_desc", "Fokuserad behandling av rygg, nacke och axlar för dig med ont om tid."),
+              cta: "Boka 30 min",
+            },
+            {
+              icon: Clock,
               title: t("treatment_45_title", "Klassisk massage"),
               duration: "45 min",
-              price: t("treatment_45_price", "550 kr"),
+              price: t("treatment_45_price", "595 kr"),
               desc: t("treatment_45_desc", "En kortare men effektiv behandling fokuserad på dina problemområden."),
               cta: "Boka 45 min",
             },
@@ -466,15 +474,23 @@ const Index = () => {
               icon: Leaf,
               title: t("treatment_60_title", "Klassisk massage"),
               duration: "60 min",
-              price: t("treatment_60_price", "650 kr"),
+              price: t("treatment_60_price", "720 kr"),
               desc: t("treatment_60_desc", "En hel timmes lugn avslappningsmassage som löser upp spänningar i hela kroppen – populärast bland alla våra behandlingar för massage i Uddevalla."),
               cta: "Boka 60 min",
               featured: true,
             },
             {
               icon: Sparkles,
+              title: t("treatment_80_title", "Klassisk massage"),
+              duration: "80 min",
+              price: t("treatment_80_price", "1 100 kr"),
+              desc: t("treatment_80_desc", "En omsorgsfull genomgång av hela kroppen för djup avslappning och återhämtning."),
+              cta: "Boka 80 min",
+            },
+            {
+              icon: Sparkles,
               title: t("treatment_recovery_title", "Återhämtningsmassage"),
-              duration: "60 min",
+              duration: "45 min",
               price: t("treatment_recovery_price", "200 kr"),
               desc: t("treatment_recovery_desc", "Reducerat pris för dig som är arbetslös eller har sjukersättning/sjukpenning. Mjuk och återställande behandling."),
               cta: "Boka tid",
@@ -538,7 +554,7 @@ const Index = () => {
               <motion.a
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
-                href={service.isGift ? "#kontakt" : "https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"}
+                href={service.isGift ? "#kontakt" : "https://www.bokadirekt.se/places/viriditas-massage-136924"}
                 target={service.isGift ? undefined : "_blank"}
                 rel={service.isGift ? undefined : "noopener noreferrer"}
                 onClick={() => !service.isGift && trackBookingClick(`treatment-${service.duration}`)}
@@ -628,7 +644,7 @@ const Index = () => {
                   <motion.a
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
-                    href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+                    href="https://www.bokadirekt.se/places/viriditas-massage-136924"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackBookingClick("recovery-highlight")}
@@ -710,7 +726,7 @@ const Index = () => {
                   <motion.a
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
-                    href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+                    href="https://www.bokadirekt.se/places/viriditas-massage-136924"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackBookingClick("recovery-social-proof")}
@@ -889,7 +905,7 @@ const Index = () => {
           <motion.a
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+            href="https://www.bokadirekt.se/places/viriditas-massage-136924"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackBookingClick("cta-after-reviews")}
@@ -950,7 +966,7 @@ const Index = () => {
                     <h3 className="font-display font-semibold text-foreground mb-1">Öppettider</h3>
                     <p className="text-muted-foreground whitespace-pre-line">{t("contact_hours_display", "Tis–Tors: 09:30–19:00\nFre: 13:30–17:30\nLör: 10:00–14:00\nSön & Mån: stängt")}</p>
                     <a
-                      href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+                      href="https://www.bokadirekt.se/places/viriditas-massage-136924"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => trackBookingClick("contact-hours-schedule-link")}
@@ -992,7 +1008,7 @@ const Index = () => {
                 <motion.a
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
-                  href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+                  href="https://www.bokadirekt.se/places/viriditas-massage-136924"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackBookingClick("kontakt")}
@@ -1154,7 +1170,7 @@ const Index = () => {
           >
             <Accordion type="single" collapsible className="space-y-3">
               {[
-                { q: "Vad kostar massage hos Viriditas i Uddevalla?", a: "Klassisk massage 60 minuter kostar 650 kr och 45 minuter kostar 550 kr. Du bokar enkelt online." },
+                { q: "Vad kostar massage hos Viriditas i Uddevalla?", a: "Klassisk massage 60 minuter kostar 720 kr och 45 minuter kostar 595 kr. Du bokar enkelt online." },
                 { q: "Var ligger Viriditas i Uddevalla?", a: "Viriditas finns i Uddevalla Folkets Hus, Göteborgsvägen 11B." },
                 { q: "Hur bokar jag tid för massage?", a: 'Du bokar snabbt och enkelt online via vår bokningssida. Klicka på "Boka tid" här på sidan.' },
                 { q: "Vad är klassisk massage?", a: "Klassisk massage är den vanligaste massageformen i Sverige. Den löser upp spänningar, ökar blodcirkulationen och ger djup avkoppling för hela kroppen." },
@@ -1188,12 +1204,12 @@ const Index = () => {
               {t("cta2_title", "Ge kroppen den omvårdnad den förtjänar")}
             </h2>
             <p className="text-primary-foreground/80 font-body">
-              {t("cta2_text", "Klassisk massage från 550 kr. Boka din tid idag.")}
+              {t("cta2_text", "Klassisk massage från 595 kr. Boka din tid idag.")}
             </p>
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href="https://www.bokadirekt.se/places/viriditas-massage-136924"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookingClick("cta-before-footer")}
@@ -1214,7 +1230,7 @@ const Index = () => {
         style={{ paddingBottom: "calc(1rem + env(safe-area-inset-bottom))" }}
       >
         <a
-          href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+          href="https://www.bokadirekt.se/places/viriditas-massage-136924"
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackBookingClick("sticky-mobile")}

@@ -10,7 +10,7 @@ Live: <https://viriditasmassage.se>
 - Tailwind CSS + shadcn/ui
 - React Router (BrowserRouter)
 - Lovable Cloud (Supabase) – CMS-sidor, omdömen, bokningsklick, schedule sync
-- Edge functions för CMS admin, Peach-synk och Firecrawl-omdömen
+- Edge functions för CMS admin, Bokadirekt-synk och Firecrawl-omdömen
 
 ## Utveckling
 
