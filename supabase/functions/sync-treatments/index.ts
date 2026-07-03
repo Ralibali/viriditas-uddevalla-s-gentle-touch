@@ -8,7 +8,7 @@ const corsHeaders = {
 const BOKADIREKT_URL = 'https://www.bokadirekt.se/places/viriditas-massage-136924';
 
 interface ParsedTreatment {
-  peach_id: string;
+  service_ref: string;
   title: string;
   duration_minutes: number | null;
   price_sek: number | null;
@@ -59,7 +59,7 @@ function parseTreatments(markdown: string): ParsedTreatment[] {
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-+|-+$/g, '');
       treatments.push({
-        peach_id: `bd-${slug}`,
+        service_ref: `bd-${slug}`,
         title: currentTitle,
         duration_minutes: currentDuration,
         price_sek: Number.isNaN(price) ? null : price,
@@ -139,7 +139,7 @@ Deno.serve(async (req) => {
 
     const { error } = await supabase
       .from('treatments')
-      .upsert(rows, { onConflict: 'peach_id' });
+      .upsert(rows, { onConflict: 'service_ref' });
 
     if (error) throw new Error(`Database error: ${error.message}`);
 
