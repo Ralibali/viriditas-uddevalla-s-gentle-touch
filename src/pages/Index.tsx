@@ -456,6 +456,14 @@ const Index = () => {
           {[
             {
               icon: Clock,
+              title: t("treatment_30_title", "Klassisk massage"),
+              duration: "30 min",
+              price: t("treatment_30_price", "450 kr"),
+              desc: t("treatment_30_desc", "Fokuserad behandling av rygg, nacke och axlar för dig med ont om tid."),
+              cta: "Boka 30 min",
+            },
+            {
+              icon: Clock,
               title: t("treatment_45_title", "Klassisk massage"),
               duration: "45 min",
               price: t("treatment_45_price", "595 kr"),
@@ -470,6 +478,14 @@ const Index = () => {
               desc: t("treatment_60_desc", "En hel timmes lugn avslappningsmassage som löser upp spänningar i hela kroppen – populärast bland alla våra behandlingar för massage i Uddevalla."),
               cta: "Boka 60 min",
               featured: true,
+            },
+            {
+              icon: Sparkles,
+              title: t("treatment_80_title", "Klassisk massage"),
+              duration: "80 min",
+              price: t("treatment_80_price", "1 100 kr"),
+              desc: t("treatment_80_desc", "En omsorgsfull genomgång av hela kroppen för djup avslappning och återhämtning."),
+              cta: "Boka 80 min",
             },
             {
               icon: Sparkles,
