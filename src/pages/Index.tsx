@@ -110,7 +110,7 @@ const Index = () => {
           })
         }}
       />
-      {peachRating !== null && peachCount !== null && (
+      {aggRating !== null && aggCount !== null && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -121,8 +121,8 @@ const Index = () => {
               "url": "https://viriditasmassage.se",
               "aggregateRating": {
                 "@type": "AggregateRating",
-                "ratingValue": peachRating.toFixed(1),
-                "reviewCount": peachCount.toString(),
+                "ratingValue": aggRating.toFixed(1),
+                "reviewCount": aggCount.toString(),
                 "bestRating": "5"
               }
             })
