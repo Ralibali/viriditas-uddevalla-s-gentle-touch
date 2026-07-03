@@ -42,7 +42,7 @@ const MassageLjungskile = () => {
     <div className="min-h-screen bg-background">
       <SeoHead
         title="Massage nära Ljungskile – Viriditas i Uddevalla | Boka online"
-        description="Söker du massage i Ljungskile? Viriditas i Uddevalla ligger 15 minuter bort – diplomerad massör, enkel parkering vid Folkets Hus och bokning online. Från 550 kr."
+        description="Söker du massage i Ljungskile? Viriditas i Uddevalla ligger 15 minuter bort – diplomerad massör, enkel parkering vid Folkets Hus och bokning online. Från 595 kr."
         path="/massage-ljungskile"
       />
       <script
@@ -68,8 +68,8 @@ const MassageLjungskile = () => {
             ],
             "url": "https://viriditasmassage.se/massage-ljungskile",
             "offers": [
-              { "@type": "Offer", "price": "550", "priceCurrency": "SEK", "name": "45 min" },
-              { "@type": "Offer", "price": "650", "priceCurrency": "SEK", "name": "60 min" },
+              { "@type": "Offer", "price": "595", "priceCurrency": "SEK", "name": "45 min" },
+              { "@type": "Offer", "price": "720", "priceCurrency": "SEK", "name": "60 min" },
               { "@type": "Offer", "price": "200", "priceCurrency": "SEK", "name": "Återhämtningsmassage" },
             ],
           }),
@@ -160,8 +160,8 @@ const MassageLjungskile = () => {
             <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Behandlingar och priser</h2>
             <p>Hos Viriditas får du klassisk massage av Andreas Håman, diplomerad massageterapeut certifierad enligt Branschrådet Svensk Massage:</p>
             <ul className="list-disc list-inside space-y-2">
-              <li><span className="font-medium text-foreground">Klassisk massage 60 min – 650 kr.</span> En hel timmes genomarbetad behandling av hela ryggsidan eller de områden du behöver.</li>
-              <li><span className="font-medium text-foreground">Klassisk massage 45 min – 550 kr.</span> Effektiv behandling med fokus på dina mest spända områden, ofta nacke, axlar och rygg.</li>
+              <li><span className="font-medium text-foreground">Klassisk massage 60 min – 720 kr.</span> En hel timmes genomarbetad behandling av hela ryggsidan eller de områden du behöver.</li>
+              <li><span className="font-medium text-foreground">Klassisk massage 45 min – 595 kr.</span> Effektiv behandling med fokus på dina mest spända områden, ofta nacke, axlar och rygg.</li>
               <li><span className="font-medium text-foreground">Återhämtningsmassage – 200 kr.</span> Mjuk, återställande behandling till reducerat pris för dig som är arbetslös eller har sjukersättning/sjukpenning.</li>
             </ul>
             <p>Alla behandlingar går att betala med friskvårdsbidrag, och vi tar emot Swish, kort och kontanter.</p>

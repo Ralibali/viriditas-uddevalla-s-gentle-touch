@@ -41,7 +41,7 @@ const AvslappningsmassageUddevalla = () => {
   return (
     <div className="min-h-screen bg-background">
       <SeoHead
-        title="Avslappningsmassage Uddevalla – Boka hos Viriditas | Från 550 kr"
+        title="Avslappningsmassage Uddevalla – Boka hos Viriditas | Från 595 kr"
         description="Avslappningsmassage i Uddevalla hos diplomerad massör Andreas Håman. Minska stress, sov bättre och hitta lugnet. Folkets Hus, Göteborgsvägen 11B. Boka online."
         path="/avslappningsmassage-uddevalla"
       />
@@ -65,8 +65,8 @@ const AvslappningsmassageUddevalla = () => {
             ],
             "url": "https://viriditasmassage.se/avslappningsmassage-uddevalla",
             "offers": [
-              { "@type": "Offer", "price": "550", "priceCurrency": "SEK", "name": "45 min" },
-              { "@type": "Offer", "price": "650", "priceCurrency": "SEK", "name": "60 min" },
+              { "@type": "Offer", "price": "595", "priceCurrency": "SEK", "name": "45 min" },
+              { "@type": "Offer", "price": "720", "priceCurrency": "SEK", "name": "60 min" },
             ],
           }),
         }}
@@ -177,7 +177,7 @@ const AvslappningsmassageUddevalla = () => {
 
             <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Praktisk information</h2>
             <p>
-              Viriditas finns i Uddevalla Folkets Hus på Göteborgsvägen 11B, mitt i centrala Uddevalla med goda parkeringsmöjligheter i närheten. Du bokar enkelt online via vår bokningssida – välj 45 minuter (550 kr) eller 60 minuter (650 kr). Behandlingen är godkänd för friskvårdsbidrag.
+              Viriditas finns i Uddevalla Folkets Hus på Göteborgsvägen 11B, mitt i centrala Uddevalla med goda parkeringsmöjligheter i närheten. Du bokar enkelt online via vår bokningssida – välj 45 minuter (595 kr) eller 60 minuter (720 kr). Behandlingen är godkänd för friskvårdsbidrag.
             </p>
             <p>
               Läs mer om{" "}

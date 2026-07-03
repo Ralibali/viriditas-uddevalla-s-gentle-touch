@@ -65,8 +65,8 @@ const FriskvardsbidragMassageUddevalla = () => {
             ],
             "url": "https://viriditasmassage.se/friskvardsbidrag-massage-uddevalla",
             "offers": [
-              { "@type": "Offer", "price": "550", "priceCurrency": "SEK", "name": "45 min" },
-              { "@type": "Offer", "price": "650", "priceCurrency": "SEK", "name": "60 min" },
+              { "@type": "Offer", "price": "595", "priceCurrency": "SEK", "name": "45 min" },
+              { "@type": "Offer", "price": "720", "priceCurrency": "SEK", "name": "60 min" },
             ],
           }),
         }}
@@ -148,7 +148,7 @@ const FriskvardsbidragMassageUddevalla = () => {
               Ja. Skatteverket klassar massage som en godkänd friskvårdsaktivitet när syftet är att förebygga eller motverka ömhet och stelhet – exempelvis behandling av nacke, axlar och rygg. Det gäller klassisk massage av precis den typ som Viriditas erbjuder. Behandlingen ska vara av enklare slag, vilket vanlig massage hos massör uppfyller.
             </p>
             <p>
-              Det innebär att både vår klassiska massage på 45 minuter (550 kr) och 60 minuter (650 kr) går utmärkt att betala med friskvårdsbidraget.
+              Det innebär att både vår klassiska massage på 45 minuter (595 kr) och 60 minuter (720 kr) går utmärkt att betala med friskvårdsbidraget.
             </p>
 
             <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Så använder du bidraget – steg för steg</h2>

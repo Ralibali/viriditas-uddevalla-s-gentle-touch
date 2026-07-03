@@ -63,7 +63,7 @@ const Index = () => {
       </a>
       <SeoHead
         title="Massage Uddevalla | Viriditas – Andreas Håman"
-        description="Boka klassisk massage i Uddevalla hos Viriditas. Certifierad massör Andreas Håman, Folkets Hus, Göteborgsvägen 11B. Från 550 kr."
+        description="Boka klassisk massage i Uddevalla hos Viriditas. Certifierad massör Andreas Håman, Folkets Hus, Göteborgsvägen 11B. Från 595 kr."
         path="/"
       />
       <script
@@ -221,7 +221,7 @@ const Index = () => {
               <Star className="w-4 h-4 text-primary-foreground fill-primary-foreground" /> {avgRating} betyg
             </span>
             <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
-            <span>{t("hero_price_from", "Från 550 kr")}</span>
+            <span>{t("hero_price_from", "Från 595 kr")}</span>
             <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
             <span>{totalCount}+ omdömen</span>
           </motion.div>
@@ -458,7 +458,7 @@ const Index = () => {
               icon: Clock,
               title: t("treatment_45_title", "Klassisk massage"),
               duration: "45 min",
-              price: t("treatment_45_price", "550 kr"),
+              price: t("treatment_45_price", "595 kr"),
               desc: t("treatment_45_desc", "En kortare men effektiv behandling fokuserad på dina problemområden."),
               cta: "Boka 45 min",
             },
@@ -466,7 +466,7 @@ const Index = () => {
               icon: Leaf,
               title: t("treatment_60_title", "Klassisk massage"),
               duration: "60 min",
-              price: t("treatment_60_price", "650 kr"),
+              price: t("treatment_60_price", "720 kr"),
               desc: t("treatment_60_desc", "En hel timmes lugn avslappningsmassage som löser upp spänningar i hela kroppen – populärast bland alla våra behandlingar för massage i Uddevalla."),
               cta: "Boka 60 min",
               featured: true,
@@ -1154,7 +1154,7 @@ const Index = () => {
           >
             <Accordion type="single" collapsible className="space-y-3">
               {[
-                { q: "Vad kostar massage hos Viriditas i Uddevalla?", a: "Klassisk massage 60 minuter kostar 650 kr och 45 minuter kostar 550 kr. Du bokar enkelt online." },
+                { q: "Vad kostar massage hos Viriditas i Uddevalla?", a: "Klassisk massage 60 minuter kostar 720 kr och 45 minuter kostar 595 kr. Du bokar enkelt online." },
                 { q: "Var ligger Viriditas i Uddevalla?", a: "Viriditas finns i Uddevalla Folkets Hus, Göteborgsvägen 11B." },
                 { q: "Hur bokar jag tid för massage?", a: 'Du bokar snabbt och enkelt online via vår bokningssida. Klicka på "Boka tid" här på sidan.' },
                 { q: "Vad är klassisk massage?", a: "Klassisk massage är den vanligaste massageformen i Sverige. Den löser upp spänningar, ökar blodcirkulationen och ger djup avkoppling för hela kroppen." },
@@ -1188,7 +1188,7 @@ const Index = () => {
               {t("cta2_title", "Ge kroppen den omvårdnad den förtjänar")}
             </h2>
             <p className="text-primary-foreground/80 font-body">
-              {t("cta2_text", "Klassisk massage från 550 kr. Boka din tid idag.")}
+              {t("cta2_text", "Klassisk massage från 595 kr. Boka din tid idag.")}
             </p>
             <motion.a
               whileHover={{ scale: 1.03 }}

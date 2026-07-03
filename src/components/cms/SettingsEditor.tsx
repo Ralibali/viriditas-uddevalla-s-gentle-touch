@@ -28,7 +28,7 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
       { key: "hero_subtitle", label: "Underrubrik", placeholder: "– Känn skillnaden med Viriditas" },
       
       { key: "hero_availability", label: "Tillgänglighet", placeholder: "Tider tillgängliga fredagar & lördagar" },
-      { key: "hero_price_from", label: "Pris från", placeholder: "Från 550 kr" },
+      { key: "hero_price_from", label: "Pris från", placeholder: "Från 595 kr" },
     ],
   },
   {
@@ -46,7 +46,7 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
       { key: "cta1_title", label: "CTA 1 – Rubrik", placeholder: "Redo att boka din massage?" },
       { key: "cta1_text", label: "CTA 1 – Text", placeholder: "Boka enkelt online – välj tid som passar dig." },
       { key: "cta2_title", label: "CTA 2 – Rubrik (sista)", placeholder: "Ge kroppen den omvårdnad den förtjänar" },
-      { key: "cta2_text", label: "CTA 2 – Text (sista)", placeholder: "Klassisk massage från 550 kr. Boka din tid idag." },
+      { key: "cta2_text", label: "CTA 2 – Text (sista)", placeholder: "Klassisk massage från 595 kr. Boka din tid idag." },
     ],
   },
   {
@@ -62,10 +62,10 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
     fields: [
       { key: "treatments_title", label: "Rubrik", placeholder: "Klassisk massage – Behandlingar & priser" },
       { key: "treatment_45_title", label: "45 min – Titel", placeholder: "Klassisk massage" },
-      { key: "treatment_45_price", label: "45 min – Pris", placeholder: "550 kr" },
+      { key: "treatment_45_price", label: "45 min – Pris", placeholder: "595 kr" },
       { key: "treatment_45_desc", label: "45 min – Beskrivning", placeholder: "En kortare men effektiv behandling...", type: "textarea" },
       { key: "treatment_60_title", label: "60 min – Titel", placeholder: "Klassisk massage" },
-      { key: "treatment_60_price", label: "60 min – Pris", placeholder: "650 kr" },
+      { key: "treatment_60_price", label: "60 min – Pris", placeholder: "720 kr" },
       { key: "treatment_60_desc", label: "60 min – Beskrivning", placeholder: "En hel timmes avkopplande behandling...", type: "textarea" },
       { key: "gift_title", label: "Presentkort – Titel", placeholder: "Presentkort" },
       { key: "gift_price", label: "Presentkort – Pris", placeholder: "Valfritt belopp" },

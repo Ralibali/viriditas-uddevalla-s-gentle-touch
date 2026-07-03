@@ -65,8 +65,8 @@ const MassageMotNackspanning = () => {
             ],
             "url": "https://viriditasmassage.se/massage-mot-nackspanning",
             "offers": [
-              { "@type": "Offer", "price": "550", "priceCurrency": "SEK", "name": "45 min" },
-              { "@type": "Offer", "price": "650", "priceCurrency": "SEK", "name": "60 min" },
+              { "@type": "Offer", "price": "595", "priceCurrency": "SEK", "name": "45 min" },
+              { "@type": "Offer", "price": "720", "priceCurrency": "SEK", "name": "60 min" },
             ],
           }),
         }}
