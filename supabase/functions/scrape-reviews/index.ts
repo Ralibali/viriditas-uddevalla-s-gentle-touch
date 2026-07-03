@@ -103,10 +103,10 @@ function parseReviews(markdown: string): {
     review_date: string;
   }> = [];
 
-  // Parse aggregate rating from header: "## 4.7" followed by "(17reviews)" or "(17 reviews)"
+  // Aggregate rating from header, e.g. "## 4.8" then "(28 omdömen)" / "(28 reviews)"
   let aggRating: number | null = null;
   let aggCount: number | null = null;
-  const aggMatch = markdown.match(/##\s+(\d+(?:[.,]\d+)?)[\s\S]{0,80}?\((\d+)\s*reviews?\)/i);
+  const aggMatch = markdown.match(/##\s+(\d+(?:[.,]\d+)?)[\s\S]{0,80}?\((\d+)\s*(?:omdöme|omdömen|reviews?)\)/i);
   if (aggMatch) {
     aggRating = parseFloat(aggMatch[1].replace(',', '.'));
     aggCount = parseInt(aggMatch[2], 10);
