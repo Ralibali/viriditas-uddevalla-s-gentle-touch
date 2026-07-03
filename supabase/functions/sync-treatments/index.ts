@@ -5,46 +5,86 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-// Peach activity IDs to sync
-const ACTIVITIES = [
-  { peach_id: 'RAj5XBly6CCiiUTuCR3d', fallback_title: 'Återhämtningsmassage' },
-  { peach_id: 'i8ZRmDih1m38czfIeJIq', fallback_title: 'Klassisk massage 45 min' },
-  { peach_id: 'QazTNm4OmAb1ccXwks5D', fallback_title: 'Klassisk massage 60 min' },
-];
+const BOKADIREKT_URL = 'https://www.bokadirekt.se/places/viriditas-massage-136924';
 
 interface ParsedTreatment {
+  peach_id: string;
   title: string;
   duration_minutes: number | null;
   price_sek: number | null;
   description: string | null;
 }
 
-function parseTreatment(markdown: string, fallbackTitle: string): ParsedTreatment {
-  // Title: first H1
-  const titleMatch = markdown.match(/^#\s+(.+)$/m);
-  const title = titleMatch ? titleMatch[1].trim() : fallbackTitle;
-
-  // Price: e.g. "100 kr" or "650 kr"
-  const priceMatch = markdown.match(/(\d{2,5})\s*kr/i);
-  const price_sek = priceMatch ? parseInt(priceMatch[1], 10) : null;
-
-  // Duration: e.g. "60 min" or "45 min"
-  const durationMatch = markdown.match(/(\d{1,3})\s*min\b/i);
-  const duration_minutes = durationMatch ? parseInt(durationMatch[1], 10) : null;
-
-  // Description: paragraph that comes after the price/duration block, before "Read more"
-  // Look for a sentence ending with "Välkommen!" or just first long line after duration
-  let description: string | null = null;
+// Parse the Bokadirekt place page markdown into a list of services.
+// Structure per service:
+//   ## <title>
+//   <n> min
+//   <description paragraph(s)>
+//   Pris<price> kr
+//   Boka
+function parseTreatments(markdown: string): ParsedTreatment[] {
   const lines = markdown.split('\n').map((l) => l.trim());
+  const treatments: ParsedTreatment[] = [];
+
+  let currentTitle: string | null = null;
+  let currentDuration: number | null = null;
+  let descLines: string[] = [];
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    if (line.length > 60 && !line.startsWith('#') && !line.startsWith('![') && !line.startsWith('[')) {
-      description = line;
-      break;
+
+    const headingMatch = line.match(/^##\s+(.+)$/);
+    if (headingMatch) {
+      currentTitle = headingMatch[1].trim();
+      currentDuration = null;
+      descLines = [];
+      continue;
+    }
+
+    if (!currentTitle) continue;
+
+    const durMatch = line.match(/^(\d{1,3})\s*min$/i);
+    if (durMatch && currentDuration === null) {
+      currentDuration = parseInt(durMatch[1], 10);
+      continue;
+    }
+
+    const priceMatch = line.match(/^Pris\s*([\d\s]+)\s*kr$/i);
+    if (priceMatch && currentDuration !== null) {
+      const price = parseInt(priceMatch[1].replace(/\s+/g, ''), 10);
+      const slug = `${currentTitle}-${currentDuration}`
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+      treatments.push({
+        peach_id: `bd-${slug}`,
+        title: currentTitle,
+        duration_minutes: currentDuration,
+        price_sek: Number.isNaN(price) ? null : price,
+        description: descLines.join(' ').trim() || null,
+      });
+      currentTitle = null;
+      currentDuration = null;
+      descLines = [];
+      continue;
+    }
+
+    // collect description text (skip images, links, tags, "Boka", "Friskvård")
+    if (
+      currentDuration !== null &&
+      line.length > 20 &&
+      !line.startsWith('#') &&
+      !line.startsWith('![') &&
+      !line.startsWith('[') &&
+      !/^Boka$/i.test(line)
+    ) {
+      descLines.push(line);
     }
   }
 
-  return { title, duration_minutes, price_sek, description };
+  return treatments;
 }
 
 Deno.serve(async (req) => {
@@ -60,60 +100,50 @@ Deno.serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const results: Array<Record<string, unknown>> = [];
+    console.log(`Scraping treatments from Bokadirekt: ${BOKADIREKT_URL}`);
 
-    for (const activity of ACTIVITIES) {
-      const url = `https://peach.nu/activities/${activity.peach_id}`;
-      console.log(`Scraping ${url}`);
+    const scrapeResponse = await fetch('https://api.firecrawl.dev/v2/scrape', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        url: BOKADIREKT_URL,
+        formats: ['markdown'],
+        onlyMainContent: true,
+      }),
+    });
 
-      const scrapeResponse = await fetch('https://api.firecrawl.dev/v2/scrape', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          url,
-          formats: ['markdown'],
-          onlyMainContent: true,
-        }),
-      });
-
-      const scrapeData = await scrapeResponse.json();
-      if (!scrapeResponse.ok) {
-        console.error(`Firecrawl error for ${activity.peach_id}:`, scrapeData);
-        results.push({ peach_id: activity.peach_id, success: false, error: scrapeData });
-        continue;
-      }
-
-      const markdown = scrapeData.data?.markdown || scrapeData.markdown || '';
-      const parsed = parseTreatment(markdown, activity.fallback_title);
-      console.log(`Parsed for ${activity.peach_id}:`, parsed);
-
-      const { error } = await supabase
-        .from('treatments')
-        .upsert(
-          {
-            peach_id: activity.peach_id,
-            title: parsed.title,
-            duration_minutes: parsed.duration_minutes,
-            price_sek: parsed.price_sek,
-            description: parsed.description,
-            source_url: url,
-            last_synced_at: new Date().toISOString(),
-          },
-          { onConflict: 'peach_id' }
-        );
-
-      if (error) {
-        console.error(`DB error for ${activity.peach_id}:`, error);
-        results.push({ peach_id: activity.peach_id, success: false, error: error.message });
-      } else {
-        results.push({ peach_id: activity.peach_id, success: true, ...parsed });
-      }
+    const scrapeData = await scrapeResponse.json();
+    if (!scrapeResponse.ok) {
+      throw new Error(`Firecrawl error: ${JSON.stringify(scrapeData)}`);
     }
 
-    return new Response(JSON.stringify({ success: true, results }), {
+    const markdown = scrapeData.data?.markdown || scrapeData.markdown || '';
+    const parsed = parseTreatments(markdown);
+    console.log(`Parsed ${parsed.length} treatments`);
+
+    if (parsed.length === 0) {
+      return new Response(
+        JSON.stringify({ success: true, message: 'No treatments parsed', count: 0 }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const rows = parsed.map((p) => ({
+      ...p,
+      source_url: BOKADIREKT_URL,
+      last_synced_at: new Date().toISOString(),
+    }));
+
+    const { error } = await supabase
+      .from('treatments')
+      .upsert(rows, { onConflict: 'peach_id' });
+
+    if (error) throw new Error(`Database error: ${error.message}`);
+
+    return new Response(JSON.stringify({ success: true, count: rows.length, treatments: rows }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   } catch (error) {
