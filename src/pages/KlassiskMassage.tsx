@@ -20,7 +20,7 @@ const KlassiskMassage = () => {
     <div className="min-h-screen bg-background">
       <SeoHead
         title="Klassisk Massage Uddevalla – 550 kr | Viriditas"
-        description="Klassisk massage i Uddevalla från 550 kr. Certifierad massageterapeut i Uddevalla Folkets Hus, Göteborgsvägen 11B. Boka online enkelt via peach.nu."
+        description="Klassisk massage i Uddevalla från 550 kr. Certifierad massageterapeut i Uddevalla Folkets Hus, Göteborgsvägen 11B. Boka online enkelt via Bokadirekt."
         path="/klassisk-massage"
       />
       <script

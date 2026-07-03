@@ -43,7 +43,7 @@ const Index = () => {
   const featuredReviews = reviews?.filter(r => r.review_text) || [];
   const compactReviews = reviews?.filter(r => !r.review_text) || [];
 
-  // Prefer Peach's official aggregate (synced from peach.nu/reviews) over local DB calculation
+  // Aggregate rating synced from Bokadirekt/reviews (falls back to local DB average)
   const peachRating = s?.peach_rating_value ? parseFloat(s.peach_rating_value) : null;
   const peachCount = s?.peach_review_count ? parseInt(s.peach_review_count, 10) : null;
   const localCount = reviews?.length || 0;

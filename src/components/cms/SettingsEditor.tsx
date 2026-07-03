@@ -16,7 +16,7 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
       { key: "phone", label: "Telefon", placeholder: "076-317 78 97" },
       { key: "email", label: "E-post", placeholder: "info@viriditas.se" },
       { key: "address", label: "Adress", placeholder: "Uddevalla Folkets Hus, Göteborgsvägen 11B" },
-      { key: "booking_url", label: "Boknings-URL", placeholder: "https://peach.nu/..." },
+      { key: "booking_url", label: "Boknings-URL", placeholder: "https://www.bokadirekt.se/..." },
       { key: "opening_hours", label: "Öppettider", placeholder: "Fredagar & lördagar", type: "textarea" },
       { key: "footer_text", label: "Footer-text", placeholder: "Klassisk massage i Uddevalla...", type: "textarea" },
     ],
