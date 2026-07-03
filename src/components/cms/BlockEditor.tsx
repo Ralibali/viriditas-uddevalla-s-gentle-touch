@@ -24,7 +24,7 @@ function defaultData(type: BlockType): Record<string, any> {
     case "paragraph": return { text: "Skriv din text här..." };
     case "image": return { src: "", alt: "" };
     case "video": return { src: "" };
-    case "cta_button": return { text: "Boka tid", url: "https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule", variant: "default", trackSource: "", external: true };
+    case "cta_button": return { text: "Boka tid", url: "https://www.bokadirekt.se/places/viriditas-massage-136924", variant: "default", trackSource: "", external: true };
     case "list": return { items: ["Punkt 1", "Punkt 2"] };
     case "quote": return { text: "", author: "" };
     case "faq": return { items: [{ question: "Vanlig fråga?", answer: "Svar här..." }] };

@@ -16,7 +16,7 @@ const fadeUp = {
   }),
 };
 
-const BOOKING_URL = "https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule";
+const BOOKING_URL = "https://www.bokadirekt.se/places/viriditas-massage-136924";
 
 const faqs = [
   {

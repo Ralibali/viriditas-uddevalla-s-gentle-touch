@@ -104,7 +104,7 @@ const Index = () => {
               "price": "200",
               "priceCurrency": "SEK",
               "availability": "https://schema.org/InStock",
-              "url": "https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule",
+              "url": "https://www.bokadirekt.se/places/viriditas-massage-136924",
               "eligibleCustomerType": "Personer som är arbetslösa eller har sjukersättning/sjukpenning"
             }
           })
@@ -183,7 +183,7 @@ const Index = () => {
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href="https://www.bokadirekt.se/places/viriditas-massage-136924"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookingClick("hero")}
@@ -313,7 +313,7 @@ const Index = () => {
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href="https://www.bokadirekt.se/places/viriditas-massage-136924"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookingClick("cta-after-about")}
@@ -538,7 +538,7 @@ const Index = () => {
               <motion.a
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
-                href={service.isGift ? "#kontakt" : "https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"}
+                href={service.isGift ? "#kontakt" : "https://www.bokadirekt.se/places/viriditas-massage-136924"}
                 target={service.isGift ? undefined : "_blank"}
                 rel={service.isGift ? undefined : "noopener noreferrer"}
                 onClick={() => !service.isGift && trackBookingClick(`treatment-${service.duration}`)}
@@ -628,7 +628,7 @@ const Index = () => {
                   <motion.a
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
-                    href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+                    href="https://www.bokadirekt.se/places/viriditas-massage-136924"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackBookingClick("recovery-highlight")}
@@ -710,7 +710,7 @@ const Index = () => {
                   <motion.a
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
-                    href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+                    href="https://www.bokadirekt.se/places/viriditas-massage-136924"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackBookingClick("recovery-social-proof")}
@@ -889,7 +889,7 @@ const Index = () => {
           <motion.a
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+            href="https://www.bokadirekt.se/places/viriditas-massage-136924"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackBookingClick("cta-after-reviews")}
@@ -950,7 +950,7 @@ const Index = () => {
                     <h3 className="font-display font-semibold text-foreground mb-1">Öppettider</h3>
                     <p className="text-muted-foreground whitespace-pre-line">{t("contact_hours_display", "Tis–Tors: 09:30–19:00\nFre: 13:30–17:30\nLör: 10:00–14:00\nSön & Mån: stängt")}</p>
                     <a
-                      href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+                      href="https://www.bokadirekt.se/places/viriditas-massage-136924"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => trackBookingClick("contact-hours-schedule-link")}
@@ -992,7 +992,7 @@ const Index = () => {
                 <motion.a
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
-                  href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+                  href="https://www.bokadirekt.se/places/viriditas-massage-136924"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackBookingClick("kontakt")}
@@ -1193,7 +1193,7 @@ const Index = () => {
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href="https://www.bokadirekt.se/places/viriditas-massage-136924"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookingClick("cta-before-footer")}
@@ -1214,7 +1214,7 @@ const Index = () => {
         style={{ paddingBottom: "calc(1rem + env(safe-area-inset-bottom))" }}
       >
         <a
-          href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+          href="https://www.bokadirekt.se/places/viriditas-massage-136924"
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackBookingClick("sticky-mobile")}

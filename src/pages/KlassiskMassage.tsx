@@ -138,7 +138,7 @@ const KlassiskMassage = () => {
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href="https://www.bokadirekt.se/places/viriditas-massage-136924"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookingClick("klassisk-massage-mid")}
@@ -176,7 +176,7 @@ const KlassiskMassage = () => {
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://peach.nu/c/GOaYeiFjzzOBbtOPK0wZ/schedule"
+              href="https://www.bokadirekt.se/places/viriditas-massage-136924"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookingClick("klassisk-massage")}
