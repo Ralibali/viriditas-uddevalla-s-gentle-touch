@@ -1,6 +1,6 @@
 // Build-time prerendering + sitemap generation.
 // Runs after `vite build` (postbuild). Serves dist/ locally, renders every
-// route with Puppeteer (waiting for networkidle0 so Peach rating + CMS
+// route with Puppeteer (waiting for networkidle0 so Bokadirekt rating + CMS
 // content land in the DOM) and writes fully-rendered HTML to
 // dist/<route>/index.html. Also writes dist/sitemap.xml.
 //
