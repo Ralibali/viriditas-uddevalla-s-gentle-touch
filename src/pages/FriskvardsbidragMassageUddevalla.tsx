@@ -26,7 +26,7 @@ const faqs = [
   },
   {
     q: "Funkar Epassi, Benify eller Wellnet hos er?",
-    a: "Du betalar din behandling direkt hos oss och laddar sedan upp kvittot i din portal för ersättning. Det fungerar med samtliga vanliga friskvårdsportaler som tillåter kvittoredovisning.",
+    a: "Ja. Viriditas är ansluten till Epassi, så du kan betala din friskvårdsmassage direkt via Epassi-appen på plats. Använder du en annan portal som Benify eller Wellnet betalar du som vanligt och laddar upp kvittot för ersättning – det fungerar med samtliga vanliga friskvårdsportaler.",
   },
   {
     q: "Kan jag köpa flera behandlingar på en gång?",
