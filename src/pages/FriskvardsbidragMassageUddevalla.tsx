@@ -6,6 +6,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import SeoHead from "@/components/SeoHead";
+import epassiLogo from "@/assets/epassi-logo.svg.asset.json";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
