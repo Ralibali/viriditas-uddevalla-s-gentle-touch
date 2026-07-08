@@ -74,9 +74,13 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="border-t border-primary-foreground/20 pt-8 text-center">
+        <div className="border-t border-primary-foreground/20 pt-8 text-center space-y-2">
           <p className="text-primary-foreground/50 text-sm">
             &copy; {new Date().getFullYear()} Viriditas – Andreas Håman. Alla rättigheter förbehållna.
+          </p>
+          <p className="text-primary-foreground/40 text-xs max-w-2xl mx-auto leading-relaxed">
+            Vi använder Plausible för anonym, cookiefri besöksstatistik och spårar dig aldrig som individ.
+            Dina personuppgifter säljs aldrig vidare.
           </p>
         </div>
       </div>
