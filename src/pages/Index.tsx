@@ -803,6 +803,55 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Friskvård / Epassi */}
+      <section className="py-24 px-6">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={fadeUp}
+            className="rounded-3xl border border-primary/20 bg-card shadow-xl overflow-hidden"
+          >
+            <div className="grid md:grid-cols-5 gap-0">
+              <div className="md:col-span-2 bg-primary/10 p-10 flex flex-col justify-center items-start gap-5">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/15">
+                  <Gift className="w-7 h-7 text-primary" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-display font-semibold text-foreground">
+                  Betala med friskvårdsbidrag
+                </h2>
+                <div className="flex items-center justify-center rounded-xl bg-white px-6 py-4">
+                  <img
+                    src="/epassi-logo.svg"
+                    alt="Epassi – betala din massage med friskvårdsbidrag"
+                    width={140}
+                    height={44}
+                    loading="lazy"
+                    className="h-10 w-auto"
+                  />
+                </div>
+              </div>
+              <div className="md:col-span-3 p-10 flex flex-col justify-center gap-5">
+                <p className="text-lg text-muted-foreground leading-relaxed font-body">
+                  Viriditas är ansluten till <span className="font-medium text-foreground">Epassi</span> – betala din
+                  friskvårdsmassage smidigt direkt via Epassi-appen på plats. Använder du en annan portal som Benify
+                  eller Wellnet går det också bra; du betalar som vanligt och laddar upp kvittot för ersättning.
+                </p>
+                <Link
+                  to="/friskvardsbidrag-massage-uddevalla"
+                  className="inline-flex items-center gap-2 text-primary font-body font-medium hover:underline"
+                >
+                  Läs mer om friskvårdsbidrag <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+
+
       {/* Omdömen */}
       <section className="py-28 px-6 bg-[#f4f0eb]">
         <div className="max-w-4xl mx-auto text-center mb-16">
