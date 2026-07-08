@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import SeoHead from "@/components/SeoHead";
 
+
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number = 0) => ({
@@ -25,7 +26,7 @@ const faqs = [
   },
   {
     q: "Funkar Epassi, Benify eller Wellnet hos er?",
-    a: "Du betalar din behandling direkt hos oss och laddar sedan upp kvittot i din portal för ersättning. Det fungerar med samtliga vanliga friskvårdsportaler som tillåter kvittoredovisning.",
+    a: "Ja. Viriditas är ansluten till Epassi, så du kan betala din friskvårdsmassage direkt via Epassi-appen på plats. Använder du en annan portal som Benify eller Wellnet betalar du som vanligt och laddar upp kvittot för ersättning – det fungerar med samtliga vanliga friskvårdsportaler.",
   },
   {
     q: "Kan jag köpa flera behandlingar på en gång?",
@@ -154,13 +155,29 @@ const FriskvardsbidragMassageUddevalla = () => {
             <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Så använder du bidraget – steg för steg</h2>
             <ol className="list-decimal list-inside space-y-3">
               <li><span className="font-medium text-foreground">Kolla ditt bidrag.</span> Hör med din arbetsgivare eller HR hur stort ditt friskvårdsbidrag är och hur det administreras. De flesta använder en portal som Epassi, Benify, Wellnet eller Söderberg & Partners – andra låter dig lämna in kvitto direkt.</li>
-              <li><span className="font-medium text-foreground">Boka och betala din massage.</span> Boka online och betala som vanligt med kort eller Swish på plats.</li>
+              <li><span className="font-medium text-foreground">Boka och betala din massage.</span> Boka online och betala på plats. Är du ansluten till Epassi kan du betala direkt via Epassi-appen – annars går det bra med kort eller Swish.</li>
               <li><span className="font-medium text-foreground">Spara kvittot.</span> Du får alltid ett kvitto där behandling, datum och belopp framgår.</li>
               <li><span className="font-medium text-foreground">Ladda upp eller lämna in.</span> Registrera kvittot i din friskvårdsportal eller lämna det till din arbetsgivare, så får du ersättningen utbetald.</li>
             </ol>
             <p>
               Hela processen tar ett par minuter. Är du osäker på vad som ska stå på kvittot för just din portal – säg till vid besöket så löser vi det.
             </p>
+
+            <div className="not-prose flex flex-col sm:flex-row sm:items-center gap-4 rounded-2xl border border-border bg-card p-6 mt-2">
+              <div className="flex items-center justify-center rounded-xl bg-white px-6 py-4 shrink-0">
+                <img
+                  src="/epassi-logo.svg"
+                  alt="Epassi – betala din massage med friskvårdsbidrag"
+                  width={140}
+                  height={44}
+                  loading="lazy"
+                  className="h-11 w-auto"
+                />
+              </div>
+              <p className="text-muted-foreground font-body leading-relaxed m-0">
+                Viriditas är ansluten till <span className="font-medium text-foreground">Epassi</span> – betala din friskvårdsmassage smidigt direkt via Epassi-appen på plats.
+              </p>
+            </div>
 
             <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Smart friskvård som faktiskt gör skillnad</h2>
             <p>
