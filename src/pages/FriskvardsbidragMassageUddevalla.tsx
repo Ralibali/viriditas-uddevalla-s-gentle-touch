@@ -155,7 +155,7 @@ const FriskvardsbidragMassageUddevalla = () => {
             <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Så använder du bidraget – steg för steg</h2>
             <ol className="list-decimal list-inside space-y-3">
               <li><span className="font-medium text-foreground">Kolla ditt bidrag.</span> Hör med din arbetsgivare eller HR hur stort ditt friskvårdsbidrag är och hur det administreras. De flesta använder en portal som Epassi, Benify, Wellnet eller Söderberg & Partners – andra låter dig lämna in kvitto direkt.</li>
-              <li><span className="font-medium text-foreground">Boka och betala din massage.</span> Boka online och betala som vanligt med kort eller Swish på plats.</li>
+              <li><span className="font-medium text-foreground">Boka och betala din massage.</span> Boka online och betala på plats. Är du ansluten till Epassi kan du betala direkt via Epassi-appen – annars går det bra med kort eller Swish.</li>
               <li><span className="font-medium text-foreground">Spara kvittot.</span> Du får alltid ett kvitto där behandling, datum och belopp framgår.</li>
               <li><span className="font-medium text-foreground">Ladda upp eller lämna in.</span> Registrera kvittot i din friskvårdsportal eller lämna det till din arbetsgivare, så får du ersättningen utbetald.</li>
             </ol>
