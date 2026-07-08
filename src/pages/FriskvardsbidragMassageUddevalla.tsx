@@ -166,7 +166,7 @@ const FriskvardsbidragMassageUddevalla = () => {
             <div className="not-prose flex flex-col sm:flex-row sm:items-center gap-4 rounded-2xl border border-border bg-card p-6 mt-2">
               <div className="flex items-center justify-center rounded-xl bg-white px-6 py-4 shrink-0">
                 <img
-                  src={epassiLogo.url}
+                  src="/epassi-logo.svg"
                   alt="Epassi – betala din massage med friskvårdsbidrag"
                   width={140}
                   height={44}
