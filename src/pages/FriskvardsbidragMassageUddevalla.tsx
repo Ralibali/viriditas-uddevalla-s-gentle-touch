@@ -163,6 +163,22 @@ const FriskvardsbidragMassageUddevalla = () => {
               Hela processen tar ett par minuter. Är du osäker på vad som ska stå på kvittot för just din portal – säg till vid besöket så löser vi det.
             </p>
 
+            <div className="not-prose flex flex-col sm:flex-row sm:items-center gap-4 rounded-2xl border border-border bg-card p-6 mt-2">
+              <div className="flex items-center justify-center rounded-xl bg-white px-6 py-4 shrink-0">
+                <img
+                  src={epassiLogo.url}
+                  alt="Epassi – betala din massage med friskvårdsbidrag"
+                  width={140}
+                  height={44}
+                  loading="lazy"
+                  className="h-11 w-auto"
+                />
+              </div>
+              <p className="text-muted-foreground font-body leading-relaxed m-0">
+                Viriditas är ansluten till <span className="font-medium text-foreground">Epassi</span> – betala din friskvårdsmassage smidigt direkt via Epassi-appen på plats.
+              </p>
+            </div>
+
             <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Smart friskvård som faktiskt gör skillnad</h2>
             <p>
               Många låter friskvårdsbidraget brinna inne varje år. Det är synd – regelbunden massage är ett av de mest direkta sätten att använda bidraget på något som kroppen märker av. Spänningar i nacke och rygg byggs upp långsamt, och regelbunden behandling förebygger att de hinner bli till smärta, huvudvärk eller sjukskrivningsdagar.
