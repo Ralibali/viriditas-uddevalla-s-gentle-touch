@@ -12,7 +12,7 @@ import salonTableWindow from "@/assets/salon-table-window.jpg";
 import salonWindowsill from "@/assets/salon-windowsill.jpg";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { trackBookingClick, trackPhoneClick } from "@/lib/trackBookingClick";
+import { trackBookingClick, trackContactClick, trackPhoneClick } from "@/lib/trackBookingClick";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import SeoHead from "@/components/SeoHead";
@@ -1050,6 +1050,7 @@ const Index = () => {
                   href="https://maps.google.com/?q=Uddevalla+Folkets+Hus+G%C3%B6teborgsv%C3%A4gen+11B+Uddevalla"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackContactClick("kontakt-maps")}
                   className="inline-flex items-center justify-center gap-2 bg-card border border-border text-foreground px-6 py-3 rounded-full font-body font-medium shadow-sm hover:shadow-md transition-shadow"
                 >
                   <ExternalLink className="w-4 h-4" /> Öppna i Google Maps
