@@ -4,8 +4,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import GlobalContentEditor from "@/components/cms/GlobalContentEditor";
 import Index from "./pages/Index.tsx";
-
 
 const OmAndreas = lazy(() => import("./pages/OmAndreas.tsx"));
 const KlassiskMassage = lazy(() => import("./pages/KlassiskMassage.tsx"));
@@ -31,6 +31,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <GlobalContentEditor />
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/" element={<Index />} />
@@ -47,7 +48,6 @@ const App = () => (
           </Routes>
         </Suspense>
       </BrowserRouter>
-
     </TooltipProvider>
   </QueryClientProvider>
 );
