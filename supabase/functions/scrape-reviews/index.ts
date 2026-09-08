@@ -118,7 +118,7 @@ function parseReviews(markdown: string): {
   const SWEDISH_DAYS = /(mån|tis|ons|tors|fre|lör|sön)/i;
   const SWEDISH_MONTHS = /(jan|feb|mars|apr|maj|jun|jul|aug|sep|okt|nov|dec)/i;
 
-  // New Peach format is English, e.g. "Fri, Jun 19", "Wed, May 13"
+  // New Bokadirekt format is English, e.g. "Fri, Jun 19", "Wed, May 13"
   const EN_DAYS: Record<string, string> = {
     mon: 'mån', tue: 'tis', wed: 'ons', thu: 'tors', fri: 'fre', sat: 'lör', sun: 'sön',
   };
