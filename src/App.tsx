@@ -1,3 +1,4 @@
+import AnalyticsConsent from './components/AnalyticsConsent';
 import { lazy, Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -31,6 +32,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <AnalyticsConsent />
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/" element={<Index />} />

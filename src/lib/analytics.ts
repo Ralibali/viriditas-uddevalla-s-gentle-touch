@@ -1,4 +1,4 @@
-// Typesafe Plausible Analytics helper.
+// Typesafe GA4 Analytics helper.
 // Sends only low-cardinality, non-personal custom event data.
 // Never send personal data, phone numbers, e-mail, booking details,
 // free text or full external URLs with query parameters.
@@ -6,7 +6,7 @@
 type AnalyticsEvent = "Booking Click" | "Phone Click" | "Contact Click";
 
 /**
- * Allowed custom properties. Keep these low-cardinality so Plausible
+ * Allowed custom properties. Keep these low-cardinality so GA4
  * breakdowns stay meaningful (e.g. "hero", "navbar", "treatment-60min").
  */
 interface AnalyticsProps {
@@ -14,14 +14,14 @@ interface AnalyticsProps {
   treatment_category?: string;
 }
 
-type PlausibleFn = (
+type GA4Fn = (
   event: string,
   options?: { props?: Record<string, string | number | boolean>; callback?: () => void }
 ) => void;
 
 declare global {
   interface Window {
-    plausible?: PlausibleFn;
+    analyticsEvent?: GA4Fn;
   }
 }
 
@@ -46,11 +46,11 @@ const buildProps = (props?: AnalyticsProps): Record<string, string> | undefined 
   return Object.keys(out).length > 0 ? out : undefined;
 };
 
-/** Low-level typesafe event dispatch. Safe to call before Plausible loads. */
+/** Low-level typesafe event dispatch. Safe to call before GA4 loads. */
 export const trackEvent = (event: AnalyticsEvent, props?: AnalyticsProps): void => {
   try {
     const built = buildProps(props);
-    window.plausible?.(event, built ? { props: built } : undefined);
+    window.analyticsEvent?.(event, built ? { props: built } : undefined);
   } catch {
     // Analytics must never break the UI.
   }
