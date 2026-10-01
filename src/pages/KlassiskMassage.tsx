@@ -19,8 +19,8 @@ const KlassiskMassage = () => {
   return (
     <div className="min-h-screen bg-background">
       <SeoHead
-        title="Klassisk Massage Uddevalla – 595 kr | Viriditas"
-        description="Klassisk massage i Uddevalla från 595 kr. Certifierad massageterapeut i Uddevalla Folkets Hus, Göteborgsvägen 11B. Boka online enkelt via Bokadirekt."
+        title="Klassisk massage Uddevalla – från 450 kr | Viriditas"
+        description="Klassisk massage i Uddevalla från 450 kr. Certifierad massageterapeut i Uddevalla Folkets Hus, Göteborgsvägen 11B. Boka online enkelt via Bokadirekt."
         path="/klassisk-massage"
       />
       <script
@@ -48,6 +48,8 @@ const KlassiskMassage = () => {
             ],
             "url": "https://viriditasmassage.se/klassisk-massage",
             "offers": [
+              { "@type": "Offer", "price": "450", "priceCurrency": "SEK", "name": "30 min" },
+              { "@type": "Offer", "price": "998", "priceCurrency": "SEK", "name": "80 min" },
               { "@type": "Offer", "price": "595", "priceCurrency": "SEK", "name": "45 min" },
               { "@type": "Offer", "price": "720", "priceCurrency": "SEK", "name": "60 min" },
             ],
@@ -102,11 +104,13 @@ const KlassiskMassage = () => {
               Klassisk massage är Sveriges vanligaste massageform och en av de mest välbeforskade behandlingsmetoderna för stress, muskelspänningar och återhämtning.
             </p>
             <p>
-              Hos Viriditas i Uddevalla erbjuder vi klassisk massage i två längder:
+              Hos Viriditas i Uddevalla erbjuder vi klassisk massage i fyra längder:
             </p>
             <ul className="list-disc list-inside space-y-2 text-foreground font-medium">
+              <li>30 minuter – 450 kr</li>
               <li>45 minuter – 595 kr</li>
               <li>60 minuter – 720 kr</li>
+              <li>80 minuter – 998 kr</li>
             </ul>
           </motion.div>
 

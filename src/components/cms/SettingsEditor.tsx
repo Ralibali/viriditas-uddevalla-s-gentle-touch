@@ -16,7 +16,7 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
       { key: "email", label: "E-post", placeholder: "info@auroramedia.se" },
       { key: "address", label: "Adress", placeholder: "Uddevalla Folkets Hus, Göteborgsvägen 11B" },
       { key: "booking_url", label: "Boknings-URL", placeholder: "https://www.bokadirekt.se/..." },
-      { key: "opening_hours", label: "Öppettider", placeholder: "Fredagar & lördagar", type: "textarea" },
+      { key: "opening_hours", label: "Öppettider", placeholder: "Se aktuella tider i bokningen", type: "textarea" },
       { key: "footer_text", label: "Footer-text", placeholder: "Klassisk massage i Uddevalla...", type: "textarea" },
     ],
   },
@@ -26,8 +26,8 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
       { key: "hero_title", label: "Rubrik", placeholder: "Massage i Uddevalla" },
       { key: "hero_subtitle", label: "Underrubrik", placeholder: "– Känn skillnaden med Viriditas" },
       
-      { key: "hero_availability", label: "Tillgänglighet", placeholder: "Tider tillgängliga fredagar & lördagar" },
-      { key: "hero_price_from", label: "Pris från", placeholder: "Från 595 kr" },
+      { key: "hero_availability", label: "Tillgänglighet", placeholder: "Se aktuella tider i bokningen" },
+      { key: "hero_price_from", label: "Pris från", placeholder: "Från 450 kr" },
     ],
   },
   {
@@ -45,7 +45,7 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
       { key: "cta1_title", label: "CTA 1 – Rubrik", placeholder: "Redo att boka din massage?" },
       { key: "cta1_text", label: "CTA 1 – Text", placeholder: "Boka enkelt online – välj tid som passar dig." },
       { key: "cta2_title", label: "CTA 2 – Rubrik (sista)", placeholder: "Ge kroppen den omvårdnad den förtjänar" },
-      { key: "cta2_text", label: "CTA 2 – Text (sista)", placeholder: "Klassisk massage från 595 kr. Boka din tid idag." },
+      { key: "cta2_text", label: "CTA 2 – Text (sista)", placeholder: "Klassisk massage från 450 kr. Boka din tid idag." },
     ],
   },
   {
@@ -70,7 +70,7 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
       { key: "treatment_60_price", label: "60 min – Pris", placeholder: "720 kr" },
       { key: "treatment_60_desc", label: "60 min – Beskrivning", placeholder: "En hel timmes avkopplande behandling...", type: "textarea" },
       { key: "treatment_80_title", label: "80 min – Titel", placeholder: "Klassisk massage" },
-      { key: "treatment_80_price", label: "80 min – Pris", placeholder: "1 100 kr" },
+      { key: "treatment_80_price", label: "80 min – Pris", placeholder: "998 kr" },
       { key: "treatment_80_desc", label: "80 min – Beskrivning", placeholder: "En omsorgsfull genomgång av hela kroppen...", type: "textarea" },
       { key: "gift_title", label: "Presentkort – Titel", placeholder: "Presentkort" },
       { key: "gift_price", label: "Presentkort – Pris", placeholder: "Valfritt belopp" },
@@ -82,7 +82,7 @@ const SETTINGS_GROUPS: SettingsGroup[] = [
     fields: [
       { key: "contact_title", label: "Rubrik", placeholder: "Boka massage Uddevalla – Hitta hit" },
       { key: "contact_address_full", label: "Adress (visas)", placeholder: "Uddevalla Folkets Hus\nGöteborgsvägen 11B, Uddevalla", type: "textarea" },
-      { key: "contact_hours_display", label: "Öppettider (visas)", placeholder: "Mån–Fre: 09:00–18:00\nLör: 10:00–15:00", type: "textarea" },
+      { key: "contact_hours_display", label: "Öppettider (visas)", placeholder: "Se aktuella tider och behandlingar i bokningen.", type: "textarea" },
     ],
   },
 ];

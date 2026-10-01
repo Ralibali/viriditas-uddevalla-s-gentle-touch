@@ -42,7 +42,7 @@ const MassageLjungskile = () => {
     <div className="min-h-screen bg-background">
       <SeoHead
         title="Massage nära Ljungskile – Viriditas i Uddevalla | Boka online"
-        description="Söker du massage i Ljungskile? Viriditas i Uddevalla ligger 15 minuter bort – diplomerad massör, enkel parkering vid Folkets Hus och bokning online. Från 595 kr."
+        description="Söker du massage i Ljungskile? Viriditas i Uddevalla ligger 15 minuter bort – diplomerad massör, enkel parkering vid Folkets Hus och bokning online. Från 450 kr."
         path="/massage-ljungskile"
       />
       <script
@@ -161,8 +161,9 @@ const MassageLjungskile = () => {
             <p>Hos Viriditas får du klassisk massage av Andreas Håman, diplomerad massageterapeut certifierad enligt Branschrådet Svensk Massage:</p>
             <ul className="list-disc list-inside space-y-2">
               <li><span className="font-medium text-foreground">Klassisk massage 60 min – 720 kr.</span> En hel timmes genomarbetad behandling av hela ryggsidan eller de områden du behöver.</li>
+              <li><span className="font-medium text-foreground">Klassisk massage 30 min – 450 kr.</span> Fokuserad massage av rygg, nacke och axlar.</li>
               <li><span className="font-medium text-foreground">Klassisk massage 45 min – 595 kr.</span> Effektiv behandling med fokus på dina mest spända områden, ofta nacke, axlar och rygg.</li>
-              <li><span className="font-medium text-foreground">Återhämtningsmassage – 200 kr.</span> Mjuk, återställande behandling till reducerat pris för dig som är arbetslös eller har sjukersättning/sjukpenning.</li>
+              <li><span className="font-medium text-foreground">Återhämtningsmassage.</span> Se aktuella behandlingar, priser och villkor i bokningen.</li>
             </ul>
             <p>Alla behandlingar går att betala med friskvårdsbidrag, och vi tar emot Swish, kort och kontanter.</p>
 
@@ -171,7 +172,7 @@ const MassageLjungskile = () => {
               Andreas Håman är inte vilken massör som helst. Hans synnedsättning har gett honom en ovanligt utvecklad känslighet i händerna – han hittar spänningar och triggerpunkter med en precision som kunder ofta beskriver som något utöver det vanliga. Med bakgrund inom vården möter han dig dessutom med en trygghet och ett lugn som gör att även den som aldrig gått på massage tidigare snabbt känner sig hemma.
             </p>
             <p>
-              Tider finns tisdag till lördag, med kvällstider tisdag–torsdag fram till 19:00 och lördagstider för dig som vill kombinera med helgledighet. Du bokar enkelt online och ser direkt vilka tider som är lediga.
+              Se aktuella tider och behandlingar i bokningen. Du bokar enkelt online och ser vilka tider som är lediga.
             </p>
 
             <h2 className="text-3xl font-display font-semibold text-foreground pt-4">Även för dig i Munkedal, Lysekil och övriga Bohuslän</h2>

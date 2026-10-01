@@ -64,7 +64,7 @@ const Index = () => {
       </a>
       <SeoHead
         title="Massage Uddevalla | Viriditas – Andreas Håman"
-        description="Boka klassisk massage i Uddevalla hos Viriditas. Certifierad massör Andreas Håman, Folkets Hus, Göteborgsvägen 11B. Från 595 kr."
+        description="Boka klassisk massage i Uddevalla hos Viriditas. Certifierad massör Andreas Håman, Folkets Hus, Göteborgsvägen 11B. Från 450 kr."
         path="/"
       />
       <script
@@ -81,33 +81,6 @@ const Index = () => {
                 "item": "https://viriditasmassage.se/"
               }
             ]
-          })
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "name": "Återhämtningsmassage",
-            "serviceType": "Massage",
-            "description": "Mjuk och återställande massage till reducerat pris (200 kr) för dig som är arbetslös eller har sjukersättning/sjukpenning. Två tider per vecka i Uddevalla Folkets Hus.",
-            "provider": {
-              "@type": "LocalBusiness",
-              "name": "Viriditas – Andreas Håman",
-              "url": "https://viriditasmassage.se"
-            },
-            "areaServed": { "@type": "City", "name": "Uddevalla" },
-            "url": "https://viriditasmassage.se/#aterhamtningsmassage",
-            "offers": {
-              "@type": "Offer",
-              "price": "200",
-              "priceCurrency": "SEK",
-              "availability": "https://schema.org/InStock",
-              "url": "https://www.bokadirekt.se/places/viriditas-massage-136924",
-              "eligibleCustomerType": "Personer som är arbetslösa eller har sjukersättning/sjukpenning"
-            }
           })
         }}
       />
@@ -208,7 +181,7 @@ const Index = () => {
             className="text-primary-foreground/60 text-sm font-body mt-4 flex items-center justify-center gap-2"
           >
             <Calendar className="w-4 h-4" />
-            {t("hero_availability", "Tider tillgängliga tisdag–lördag")}
+            {t("hero_availability", "Se aktuella tider i bokningen")}
           </motion.p>
 
           <motion.div
@@ -222,7 +195,7 @@ const Index = () => {
               <Star className="w-4 h-4 text-primary-foreground fill-primary-foreground" /> {avgRating} betyg
             </span>
             <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
-            <span>{t("hero_price_from", "Från 595 kr")}</span>
+            <span>{t("hero_price_from", "Från 450 kr")}</span>
             <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
             <span>{totalCount}+ omdömen</span>
           </motion.div>
@@ -484,16 +457,16 @@ const Index = () => {
               icon: Sparkles,
               title: t("treatment_80_title", "Klassisk massage"),
               duration: "80 min",
-              price: t("treatment_80_price", "1 100 kr"),
+              price: t("treatment_80_price", "998 kr"),
               desc: t("treatment_80_desc", "En omsorgsfull genomgång av hela kroppen för djup avslappning och återhämtning."),
               cta: "Boka 80 min",
             },
             {
               icon: Sparkles,
               title: t("treatment_recovery_title", "Återhämtningsmassage"),
-              duration: "45 min",
-              price: t("treatment_recovery_price", "200 kr"),
-              desc: t("treatment_recovery_desc", "Reducerat pris för dig som är arbetslös eller har sjukersättning/sjukpenning. Mjuk och återställande behandling."),
+              duration: "",
+              price: t("treatment_recovery_price", "Se bokningen"),
+              desc: t("treatment_recovery_desc", "Se aktuella tider, behandlingar och villkor i bokningen. Kontakta Andreas om du har frågor."),
               cta: "Boka tid",
             },
             {
@@ -596,11 +569,11 @@ const Index = () => {
                 <span className="text-sm font-body uppercase tracking-[0.25em] text-primary">
                   {t("recovery_eyebrow", "Tillgänglig massage")}
                 </span>
-                <p className="text-5xl md:text-6xl font-display font-bold text-foreground leading-none">
-                  200 kr
+                <p className="text-3xl md:text-4xl font-display font-bold text-foreground leading-none">
+                  Se bokningen
                 </p>
                 <span className="text-sm font-body text-muted-foreground">
-                  {t("recovery_duration_label", "60 minuter · reducerat pris")}
+                  {t("recovery_duration_label", "Aktuella behandlingar och tider")}
                 </span>
               </div>
 
@@ -612,13 +585,13 @@ const Index = () => {
                 <p className="text-muted-foreground leading-relaxed font-body">
                   {t(
                     "recovery_section_text_1",
-                    "Återhämtningsmassagen är samma klassiska massage som vanligt – utförd helt efter dina önskemål. Vill du ha en lugnare, mjukare behandling så anpassas den åt det hållet; vill du ha ett fastare tryck går det också bra. Två tider per vecka, på tisdagsförmiddagar, är reserverade för det reducerade priset."
+                    "Behandlingen anpassas efter dina önskemål. För aktuell information om återhämtningsmassage, se bokningen."
                   )}
                 </p>
                 <p className="text-muted-foreground leading-relaxed font-body">
                   {t(
                     "recovery_section_text_2",
-                    "För att göra massage mer tillgänglig erbjuds dessa två tider för 200 kr om du är arbetslös eller lever på sjukersättning eller sjukpenning. Du bokar precis som vanligt online – inga bevis krävs."
+                    "Se aktuella tider, behandlingar och priser i bokningen. Kontakta Andreas om du undrar vilka villkor som gäller."
                   )}
                 </p>
 
@@ -758,31 +731,31 @@ const Index = () => {
             <Accordion type="single" collapsible className="space-y-3">
               {[
                 {
-                  q: t("recovery_faq_q1", "Vem kan boka 200 kr-priset?"),
+                  q: t("recovery_faq_q1", "Vilka priser och villkor gäller?"),
                   a: t(
                     "recovery_faq_a1",
-                    "Återhämtningspriset på 200 kr riktar sig till dig som är arbetslös eller lever på sjukersättning eller sjukpenning. Tanken är att massage ska vara tillgängligt även när ekonomin är ansträngd – ingen ska behöva avstå av den anledningen. Inga intyg krävs."
+                    "Se aktuella behandlingar, priser och villkor i bokningen. Kontakta Andreas om du har frågor om återhämtningsmassage."
                   ),
                 },
                 {
                   q: t("recovery_faq_q2", "Hur bokar jag?"),
                   a: t(
                     "recovery_faq_a2",
-                    "Du bokar precis som vanligt online. De två tiderna på tisdagsförmiddagar som är reserverade för återhämtningsmassagen syns i bokningssystemet – välj en av dem så är allt klart. Inget intyg behövs."
+                    "Öppna bokningssidan för att se aktuella behandlingar och lediga tider."
                   ),
                 },
                 {
-                  q: t("recovery_faq_q3", "Gäller det alla tider?"),
+                  q: t("recovery_faq_q3", "Vilka tider finns?"),
                   a: t(
                     "recovery_faq_a3",
-                    "Nej, det reducerade priset gäller två specifika tider per vecka, på tisdagsförmiddagar. De är inlagda separat i bokningssystemet så att de är lätta att hitta. Hör av dig om du inte ser någon ledig tid, så försöker vi lösa det."
+                    "Lediga tider visas i bokningen. Kontakta Andreas om du inte hittar den behandling eller tid du söker."
                   ),
                 },
                 {
-                  q: t("recovery_faq_q4", "Är behandlingen kortare eller annorlunda?"),
+                  q: t("recovery_faq_q4", "Hur lång är behandlingen?"),
                   a: t(
                     "recovery_faq_a4",
-                    "Nej. Det är samma klassiska massage som vanligt, samma 60 minuter, samma terapeut. Den utförs helt efter dina önskemål – mjukare och lugnare om du vill koppla av, eller med fastare tryck om du behöver lösa upp spänningar."
+                    "Längden framgår för varje behandling i bokningen. Välj den behandling som passar dig eller kontakta Andreas om du är osäker."
                   ),
                 },
               ].map((faq, i) => (
@@ -1014,7 +987,7 @@ const Index = () => {
                   </div>
                   <div>
                     <h3 className="font-display font-semibold text-foreground mb-1">Öppettider</h3>
-                    <p className="text-muted-foreground whitespace-pre-line">{t("contact_hours_display", "Tis–Tors: 09:30–19:00\nFre: 13:30–17:30\nLör: 10:00–14:00\nSön & Mån: stängt")}</p>
+                    <p className="text-muted-foreground whitespace-pre-line">{t("contact_hours_display", "Se aktuella tider och behandlingar i bokningen.")}</p>
                     <a
                       href="https://www.bokadirekt.se/places/viriditas-massage-136924"
                       target="_blank"
@@ -1221,7 +1194,7 @@ const Index = () => {
           >
             <Accordion type="single" collapsible className="space-y-3">
               {[
-                { q: "Vad kostar massage hos Viriditas i Uddevalla?", a: "Klassisk massage 60 minuter kostar 720 kr och 45 minuter kostar 595 kr. Du bokar enkelt online." },
+                { q: "Vad kostar massage hos Viriditas i Uddevalla?", a: "Klassisk massage kostar 450 kr för 30 minuter, 595 kr för 45 minuter, 720 kr för 60 minuter och 998 kr för 80 minuter. Du bokar enkelt online." },
                 { q: "Var ligger Viriditas i Uddevalla?", a: "Viriditas finns i Uddevalla Folkets Hus, Göteborgsvägen 11B." },
                 { q: "Hur bokar jag tid för massage?", a: 'Du bokar snabbt och enkelt online via vår bokningssida. Klicka på "Boka tid" här på sidan.' },
                 { q: "Vad är klassisk massage?", a: "Klassisk massage är den vanligaste massageformen i Sverige. Den löser upp spänningar, ökar blodcirkulationen och ger djup avkoppling för hela kroppen." },
@@ -1255,7 +1228,7 @@ const Index = () => {
               {t("cta2_title", "Ge kroppen den omvårdnad den förtjänar")}
             </h2>
             <p className="text-primary-foreground/80 font-body">
-              {t("cta2_text", "Klassisk massage från 595 kr. Boka din tid idag.")}
+              {t("cta2_text", "Klassisk massage från 450 kr. Boka din tid idag.")}
             </p>
             <motion.a
               whileHover={{ scale: 1.03 }}

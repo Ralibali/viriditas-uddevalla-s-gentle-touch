@@ -34,7 +34,7 @@ const faqs = [
   },
   {
     q: "Gäller bidraget även återhämtningsmassage?",
-    a: "Återhämtningsmassagen (200 kr) är ett reducerat pris för dig som är arbetslös eller har sjukersättning/sjukpenning – då är friskvårdsbidrag via arbetsgivare oftast inte aktuellt. Kontakta oss om du är osäker på vad som gäller i din situation.",
+    a: "Se aktuella behandlingar, priser och villkor i bokningen. Kontakta Andreas om du har frågor om återhämtningsmassage eller betalning.",
   },
 ];
 
