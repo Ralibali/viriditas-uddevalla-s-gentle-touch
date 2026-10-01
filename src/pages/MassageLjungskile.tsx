@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     q: "Hur bokar jag?",
-    a: "Du bokar online via vår bokningssida där du ser alla lediga tider direkt. Det går också bra att ringa 076-317 78 97.",
+    a: "Du bokar online via vår bokningssida där du ser alla lediga tider direkt. Du kan också mejla info@auroramedia.se för hjälp.",
   },
 ];
 

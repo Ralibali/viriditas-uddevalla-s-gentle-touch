@@ -1,7 +1,7 @@
-import { MapPin, Phone } from "lucide-react";
+import { MapPin, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useSitePages } from "@/hooks/useSitePages";
-import { trackPhoneClick } from "@/lib/trackBookingClick";
+import { trackContactClick } from "@/lib/trackBookingClick";
 
 const Footer = () => {
   const { data: pages } = useSitePages();
@@ -62,18 +62,19 @@ const Footer = () => {
                 <MapPin className="w-4 h-4 flex-shrink-0" /> Uddevalla Folkets Hus, Göteborgsvägen 11B
               </p>
               <p className="flex items-center gap-2">
-                <Phone className="w-4 h-4 flex-shrink-0" />
+                <Mail className="w-4 h-4 flex-shrink-0" />
                 <a
-                  href="tel:+46763177897"
-                  onClick={() => trackPhoneClick("footer")}
+                  href="mailto:info@auroramedia.se"
+                  onClick={() => trackContactClick("footer-email")}
                   className="hover:text-primary-foreground transition-colors"
                 >
-                  076-317 78 97
+                  info@auroramedia.se
                 </a>
               </p>
             </div>
           </div>
         </div>
+        <Link to="/integritet" className="block text-sm underline mb-6">Integritet och cookies</Link>
         <div className="border-t border-primary-foreground/20 pt-8 text-center">
           <p className="text-primary-foreground/50 text-sm">
             &copy; {new Date().getFullYear()} Viriditas – Andreas Håman. Alla rättigheter förbehållna.

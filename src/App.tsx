@@ -1,3 +1,4 @@
+import Privacy from './pages/Privacy';
 import AnalyticsConsent from './components/AnalyticsConsent';
 import { lazy, Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -35,6 +36,7 @@ const App = () => (
         <AnalyticsConsent />
         <Suspense fallback={<Loading />}>
           <Routes>
+            <Route path="/integritet" element={<Privacy />} />
             <Route path="/" element={<Index />} />
             <Route path="/om-andreas" element={<OmAndreas />} />
             <Route path="/klassisk-massage" element={<KlassiskMassage />} />

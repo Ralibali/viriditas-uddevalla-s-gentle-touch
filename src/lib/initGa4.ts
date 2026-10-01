@@ -9,5 +9,5 @@ initGa4({
     "/admin",
     "/dashboard"
   ],
-  "consentKey": "viriditas_ga4_consent_v1"
+  "consentKey": "viriditas_ga4_consent_v2"
 });

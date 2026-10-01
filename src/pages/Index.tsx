@@ -1,5 +1,6 @@
+import ExternalEmbedGate from '@/components/ExternalEmbedGate';
 import { motion, useReducedMotion } from "framer-motion";
-import { MapPin, Clock, Star, Calendar, ArrowRight, Quote, Leaf, Gift, Phone, ExternalLink, Sparkles } from "lucide-react";
+import { MapPin, Clock, Star, Calendar, ArrowRight, Quote, Leaf, Gift, ExternalLink, Sparkles, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useReviews } from "@/hooks/useReviews";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
@@ -12,7 +13,7 @@ import salonTableWindow from "@/assets/salon-table-window.jpg";
 import salonWindowsill from "@/assets/salon-windowsill.jpg";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { trackBookingClick, trackContactClick, trackPhoneClick } from "@/lib/trackBookingClick";
+import { trackBookingClick, trackContactClick } from "@/lib/trackBookingClick";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import SeoHead from "@/components/SeoHead";
@@ -1028,16 +1029,16 @@ const Index = () => {
 
                 <div className="flex items-start gap-4">
                   <div className="bg-primary/10 p-3 rounded-2xl flex-shrink-0">
-                    <Phone className="w-6 h-6 text-primary" />
+                    <Mail className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-display font-semibold text-foreground mb-1">Telefon</h3>
+                    <h3 className="font-display font-semibold text-foreground mb-1">E-post</h3>
                     <a
-                      href="tel:+46763177897"
-                      onClick={() => trackPhoneClick("kontakt-phone")}
+                      href="mailto:info@auroramedia.se"
+                      onClick={() => trackContactClick("kontakt-email")}
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                      {t("phone", "076-317 78 97")}
+                      info@auroramedia.se
                     </a>
                   </div>
                 </div>
@@ -1096,15 +1097,15 @@ const Index = () => {
                 </div>
               </div>
               <div className="rounded-3xl overflow-hidden shadow-lg">
-                <iframe
+                <ExternalEmbedGate service="Google Maps"><iframe
                   title="Karta till Viriditas – Uddevalla Folkets Hus"
                   src="https://www.google.com/maps?q=Uddevalla+Folkets+Hus,+G%C3%B6teborgsv%C3%A4gen+11B,+Uddevalla&output=embed"
                   width="100%"
                   height="280"
                   style={{ border: 0 }}
                   loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
+                  referrerPolicy="no-referrer"
+                /></ExternalEmbedGate>
               </div>
             </motion.div>
           </div>
