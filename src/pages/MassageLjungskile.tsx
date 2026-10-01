@@ -29,7 +29,7 @@ const faqs = [
   },
   {
     q: "Kan jag boka kvällstid efter jobbet?",
-    a: "Ja. Tisdag till torsdag finns tider fram till 19:00, vilket gör det enkelt att hinna med en behandling efter arbetsdagen även om du pendlar.",
+    a: "Se aktuella tider och behandlingar i bokningen. Där ser du vilka tider som är lediga och kan välja en som passar dig.",
   },
   {
     q: "Hur bokar jag?",
@@ -68,9 +68,9 @@ const MassageLjungskile = () => {
             ],
             "url": "https://viriditasmassage.se/massage-ljungskile",
             "offers": [
+              { "@type": "Offer", "price": "450", "priceCurrency": "SEK", "name": "30 min" },
               { "@type": "Offer", "price": "595", "priceCurrency": "SEK", "name": "45 min" },
               { "@type": "Offer", "price": "720", "priceCurrency": "SEK", "name": "60 min" },
-              { "@type": "Offer", "price": "200", "priceCurrency": "SEK", "name": "Återhämtningsmassage" },
             ],
           }),
         }}
