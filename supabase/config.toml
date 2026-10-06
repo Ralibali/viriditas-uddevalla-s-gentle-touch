@@ -1,1 +1,5 @@
 project_id = "rrnlxpdxbyzclhkwnkal"
+
+[functions.cms-admin]
+# The function verifies opaque CMS sessions on the server.
+verify_jwt = false

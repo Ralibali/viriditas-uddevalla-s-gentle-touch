@@ -3,33 +3,22 @@ import { supabase } from "@/integrations/supabase/client";
 import { cmsAdminCall } from "@/lib/cmsAdmin";
 import type { SitePage, ContentBlock } from "@/types/cms";
 
-export function useSitePages() {
+export function useSitePages({ admin = false }: { admin?: boolean } = {}) {
   return useQuery({
-    queryKey: ["site-pages"],
+    queryKey: [admin ? "cms-admin-pages" : "site-pages"],
     queryFn: async () => {
-      // Try admin endpoint first (for dashboard with all pages including unpublished)
-      const password = sessionStorage.getItem("dashboard-password");
-      if (password) {
-        try {
-          const data = await cmsAdminCall("list_pages");
-          return (data as any[]).map(row => ({
-            ...row,
-            content: (typeof row.content === 'string' ? JSON.parse(row.content) : row.content) as ContentBlock[],
-          })) as SitePage[];
-        } catch {
-          // fall through to public query
-        }
+      if (admin) {
+        const data = await cmsAdminCall<SitePage[]>("list_pages");
+        return data.map(parsePage);
       }
       // Public: only published pages
       const { data, error } = await supabase
         .from("site_pages")
         .select("*")
+        .eq("is_published", true)
         .order("nav_order", { ascending: true });
       if (error) throw error;
-      return (data as any[]).map(row => ({
-        ...row,
-        content: (typeof row.content === 'string' ? JSON.parse(row.content) : row.content) as ContentBlock[],
-      })) as SitePage[];
+      return data.map(parsePage);
     },
   });
 }
@@ -66,6 +55,7 @@ export function useUpsertPage() {
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["site-pages"] });
+      qc.invalidateQueries({ queryKey: ["cms-admin-pages"] });
       qc.invalidateQueries({ queryKey: ["site-page"] });
     },
   });
@@ -79,6 +69,15 @@ export function useDeletePage() {
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["site-pages"] });
+      qc.invalidateQueries({ queryKey: ["cms-admin-pages"] });
+      qc.invalidateQueries({ queryKey: ["site-page"] });
     },
   });
+}
+
+function parsePage(row: { content: unknown }): SitePage {
+  return {
+    ...row,
+    content: (typeof row.content === "string" ? JSON.parse(row.content) : row.content) as ContentBlock[],
+  } as SitePage;
 }

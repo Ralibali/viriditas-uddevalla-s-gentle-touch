@@ -1,8 +1,11 @@
-import { motion } from "framer-motion";
-import { Calendar, ArrowRight } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Calendar } from "lucide-react";
 import type { ContentBlock } from "@/types/cms";
 import { trackBookingClick } from "@/lib/trackBookingClick";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { headingLevel, safeContentUrl } from "@/lib/cmsContentSafety";
+import { useSiteContent } from "@/hooks/useSiteContent";
+import { getGlobalContentValue } from "@/lib/siteContentValues";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -11,18 +14,24 @@ const fadeUp = {
 
 export function BlockRenderer({ block }: { block: ContentBlock }) {
   const { type, data } = block;
+  const reduceMotion = useReducedMotion();
+  const { g } = useSiteContent("home");
+  const variants = reduceMotion
+    ? { hidden: { opacity: 1, y: 0 }, visible: { opacity: 1, y: 0 } }
+    : fadeUp;
 
   switch (type) {
     case "heading": {
-      const Tag = (data.level === 1 ? "h1" : data.level === 2 ? "h2" : "h3") as keyof JSX.IntrinsicElements;
+      const level = headingLevel(data.level);
+      const Tag = `h${level}` as "h1" | "h2" | "h3";
       const sizes: Record<number, string> = {
         1: "text-4xl md:text-5xl",
         2: "text-3xl md:text-4xl",
         3: "text-2xl md:text-3xl",
       };
       return (
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-          <Tag className={`${sizes[data.level] || sizes[2]} font-display font-semibold text-foreground mb-4 leading-tight`}>
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={variants}>
+          <Tag className={`${sizes[level]} font-display font-semibold text-foreground mb-4 leading-tight`}>
             {data.text}
           </Tag>
           {data.showDivider && <div className="w-20 h-1 bg-primary rounded-full mt-2" />}
@@ -36,7 +45,7 @@ export function BlockRenderer({ block }: { block: ContentBlock }) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={fadeUp}
+          variants={variants}
           className="text-lg text-muted-foreground leading-relaxed font-body"
         >
           {data.text}
@@ -45,9 +54,9 @@ export function BlockRenderer({ block }: { block: ContentBlock }) {
 
     case "image":
       return (
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={variants}>
           <img
-            src={data.src}
+            src={safeContentUrl(data.src, true)}
             alt={data.alt || ""}
             className="rounded-3xl shadow-lg w-full object-cover"
             style={data.maxHeight ? { maxHeight: data.maxHeight } : {}}
@@ -58,24 +67,25 @@ export function BlockRenderer({ block }: { block: ContentBlock }) {
 
     case "video":
       return (
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={variants}>
           <video
-            autoPlay muted loop playsInline
+            controls playsInline preload="metadata"
+            aria-label={data.alt || "Video från Viriditas"}
             className="rounded-3xl shadow-lg w-full object-cover"
             style={data.maxHeight ? { maxHeight: data.maxHeight } : {}}
           >
-            <source src={data.src} type="video/mp4" />
+            <source src={safeContentUrl(data.src, true)} />
           </video>
         </motion.div>
       );
 
     case "cta_button":
       return (
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={variants}>
           <motion.a
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            href={data.url || "https://www.bokadirekt.se/places/viriditas-massage-136924"}
+            whileHover={reduceMotion ? undefined : { scale: 1.03 }}
+            whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+            href={safeContentUrl(!data.url || data.url === getGlobalContentValue("booking_url") ? g("booking_url") : data.url)}
             target={data.external !== false ? "_blank" : undefined}
             rel={data.external !== false ? "noopener noreferrer" : undefined}
             onClick={() => data.trackSource && trackBookingClick(data.trackSource)}
@@ -96,10 +106,10 @@ export function BlockRenderer({ block }: { block: ContentBlock }) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={fadeUp}
+          variants={variants}
           className="list-disc list-inside space-y-2 text-foreground font-medium text-lg"
         >
-          {(data.items || []).map((item: string, i: number) => (
+          {(Array.isArray(data.items) ? data.items : []).map((item: string, i: number) => (
             <li key={i}>{item}</li>
           ))}
         </motion.ul>
@@ -111,7 +121,7 @@ export function BlockRenderer({ block }: { block: ContentBlock }) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={fadeUp}
+          variants={variants}
           className="border-l-4 border-primary pl-6 my-8"
         >
           <p className="text-xl font-body italic text-foreground">"{data.text}"</p>
@@ -125,13 +135,13 @@ export function BlockRenderer({ block }: { block: ContentBlock }) {
       return <hr className="border-border my-8" />;
 
     case "faq": {
-      const items = (data.items || []) as { question: string; answer: string }[];
+      const items = (Array.isArray(data.items) ? data.items : []) as { question: string; answer: string }[];
       return (
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={fadeUp}
+          variants={variants}
           className="my-8"
         >
           <Accordion type="single" collapsible className="w-full">

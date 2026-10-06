@@ -1,178 +1,76 @@
-import { useState, useEffect } from "react";
-import { Save, Loader2, ChevronDown } from "lucide-react";
-import { useSiteSettings, useUpdateSetting } from "@/hooks/useSiteSettings";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Loader2, Save } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
+import { cmsAdminCall } from "@/lib/cmsAdmin";
+import { GLOBAL_CONTENT_FIELDS, getContentFieldValue, validateContentValue } from "@/lib/siteContent";
+import MediaInput from "./MediaInput";
 import { toast } from "sonner";
 
-interface SettingsGroup {
-  label: string;
-  fields: { key: string; label: string; placeholder: string; type?: "textarea" }[];
-}
-
-const SETTINGS_GROUPS: SettingsGroup[] = [
-  {
-    label: "Allmänt",
-    fields: [
-      { key: "business_name", label: "Företagsnamn", placeholder: "Viriditas" },
-      { key: "email", label: "E-post", placeholder: "info@auroramedia.se" },
-      { key: "address", label: "Adress", placeholder: "Uddevalla Folkets Hus, Göteborgsvägen 11B" },
-      { key: "booking_url", label: "Boknings-URL", placeholder: "https://www.bokadirekt.se/..." },
-      { key: "opening_hours", label: "Öppettider", placeholder: "Se aktuella tider i bokningen", type: "textarea" },
-      { key: "footer_text", label: "Footer-text", placeholder: "Klassisk massage i Uddevalla...", type: "textarea" },
-    ],
-  },
-  {
-    label: "Hero-sektion",
-    fields: [
-      { key: "hero_title", label: "Rubrik", placeholder: "Massage i Uddevalla" },
-      { key: "hero_subtitle", label: "Underrubrik", placeholder: "– Känn skillnaden med Viriditas" },
-      
-      { key: "hero_availability", label: "Tillgänglighet", placeholder: "Se aktuella tider i bokningen" },
-      { key: "hero_price_from", label: "Pris från", placeholder: "Från 450 kr" },
-    ],
-  },
-  {
-    label: "Om Andreas",
-    fields: [
-      { key: "about_title", label: "Rubrik", placeholder: "Om Andreas" },
-      { key: "about_text_1", label: "Stycke 1", placeholder: "Andreas Håman är diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage...", type: "textarea" },
-      { key: "about_text_2", label: "Stycke 2", placeholder: "Tidigare har han arbetat inom personlig assistans...", type: "textarea" },
-      { key: "about_quote", label: "Citat", placeholder: "Jag lyssnar med händerna." },
-    ],
-  },
-  {
-    label: "CTA-sektioner (gröna)",
-    fields: [
-      { key: "cta1_title", label: "CTA 1 – Rubrik", placeholder: "Redo att boka din massage?" },
-      { key: "cta1_text", label: "CTA 1 – Text", placeholder: "Boka enkelt online – välj tid som passar dig." },
-      { key: "cta2_title", label: "CTA 2 – Rubrik (sista)", placeholder: "Ge kroppen den omvårdnad den förtjänar" },
-      { key: "cta2_text", label: "CTA 2 – Text (sista)", placeholder: "Klassisk massage från 450 kr. Boka din tid idag." },
-    ],
-  },
-  {
-    label: "Viriditas-sektion",
-    fields: [
-      { key: "viriditas_title", label: "Rubrik", placeholder: "Vad betyder Viriditas?" },
-      { key: "viriditas_text_1", label: "Stycke 1", placeholder: "Viriditas är ett ord som betyder vitalitet...", type: "textarea" },
-      { key: "viriditas_text_2", label: "Stycke 2", placeholder: "Hildegard hade en helhetssyn...", type: "textarea" },
-    ],
-  },
-  {
-    label: "Behandlingar",
-    fields: [
-      { key: "treatments_title", label: "Rubrik", placeholder: "Klassisk massage – Behandlingar & priser" },
-      { key: "treatment_30_title", label: "30 min – Titel", placeholder: "Klassisk massage" },
-      { key: "treatment_30_price", label: "30 min – Pris", placeholder: "450 kr" },
-      { key: "treatment_30_desc", label: "30 min – Beskrivning", placeholder: "Fokuserad behandling av rygg, nacke och axlar...", type: "textarea" },
-      { key: "treatment_45_title", label: "45 min – Titel", placeholder: "Klassisk massage" },
-      { key: "treatment_45_price", label: "45 min – Pris", placeholder: "595 kr" },
-      { key: "treatment_45_desc", label: "45 min – Beskrivning", placeholder: "En kortare men effektiv behandling...", type: "textarea" },
-      { key: "treatment_60_title", label: "60 min – Titel", placeholder: "Klassisk massage" },
-      { key: "treatment_60_price", label: "60 min – Pris", placeholder: "720 kr" },
-      { key: "treatment_60_desc", label: "60 min – Beskrivning", placeholder: "En hel timmes avkopplande behandling...", type: "textarea" },
-      { key: "treatment_80_title", label: "80 min – Titel", placeholder: "Klassisk massage" },
-      { key: "treatment_80_price", label: "80 min – Pris", placeholder: "998 kr" },
-      { key: "treatment_80_desc", label: "80 min – Beskrivning", placeholder: "En omsorgsfull genomgång av hela kroppen...", type: "textarea" },
-      { key: "gift_title", label: "Presentkort – Titel", placeholder: "Presentkort" },
-      { key: "gift_price", label: "Presentkort – Pris", placeholder: "Valfritt belopp" },
-      { key: "gift_desc", label: "Presentkort – Beskrivning", placeholder: "Ge bort välmående...", type: "textarea" },
-    ],
-  },
-  {
-    label: "Kontakt-sektion",
-    fields: [
-      { key: "contact_title", label: "Rubrik", placeholder: "Boka massage Uddevalla – Hitta hit" },
-      { key: "contact_address_full", label: "Adress (visas)", placeholder: "Uddevalla Folkets Hus\nGöteborgsvägen 11B, Uddevalla", type: "textarea" },
-      { key: "contact_hours_display", label: "Öppettider (visas)", placeholder: "Se aktuella tider och behandlingar i bokningen.", type: "textarea" },
-    ],
-  },
-];
-
-// Flatten for save logic
-const ALL_FIELDS = SETTINGS_GROUPS.flatMap(g => g.fields);
-
-export default function SettingsEditor() {
-  const { data: settings, isLoading } = useSiteSettings();
-  const updateSetting = useUpdateSetting();
+export default function SettingsEditor({ onDirtyChange }: { onDirtyChange?: (dirty: boolean) => void }) {
+  const query = useSiteSettings();
+  const qc = useQueryClient();
   const [values, setValues] = useState<Record<string, string>>({});
+  const [baseline, setBaseline] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
-  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({ "Allmänt": true });
+  const [saveError, setSaveError] = useState("");
+  const initialized = useRef(false);
+  const groups = [...new Set(GLOBAL_CONTENT_FIELDS.map(field => field.group))];
 
   useEffect(() => {
-    if (settings) setValues(settings);
-  }, [settings]);
+    if (!query.data || initialized.current) return;
+    const initial = Object.fromEntries(GLOBAL_CONTENT_FIELDS.map(field => [field.settingKey, getContentFieldValue(field, query.data)]));
+    initialized.current = true;
+    setValues(initial);
+    setBaseline(initial);
+  }, [query.data]);
 
-  const toggleGroup = (label: string) => {
-    setOpenGroups(prev => ({ ...prev, [label]: !prev[label] }));
-  };
+  const changes = useMemo(() => GLOBAL_CONTENT_FIELDS.filter(field => values[field.settingKey] !== baseline[field.settingKey]).map(field => ({ key: field.settingKey, value: values[field.settingKey] })), [values, baseline]);
+  const dirty = changes.length > 0;
+  useEffect(() => { onDirtyChange?.(dirty); }, [dirty, onDirtyChange]);
 
-  const handleSave = async () => {
+  async function save() {
+    setSaveError("");
+    for (const change of changes) {
+      const field = GLOBAL_CONTENT_FIELDS.find(field => field.settingKey === change.key);
+      const message = field && validateContentValue(field, change.value);
+      if (message) { setSaveError(message); return; }
+    }
+    if (!changes.length) return;
     setSaving(true);
     try {
-      for (const field of ALL_FIELDS) {
-        if (values[field.key] !== (settings?.[field.key] || "")) {
-          await updateSetting.mutateAsync({ key: field.key, value: values[field.key] || "" });
-        }
-      }
-      toast.success("Inställningar sparade!");
-    } catch (err: any) {
-      toast.error("Kunde inte spara: " + err.message);
-    }
-    setSaving(false);
-  };
-
-  if (isLoading) {
-    return <p className="text-muted-foreground font-body text-center py-12">Laddar inställningar...</p>;
+      await cmsAdminCall("update_settings", { settings: changes });
+      setBaseline(previous => ({ ...previous, ...Object.fromEntries(changes.map(change => [change.key, change.value])) }));
+      await qc.invalidateQueries({ queryKey: ["site-settings"] });
+      toast.success("Inställningarna är sparade och visas på webbplatsen.");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Kunde inte spara inställningarna.";
+      setSaveError(message);
+      toast.error(message);
+    } finally { setSaving(false); }
   }
 
-  return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-display font-semibold text-foreground">Inställningar</h2>
-        <button
-          onClick={handleSave}
-          disabled={saving}
-          className="flex items-center gap-2 px-6 py-2 rounded-xl bg-primary text-primary-foreground font-body font-medium text-sm hover:bg-primary/90 transition-colors disabled:opacity-50"
-        >
-          {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-          Spara
-        </button>
-      </div>
+  if (query.isLoading || !initialized.current && !query.isError) return <p role="status" className="py-12 text-center text-muted-foreground font-body">Laddar inställningar…</p>;
+  if (query.isError && !initialized.current) return <div role="alert" className="bg-card border border-border rounded-xl p-5 space-y-3 font-body text-sm"><p className="text-destructive">Inställningarna kunde inte hämtas: {query.error.message}</p><button onClick={() => query.refetch()} className="text-primary underline">Försök igen</button></div>;
 
-      {SETTINGS_GROUPS.map((group) => (
-        <div key={group.label} className="bg-card border border-border rounded-2xl overflow-hidden">
-          <button
-            onClick={() => toggleGroup(group.label)}
-            className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-muted/50 transition-colors"
-          >
-            <span className="font-display font-semibold text-foreground text-sm">{group.label}</span>
-            <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${openGroups[group.label] ? "rotate-180" : ""}`} />
-          </button>
-          {openGroups[group.label] && (
-            <div className="px-6 pb-6 space-y-4 border-t border-border pt-4">
-              {group.fields.map((field) => (
-                <div key={field.key}>
-                  <label className="text-sm text-foreground font-body font-medium block mb-1">{field.label}</label>
-                  {field.type === "textarea" ? (
-                    <textarea
-                      value={values[field.key] || ""}
-                      onChange={(e) => setValues({ ...values, [field.key]: e.target.value })}
-                      placeholder={field.placeholder}
-                      className="w-full px-4 py-2 rounded-xl border border-border bg-background text-foreground font-body text-sm resize-y min-h-[60px]"
-                    />
-                  ) : (
-                    <input
-                      value={values[field.key] || ""}
-                      onChange={(e) => setValues({ ...values, [field.key]: e.target.value })}
-                      placeholder={field.placeholder}
-                      className="w-full px-4 py-2 rounded-xl border border-border bg-background text-foreground font-body text-sm"
-                    />
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
+  return <div className="space-y-6 font-body">
+    <div className="flex flex-wrap items-center justify-between gap-4">
+      <div><h2 className="text-xl font-display font-semibold">Gemensamma inställningar</h2><p className="text-muted-foreground text-sm mt-1">Kontaktuppgifter, bokningslänk och priser gäller hela webbplatsen. Sidornas texter och bilder finns under Innehåll.</p></div>
+      <button type="button" onClick={save} disabled={saving || !dirty} className="flex items-center gap-2 px-5 py-2 rounded-xl bg-primary text-primary-foreground text-sm disabled:opacity-50">{saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}{saving ? "Sparar…" : dirty ? "Spara ändringar" : "Allt sparat"}</button>
     </div>
-  );
+    {saveError && <p role="alert" className="rounded-xl border border-destructive/30 p-4 text-destructive text-sm">{saveError}</p>}
+    {groups.map(group => <details key={group} open className="bg-card border border-border rounded-2xl">
+      <summary className="px-5 py-4 font-display font-semibold cursor-pointer">{group}</summary>
+      <div className="px-5 pb-5 pt-4 border-t border-border space-y-4">{GLOBAL_CONTENT_FIELDS.filter(field => field.group === group).map(field => {
+        const id = `setting-${field.settingKey}`;
+        const value = values[field.settingKey] ?? field.defaultValue;
+        const change = (value: string) => { setSaveError(""); setValues(previous => ({ ...previous, [field.settingKey]: value })); };
+        if (field.kind === "image") return <MediaInput key={field.settingKey} id={id} label={field.label} value={value} onChange={change} disabled={saving} />;
+        return <div key={field.settingKey}>
+          <label htmlFor={id} className="text-sm font-medium block mb-1">{field.label}</label>
+          {field.kind === "longtext" ? <textarea id={id} value={value} onChange={event => change(event.target.value)} disabled={saving} className="w-full px-3 py-2 rounded-xl border border-border bg-background text-sm resize-y min-h-24" /> : <input id={id} value={value} type={field.settingKey === "email" ? "email" : "text"} onChange={event => change(event.target.value)} disabled={saving} className="w-full px-3 py-2 rounded-xl border border-border bg-background text-sm" />}
+        </div>;
+      })}</div>
+    </details>)}
+  </div>;
 }

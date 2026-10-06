@@ -1,3 +1,5 @@
+import { serializeStructuredData } from "@/lib/siteContentValues";
+import { useSiteContent } from "@/hooks/useSiteContent";
 import { motion } from "framer-motion";
 import { Calendar, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -16,30 +18,32 @@ const fadeUp = {
 };
 
 const OmAndreas = () => {
+  const { c, g } = useSiteContent("about");
+
   return (
     <div className="min-h-screen bg-background">
       <SeoHead
-        title="Om Andreas Håman | Certifierad massör i Uddevalla"
-        description="Andreas Håman – diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage i Uddevalla. Lär känna mannen bakom Viriditas."
+        title={c("seo_001", "Om Andreas Håman | Certifierad massör i Uddevalla")}
+        description={c("seo_002", "Andreas Håman – diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage i Uddevalla. Lär känna mannen bakom Viriditas.")}
         path="/om-andreas"
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: serializeStructuredData({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
               {
                 "@type": "ListItem",
                 "position": 1,
-                "name": "Hem",
+                "name": c("seo_003", "Hem"),
                 "item": "https://viriditasmassage.se/"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Om Andreas",
+                "name": c("seo_004", "Om Andreas"),
                 "item": "https://viriditasmassage.se/om-andreas"
               }
             ]
@@ -49,23 +53,23 @@ const OmAndreas = () => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: serializeStructuredData({
             "@context": "https://schema.org",
             "@type": "Person",
-            "name": "Andreas Håman",
-            "jobTitle": "Certifierad massör",
+            "name": g("owner_name"),
+            "jobTitle": c("seo_005", "Certifierad massör"),
             "worksFor": {
               "@type": "HealthAndBeautyBusiness",
-              "name": "Viriditas",
+              "name": g("business_name"),
               "url": "https://viriditasmassage.se"
             },
             "workLocation": {
               "@type": "Place",
-              "name": "Uddevalla Folkets Hus",
+              "name": c("seo_006", "Uddevalla Folkets Hus"),
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "Göteborgsvägen 11B",
-                "addressLocality": "Uddevalla",
+                "streetAddress": c("seo_007", "Göteborgsvägen 11B"),
+                "addressLocality": c("seo_008", "Uddevalla"),
                 "addressCountry": "SE"
               }
             }
@@ -74,7 +78,7 @@ const OmAndreas = () => {
       />
       <Navbar alwaysSolid />
 
-      <section className="pt-32 pb-20 px-6">
+      <main className="pt-32 pb-20 px-6">
         <div className="max-w-3xl mx-auto">
           <motion.h1
             initial="hidden"
@@ -82,9 +86,7 @@ const OmAndreas = () => {
             variants={fadeUp}
             custom={0}
             className="text-4xl md:text-5xl font-display font-semibold text-foreground mb-8 leading-tight"
-          >
-            Andreas Håman – Certifierad massör i Uddevalla
-          </motion.h1>
+          >{c("text_001", "Andreas Håman – Certifierad massör i Uddevalla")}</motion.h1>
 
           <motion.div
             initial="hidden"
@@ -93,15 +95,9 @@ const OmAndreas = () => {
             custom={1}
             className="space-y-6 text-lg text-muted-foreground leading-relaxed font-body"
           >
-            <p>
-              Andreas Håman är diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage med bakgrund inom vården. Hans resa till massageyrket är ovanlig – och det är just det som gör hans behandlingar unika.
-            </p>
-            <p>
-              Andreas har en synnedsättning som skärpt hans övriga sinnen på ett sätt som är svårt att förklara men lätt att känna. Varje behandling är djupt uppmärksam. Han lyssnar med händerna.
-            </p>
-            <p>
-              Han praktiserar i Uddevalla Folkets Hus, Göteborgsvägen 11B, och erbjuder klassisk massage och återhämtningsmassage – anpassade efter varje persons unika behov, oavsett om du söker avkoppling, smärtlindring eller återhämtning.
-            </p>
+            <p>{c("text_002", "Andreas Håman är diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage med bakgrund inom vården. Hans resa till massageyrket är ovanlig – och det är just det som gör hans behandlingar unika.")}</p>
+            <p>{c("text_003", "Andreas har en synnedsättning som skärpt hans övriga sinnen på ett sätt som är svårt att förklara men lätt att känna. Varje behandling är djupt uppmärksam. Han lyssnar med händerna.")}</p>
+            <p>{c("text_004", "Han praktiserar i Uddevalla Folkets Hus, Göteborgsvägen 11B, och erbjuder klassisk massage och återhämtningsmassage – anpassade efter varje persons unika behov, oavsett om du söker avkoppling, smärtlindring eller återhämtning.")}</p>
           </motion.div>
 
           {/* Mid-content CTA */}
@@ -112,18 +108,17 @@ const OmAndreas = () => {
             custom={1.5}
             className="mt-12 bg-primary/5 border border-primary/20 rounded-3xl p-8 text-center"
           >
-            <p className="text-foreground font-display font-semibold text-xl mb-2">Nyfiken på hur det känns?</p>
-            <p className="text-muted-foreground font-body mb-4">Boka din första behandling och upplev skillnaden.</p>
+            <p className="text-foreground font-display font-semibold text-xl mb-2">{c("text_005", "Nyfiken på hur det känns?")}</p>
+            <p className="text-muted-foreground font-body mb-4">{c("text_006", "Boka din första behandling och upplev skillnaden.")}</p>
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://www.bokadirekt.se/places/viriditas-massage-136924"
+              href={g("booking_url")}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookingClick("om-andreas-mid")}
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full font-body font-medium shadow-lg shadow-primary/20 hover:shadow-xl transition-shadow"
-            >
-              Boka tid <Calendar className="w-5 h-5" />
+            >{g("booking_label")}<Calendar className="w-5 h-5" />
             </motion.a>
           </motion.div>
 
@@ -134,19 +129,16 @@ const OmAndreas = () => {
             custom={2}
             className="mt-16"
           >
-            <h2 className="text-3xl font-display font-semibold text-foreground mb-6">
-              Boka din tid
-            </h2>
+            <h2 className="text-3xl font-display font-semibold text-foreground mb-6">{c("text_007", "Boka din tid")}</h2>
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://www.bokadirekt.se/places/viriditas-massage-136924"
+              href={g("booking_url")}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookingClick("om-andreas")}
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
-            >
-              Boka tid <Calendar className="w-5 h-5" />
+            >{g("booking_label")}<Calendar className="w-5 h-5" />
             </motion.a>
           </motion.div>
 
@@ -158,14 +150,13 @@ const OmAndreas = () => {
             className="mt-12"
           >
             <Link
-              to="/klassisk-massage"
+              to={c("link_001", "/klassisk-massage")}
               className="inline-flex items-center gap-2 text-primary font-body font-medium hover:underline"
-            >
-              Läs mer om klassisk massage <ArrowRight className="w-4 h-4" />
+            >{c("text_008", "Läs mer om klassisk massage ")}<ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
         </div>
-      </section>
+      </main>
 
       <Footer />
     </div>

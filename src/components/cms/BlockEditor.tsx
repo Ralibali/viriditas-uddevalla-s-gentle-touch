@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Plus, Trash2, GripVertical, ChevronUp, ChevronDown, Type, AlignLeft, Image, Video, MousePointerClick, List, Quote, Minus, HelpCircle } from "lucide-react";
 import type { ContentBlock, BlockType } from "@/types/cms";
+import MediaInput from "./MediaInput";
 
 const BLOCK_TYPES: { type: BlockType; label: string; icon: React.ElementType }[] = [
   { type: "heading", label: "Rubrik", icon: Type },
@@ -18,13 +19,13 @@ function generateId() {
   return Math.random().toString(36).slice(2, 10);
 }
 
-function defaultData(type: BlockType): Record<string, any> {
+function defaultData(type: BlockType): ContentBlock["data"] {
   switch (type) {
     case "heading": return { text: "Ny rubrik", level: 2, showDivider: false };
     case "paragraph": return { text: "Skriv din text här..." };
     case "image": return { src: "", alt: "" };
     case "video": return { src: "" };
-    case "cta_button": return { text: "Boka tid", url: "https://www.bokadirekt.se/places/viriditas-massage-136924", variant: "default", trackSource: "", external: true };
+    case "cta_button": return { text: "Boka tid", url: "", variant: "default", trackSource: "", external: true };
     case "list": return { items: ["Punkt 1", "Punkt 2"] };
     case "quote": return { text: "", author: "" };
     case "faq": return { items: [{ question: "Vanlig fråga?", answer: "Svar här..." }] };
@@ -38,15 +39,17 @@ interface BlockEditorProps {
   onChange: (blocks: ContentBlock[]) => void;
 }
 
-function BlockFields({ block, onChange }: { block: ContentBlock; onChange: (data: Record<string, any>) => void }) {
-  const { type, data } = block;
+function BlockFields({ block, onChange }: { block: ContentBlock; onChange: (data: ContentBlock["data"]) => void }) {
+  const { data } = block;
+  const fieldId = useId();
 
   const field = (label: string, key: string, type: "text" | "textarea" | "number" | "select" | "checkbox" = "text", options?: { value: string; label: string }[]) => {
     if (type === "textarea") {
       return (
         <div key={key}>
-          <label className="text-xs text-muted-foreground font-body block mb-1">{label}</label>
+          <label htmlFor={`${fieldId}-${key}`} className="text-xs text-muted-foreground font-body block mb-1">{label}</label>
           <textarea
+            id={`${fieldId}-${key}`}
             value={data[key] || ""}
             onChange={(e) => onChange({ ...data, [key]: e.target.value })}
             className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm font-body resize-y min-h-[80px]"
@@ -58,22 +61,24 @@ function BlockFields({ block, onChange }: { block: ContentBlock; onChange: (data
       return (
         <div key={key} className="flex items-center gap-2">
           <input
+            id={`${fieldId}-${key}`}
             type="checkbox"
             checked={!!data[key]}
             onChange={(e) => onChange({ ...data, [key]: e.target.checked })}
             className="rounded"
           />
-          <label className="text-xs text-muted-foreground font-body">{label}</label>
+          <label htmlFor={`${fieldId}-${key}`} className="text-xs text-muted-foreground font-body">{label}</label>
         </div>
       );
     }
     if (type === "select") {
       return (
         <div key={key}>
-          <label className="text-xs text-muted-foreground font-body block mb-1">{label}</label>
+          <label htmlFor={`${fieldId}-${key}`} className="text-xs text-muted-foreground font-body block mb-1">{label}</label>
           <select
+            id={`${fieldId}-${key}`}
             value={data[key] || ""}
-            onChange={(e) => onChange({ ...data, [key]: e.target.value })}
+            onChange={(e) => onChange({ ...data, [key]: key === "level" ? Number(e.target.value) : e.target.value })}
             className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm font-body"
           >
             {options?.map((o) => (
@@ -86,8 +91,9 @@ function BlockFields({ block, onChange }: { block: ContentBlock; onChange: (data
     if (type === "number") {
       return (
         <div key={key}>
-          <label className="text-xs text-muted-foreground font-body block mb-1">{label}</label>
+          <label htmlFor={`${fieldId}-${key}`} className="text-xs text-muted-foreground font-body block mb-1">{label}</label>
           <input
+            id={`${fieldId}-${key}`}
             type="number"
             value={data[key] || ""}
             onChange={(e) => onChange({ ...data, [key]: Number(e.target.value) })}
@@ -98,8 +104,9 @@ function BlockFields({ block, onChange }: { block: ContentBlock; onChange: (data
     }
     return (
       <div key={key}>
-        <label className="text-xs text-muted-foreground font-body block mb-1">{label}</label>
+        <label htmlFor={`${fieldId}-${key}`} className="text-xs text-muted-foreground font-body block mb-1">{label}</label>
         <input
+          id={`${fieldId}-${key}`}
           type="text"
           value={data[key] || ""}
           onChange={(e) => onChange({ ...data, [key]: e.target.value })}
@@ -127,16 +134,17 @@ function BlockFields({ block, onChange }: { block: ContentBlock; onChange: (data
     case "image":
       return (
         <div className="space-y-2">
-          {field("Bild-URL", "src")}
+          <MediaInput value={data.src || ""} onChange={(src) => onChange({ ...data, src })} label="Bild" />
           {field("Alt-text (tillgänglighet)", "alt")}
-          {field("Max höjd (px, valfritt)", "maxHeight")}
+          {field("Max höjd (px, valfritt)", "maxHeight", "number")}
         </div>
       );
     case "video":
       return (
         <div className="space-y-2">
           {field("Video-URL (mp4)", "src")}
-          {field("Max höjd (px, valfritt)", "maxHeight")}
+          {field("Videons titel (tillgänglighet)", "alt")}
+          {field("Max höjd (px, valfritt)", "maxHeight", "number")}
         </div>
       );
     case "cta_button":
@@ -155,8 +163,9 @@ function BlockFields({ block, onChange }: { block: ContentBlock; onChange: (data
     case "list":
       return (
         <div className="space-y-2">
-          <label className="text-xs text-muted-foreground font-body block">Punkter (en per rad)</label>
+          <label htmlFor={`${fieldId}-items`} className="text-xs text-muted-foreground font-body block">Punkter (en per rad)</label>
           <textarea
+            id={`${fieldId}-items`}
             value={(data.items || []).join("\n")}
             onChange={(e) => onChange({ ...data, items: e.target.value.split("\n") })}
             className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm font-body resize-y min-h-[80px]"
@@ -180,8 +189,9 @@ function BlockFields({ block, onChange }: { block: ContentBlock; onChange: (data
           {items.map((item: { question: string; answer: string }, idx: number) => (
             <div key={idx} className="space-y-2 p-3 border border-border rounded-lg bg-muted/30">
               <div>
-                <label className="text-xs text-muted-foreground font-body block mb-1">Fråga</label>
+                <label htmlFor={`${fieldId}-question-${idx}`} className="text-xs text-muted-foreground font-body block mb-1">Fråga</label>
                 <input
+                  id={`${fieldId}-question-${idx}`}
                   type="text"
                   value={item.question}
                   onChange={(e) => {
@@ -193,8 +203,9 @@ function BlockFields({ block, onChange }: { block: ContentBlock; onChange: (data
                 />
               </div>
               <div>
-                <label className="text-xs text-muted-foreground font-body block mb-1">Svar</label>
+                <label htmlFor={`${fieldId}-answer-${idx}`} className="text-xs text-muted-foreground font-body block mb-1">Svar</label>
                 <textarea
+                  id={`${fieldId}-answer-${idx}`}
                   value={item.answer}
                   onChange={(e) => {
                     const updated = [...items];
@@ -234,6 +245,7 @@ function BlockFields({ block, onChange }: { block: ContentBlock; onChange: (data
 }
 
 export default function BlockEditor({ blocks, onChange }: BlockEditorProps) {
+  const fieldId = useId();
   const [showAddMenu, setShowAddMenu] = useState<number | null>(null);
 
   const addBlock = (type: BlockType, index: number) => {
@@ -256,7 +268,7 @@ export default function BlockEditor({ blocks, onChange }: BlockEditorProps) {
     onChange(updated);
   };
 
-  const updateBlockData = (index: number, data: Record<string, any>) => {
+  const updateBlockData = (index: number, data: ContentBlock["data"]) => {
     const updated = [...blocks];
     updated[index] = { ...updated[index], data };
     onChange(updated);
@@ -279,13 +291,13 @@ export default function BlockEditor({ blocks, onChange }: BlockEditorProps) {
               <GripVertical className="w-4 h-4 text-muted-foreground" />
               <Icon className="w-4 h-4 text-primary" />
               <span className="text-sm font-body font-medium text-foreground flex-1">{blockDef?.label || block.type}</span>
-              <button onClick={() => moveBlock(i, -1)} disabled={i === 0} className="p-1 text-muted-foreground hover:text-foreground disabled:opacity-30">
+              <button type="button" aria-label={`Flytta ${blockDef?.label || "block"} uppåt`} onClick={() => moveBlock(i, -1)} disabled={i === 0} className="p-1 text-muted-foreground hover:text-foreground disabled:opacity-30">
                 <ChevronUp className="w-4 h-4" />
               </button>
-              <button onClick={() => moveBlock(i, 1)} disabled={i === blocks.length - 1} className="p-1 text-muted-foreground hover:text-foreground disabled:opacity-30">
+              <button type="button" aria-label={`Flytta ${blockDef?.label || "block"} nedåt`} onClick={() => moveBlock(i, 1)} disabled={i === blocks.length - 1} className="p-1 text-muted-foreground hover:text-foreground disabled:opacity-30">
                 <ChevronDown className="w-4 h-4" />
               </button>
-              <button onClick={() => removeBlock(i)} className="p-1 text-destructive hover:text-destructive/80">
+              <button type="button" aria-label={`Ta bort ${blockDef?.label || "block"}`} onClick={() => removeBlock(i)} className="p-1 text-destructive hover:text-destructive/80">
                 <Trash2 className="w-4 h-4" />
               </button>
             </div>
@@ -299,13 +311,15 @@ export default function BlockEditor({ blocks, onChange }: BlockEditorProps) {
       {/* Add block button */}
       <div className="relative">
         <button
+          aria-expanded={showAddMenu === blocks.length}
+          aria-controls={`${fieldId}-block-types`}
           onClick={() => setShowAddMenu(showAddMenu === blocks.length ? null : blocks.length)}
           className="w-full py-3 border-2 border-dashed border-border rounded-xl text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors flex items-center justify-center gap-2 font-body text-sm"
         >
           <Plus className="w-4 h-4" /> Lägg till block
         </button>
         {showAddMenu === blocks.length && (
-          <div className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-xl shadow-lg z-10 p-2 grid grid-cols-2 gap-1">
+          <div id={`${fieldId}-block-types`} className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-xl shadow-lg z-10 p-2 grid grid-cols-2 gap-1">
             {BLOCK_TYPES.map((bt) => (
               <button
                 key={bt.type}

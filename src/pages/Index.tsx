@@ -1,3 +1,5 @@
+import { serializeStructuredData } from "@/lib/siteContentValues";
+import { useSiteContent } from "@/hooks/useSiteContent";
 import ExternalEmbedGate from '@/components/ExternalEmbedGate';
 import { motion, useReducedMotion } from "framer-motion";
 import { MapPin, Clock, Star, Calendar, ArrowRight, Quote, Leaf, Gift, ExternalLink, Sparkles, Mail } from "lucide-react";
@@ -33,13 +35,15 @@ const noMotion = {
 };
 
 const Index = () => {
+  const { c, g } = useSiteContent("home");
+
   const { data: reviews } = useReviews();
   const { data: s } = useSiteSettings();
   const reduceMotion = useReducedMotion();
   const fadeUp = reduceMotion ? noMotion : baseFadeUp;
 
   // Helper: get setting value or fallback
-  const t = (key: string, fallback: string) => s?.[key] || fallback;
+  const t = c;
 
   const featuredReviews = reviews?.filter(r => r.review_text) || [];
   const compactReviews = reviews?.filter(r => !r.review_text) || [];
@@ -57,27 +61,25 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0">
       <a
-        href="#main-content"
+        href={c("link_001", "#main-content")}
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-5 focus:py-3 focus:font-body focus:font-medium focus:text-primary-foreground focus:shadow-lg"
-      >
-        Hoppa till innehåll
-      </a>
+      >{c("text_001", "Hoppa till innehåll")}</a>
       <SeoHead
-        title="Massage Uddevalla | Viriditas – Andreas Håman"
-        description="Boka klassisk massage i Uddevalla hos Viriditas. Certifierad massör Andreas Håman, Folkets Hus, Göteborgsvägen 11B. Från 450 kr."
+        title={c("seo_001", "Massage Uddevalla | Viriditas – Andreas Håman")}
+        description={c("seo_002", "Boka klassisk massage i Uddevalla hos Viriditas. Certifierad massör Andreas Håman, Folkets Hus, Göteborgsvägen 11B. Från 450 kr.")}
         path="/"
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: serializeStructuredData({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
               {
                 "@type": "ListItem",
                 "position": 1,
-                "name": "Hem",
+                "name": c("seo_003", "Hem"),
                 "item": "https://viriditasmassage.se/"
               }
             ]
@@ -88,10 +90,11 @@ const Index = () => {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: serializeStructuredData({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              "name": "Viriditas – Andreas Håman",
+              "@id": "https://viriditasmassage.se/#business",
+              "name": c("seo_004", "Viriditas – Andreas Håman"),
               "url": "https://viriditasmassage.se",
               "aggregateRating": {
                 "@type": "AggregateRating",
@@ -107,11 +110,11 @@ const Index = () => {
 
       <main id="main-content">
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {c("show_hero", "true") !== "false" && (<section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {reduceMotion ? (
           <img
-            src="/video/massage-2-poster.jpg"
-            alt=""
+            src={c("image_001", "/video/massage-2-poster.jpg")}
+            alt={c("text_002", "")}
             aria-hidden="true"
             className="absolute inset-0 w-full h-full object-cover"
           />
@@ -122,12 +125,12 @@ const Index = () => {
             loop
             playsInline
             preload="metadata"
-            poster="/video/massage-2-poster.jpg"
+            poster={c("image_001", "/video/massage-2-poster.jpg")}
             aria-hidden="true"
             className="absolute inset-0 w-full h-full object-cover"
           >
-            <source src="/video/massage-2.webm" type="video/webm" />
-            <source src="/video/massage-2.mp4" type="video/mp4" />
+            <source src={c("video_001", "/video/massage-2.webm")} type="video/webm" />
+            <source src={c("video_002", "/video/massage-2.mp4")} type="video/mp4" />
           </video>
         )}
         <div className="absolute inset-0 bg-black/50" />
@@ -157,19 +160,17 @@ const Index = () => {
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://www.bokadirekt.se/places/viriditas-massage-136924"
+              href={g("booking_url")}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookingClick("hero")}
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
-            >
-              Boka tid <Calendar className="w-5 h-5" />
+            >{g("booking_label")}<Calendar className="w-5 h-5" />
             </motion.a>
             <a
-              href="#behandlingar"
+              href={c("link_002", "#behandlingar")}
               className="inline-flex items-center gap-2 text-primary-foreground/80 font-body font-medium hover:text-primary-foreground transition-colors"
-            >
-              Se behandlingar <ArrowRight className="w-4 h-4" />
+            >{c("text_005", "Se behandlingar ")}<ArrowRight className="w-4 h-4" />
             </a>
           </motion.div>
 
@@ -189,15 +190,14 @@ const Index = () => {
             animate="visible"
             variants={fadeUp}
             custom={4}
-            className="flex items-center justify-center gap-6 text-primary-foreground/60 text-sm mt-12"
+            className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-primary-foreground/60 text-sm mt-12 sm:gap-x-6"
           >
             <span className="flex items-center gap-1">
-              <Star className="w-4 h-4 text-primary-foreground fill-primary-foreground" /> {avgRating} betyg
-            </span>
-            <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
+              <Star className="w-4 h-4 text-primary-foreground fill-primary-foreground" /> {avgRating}{c("text_007", " betyg")}</span>
+            <span className="hidden w-1 h-1 bg-primary-foreground/30 rounded-full sm:block" />
             <span>{t("hero_price_from", "Från 450 kr")}</span>
-            <span className="w-1 h-1 bg-primary-foreground/30 rounded-full" />
-            <span>{totalCount}+ omdömen</span>
+            <span className="hidden w-1 h-1 bg-primary-foreground/30 rounded-full sm:block" />
+            <span>{totalCount}{c("text_009", "+ omdömen")}</span>
           </motion.div>
         </div>
 
@@ -208,17 +208,17 @@ const Index = () => {
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
         >
           <a
-            href="#om"
-            aria-label="Scrolla till om-sektionen"
+            href={c("link_003", "#om")}
+            aria-label={c("text_010", "Scrolla till om-sektionen")}
             className="text-primary-foreground/80 animate-bounce block"
           >
             <ArrowRight className="w-6 h-6 rotate-90" />
           </a>
         </motion.div>
-      </section>
+      </section>)}
 
       {/* Om Andreas */}
-      <section id="om" className="py-28 px-6">
+      {c("show_about", "true") !== "false" && (<section id="om" className="py-28 px-6">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <motion.div
             initial="hidden"
@@ -227,8 +227,8 @@ const Index = () => {
             variants={fadeUp}
           >
             <img
-              src={andreasPortrait}
-              alt="Andreas Håman, massageterapeut på Viriditas i Uddevalla"
+              src={c("image_002", andreasPortrait)}
+              alt={c("text_011", "Andreas Håman, massageterapeut på Viriditas i Uddevalla")}
               className="rounded-3xl shadow-2xl w-full object-cover object-top aspect-[3/4]"
               loading="lazy"
               decoding="async"
@@ -256,20 +256,19 @@ const Index = () => {
                <p className="text-xl font-body italic text-foreground">
                  "{t("about_quote", "Jag lyssnar med händerna.")}"
                </p>
-              <cite className="text-sm text-muted-foreground mt-2 block not-italic">– Andreas Håman</cite>
+              <cite className="text-sm text-muted-foreground mt-2 block not-italic">{c("text_016", "– Andreas Håman")}</cite>
             </blockquote>
             <Link
-              to="/om-andreas"
+              to={c("link_004", "/om-andreas")}
               className="inline-flex items-center gap-2 text-primary font-body font-medium hover:underline mt-4"
-            >
-              Läs mer om Andreas <ArrowRight className="w-4 h-4" />
+            >{c("text_017", "Läs mer om Andreas ")}<ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
         </div>
-      </section>
+      </section>)}
 
       {/* CTA after Om Andreas */}
-      <section className="py-16 px-6 bg-primary">
+      {c("show_cta1", "true") !== "false" && (<section className="py-16 px-6 bg-primary">
         <div className="max-w-3xl mx-auto text-center">
           <motion.div
             initial="hidden"
@@ -287,20 +286,19 @@ const Index = () => {
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://www.bokadirekt.se/places/viriditas-massage-136924"
+              href={g("booking_url")}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookingClick("cta-after-about")}
               className="inline-flex items-center gap-2 bg-primary-foreground text-primary px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg hover:shadow-xl transition-shadow"
-            >
-              Boka tid nu <Calendar className="w-5 h-5" />
+            >{c("text_020", "Boka tid nu ")}<Calendar className="w-5 h-5" />
             </motion.a>
           </motion.div>
         </div>
-      </section>
+      </section>)}
 
       {/* Viriditas betydelse */}
-      <section className="py-28 px-6 bg-card">
+      {c("show_viriditas", "true") !== "false" && (<section className="py-28 px-6 bg-card">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <motion.div
             initial="hidden"
@@ -330,8 +328,8 @@ const Index = () => {
           >
             {reduceMotion ? (
               <img
-                src="/video/massage-poster.jpg"
-                alt=""
+                src={c("image_003", "/video/massage-poster.jpg")}
+                alt={c("text_002", "")}
                 aria-hidden="true"
                 className="rounded-3xl shadow-2xl w-full object-cover aspect-square"
               />
@@ -342,19 +340,19 @@ const Index = () => {
                 loop
                 playsInline
                 preload="metadata"
-                poster="/video/massage-poster.jpg"
+                poster={c("image_003", "/video/massage-poster.jpg")}
                 aria-hidden="true"
                 className="rounded-3xl shadow-2xl w-full object-cover aspect-square"
               >
-                <source src="/video/massage.mp4" type="video/mp4" />
+                <source src={c("video_003", "/video/massage.mp4")} type="video/mp4" />
               </video>
             )}
           </motion.div>
         </div>
-      </section>
+      </section>)}
 
       {/* SEO-introtext: Massage i Uddevalla */}
-      <section className="py-24 px-6">
+      {c("show_intro", "true") !== "false" && (<section className="py-24 px-6">
         <div className="max-w-3xl mx-auto">
           <motion.div
             initial="hidden"
@@ -367,32 +365,24 @@ const Index = () => {
               {t("seo_intro_title", "Massage i Uddevalla – närvaro, kvalitet och omtanke")}
             </h2>
             <div className="w-20 h-1 bg-primary rounded-full mx-auto" />
-            <p className="text-lg text-muted-foreground leading-relaxed font-body">
-              Söker du professionell massage i Uddevalla? Hos Viriditas möts du av en diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage som tar sig tid att förstå just din kropp – oavsett om du vill släppa nackspänningar, mjuka upp en stel rygg eller bara unna dig en stunds djup avslappning. Läs mer om{" "}
+            <p className="text-lg text-muted-foreground leading-relaxed font-body">{c("text_025", "Söker du professionell massage i Uddevalla? Hos Viriditas möts du av en diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage som tar sig tid att förstå just din kropp – oavsett om du vill släppa nackspänningar, mjuka upp en stel rygg eller bara unna dig en stunds djup avslappning. Läs mer om")}{" "}
               <Link
-                to="/klassisk-massage"
+                to={c("link_005", "/klassisk-massage")}
                 className="text-primary font-medium underline-offset-4 hover:underline"
-              >
-                klassisk massage Uddevalla centrum
-              </Link>
+              >{c("text_026", "klassisk massage Uddevalla centrum")}</Link>
               .
             </p>
-            <p className="text-base text-muted-foreground leading-relaxed font-body">
-              Behandlingarna utgår från klassisk svensk massage och anpassas efter dina behov, från fokuserade 45-minuterspass till en hel timmes lugn återhämtning. Vill du veta mer om terapeuten bakom Viriditas och vår plats för{" "}
+            <p className="text-base text-muted-foreground leading-relaxed font-body">{c("text_027", "Behandlingarna utgår från klassisk svensk massage och anpassas efter dina behov, från fokuserade 45-minuterspass till en hel timmes lugn återhämtning. Vill du veta mer om terapeuten bakom Viriditas och vår plats för")}{" "}
               <Link
-                to="/om-andreas"
+                to={c("link_004", "/om-andreas")}
                 className="text-primary font-medium underline-offset-4 hover:underline"
-              >
-                massage i Bohuslän
-              </Link>
-              ? Det är enkelt att boka tid online – välj en stund som passar dig och kom till en stilla, omsorgsfullt förberedd lokal.
-            </p>
+              >{c("text_028", "massage i Bohuslän")}</Link>{c("text_029", "? Det är enkelt att boka tid online – välj en stund som passar dig och kom till en stilla, omsorgsfullt förberedd lokal.")}</p>
           </motion.div>
         </div>
-      </section>
+      </section>)}
 
       {/* Behandlingar */}
-      <section id="behandlingar" className="py-28 px-6">
+      {c("show_treatments", "true") !== "false" && (<section id="behandlingar" className="py-28 px-6">
         <div className="max-w-4xl mx-auto text-center mb-16">
           <motion.h2
             initial="hidden"
@@ -431,51 +421,51 @@ const Index = () => {
             {
               icon: Clock,
               title: t("treatment_30_title", "Klassisk massage"),
-              duration: "30 min",
+              duration: c("text_033", "30 min"),
               price: t("treatment_30_price", "450 kr"),
               desc: t("treatment_30_desc", "Fokuserad behandling av rygg, nacke och axlar för dig med ont om tid."),
-              cta: "Boka 30 min",
+              cta: c("text_036", "Boka 30 min"),
             },
             {
               icon: Clock,
               title: t("treatment_45_title", "Klassisk massage"),
-              duration: "45 min",
+              duration: c("text_038", "45 min"),
               price: t("treatment_45_price", "595 kr"),
               desc: t("treatment_45_desc", "En kortare men effektiv behandling fokuserad på dina problemområden."),
-              cta: "Boka 45 min",
+              cta: c("text_041", "Boka 45 min"),
             },
             {
               icon: Leaf,
               title: t("treatment_60_title", "Klassisk massage"),
-              duration: "60 min",
+              duration: c("text_043", "60 min"),
               price: t("treatment_60_price", "720 kr"),
               desc: t("treatment_60_desc", "En hel timmes lugn avslappningsmassage som löser upp spänningar i hela kroppen – populärast bland alla våra behandlingar för massage i Uddevalla."),
-              cta: "Boka 60 min",
+              cta: c("text_046", "Boka 60 min"),
               featured: true,
             },
             {
               icon: Sparkles,
               title: t("treatment_80_title", "Klassisk massage"),
-              duration: "80 min",
+              duration: c("text_048", "80 min"),
               price: t("treatment_80_price", "998 kr"),
               desc: t("treatment_80_desc", "En omsorgsfull genomgång av hela kroppen för djup avslappning och återhämtning."),
-              cta: "Boka 80 min",
+              cta: c("text_051", "Boka 80 min"),
             },
             {
               icon: Sparkles,
               title: t("treatment_recovery_title", "Återhämtningsmassage"),
-              duration: "",
+              duration: c("text_053", ""),
               price: t("treatment_recovery_price", "Se bokningen"),
               desc: t("treatment_recovery_desc", "Se aktuella tider, behandlingar och villkor i bokningen. Kontakta Andreas om du har frågor."),
-              cta: "Boka tid",
+              cta: g("booking_label"),
             },
             {
               icon: Gift,
               title: t("gift_title", "Presentkort"),
-              duration: "",
+              duration: c("text_053", ""),
               price: t("gift_price", "Valfritt belopp"),
               desc: t("gift_desc", "Ge bort välmående. Perfekt som present till någon du tycker om."),
-              cta: "Kontakta oss",
+              cta: c("text_059", "Kontakta oss"),
               isGift: true,
             },
           ].map((service, i) => (
@@ -528,7 +518,7 @@ const Index = () => {
               <motion.a
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
-                href={service.isGift ? "#kontakt" : "https://www.bokadirekt.se/places/viriditas-massage-136924"}
+                href={service.isGift ? "#kontakt" : g("booking_url")}
                 target={service.isGift ? undefined : "_blank"}
                 rel={service.isGift ? undefined : "noopener noreferrer"}
                 onClick={() => !service.isGift && trackBookingClick(`treatment-${service.duration}`)}
@@ -545,10 +535,9 @@ const Index = () => {
         </div>
         <div className="max-w-5xl mx-auto text-center mt-10">
           <Link
-            to="/klassisk-massage"
+            to={c("link_005", "/klassisk-massage")}
             className="inline-flex items-center gap-2 text-primary font-body font-medium hover:underline"
-          >
-            Läs mer om klassisk massage <ArrowRight className="w-4 h-4" />
+          >{c("text_060", "Läs mer om klassisk massage ")}<ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
@@ -562,23 +551,21 @@ const Index = () => {
             className="relative overflow-hidden rounded-3xl border border-primary/20 bg-card shadow-xl"
           >
             <div className="grid md:grid-cols-5 gap-0">
-              <div className="md:col-span-2 bg-primary/10 p-10 flex flex-col justify-center items-start gap-4">
+              <div className="md:col-span-2 min-w-0 bg-primary/10 p-6 sm:p-10 flex flex-col justify-center items-start gap-4">
                 <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/15">
                   <Sparkles className="w-7 h-7 text-primary" />
                 </div>
                 <span className="text-sm font-body uppercase tracking-[0.25em] text-primary">
                   {t("recovery_eyebrow", "Tillgänglig massage")}
                 </span>
-                <p className="text-3xl md:text-4xl font-display font-bold text-foreground leading-none">
-                  Se bokningen
-                </p>
+                <p className="text-3xl md:text-4xl font-display font-bold text-foreground leading-none">{c("text_062", "Se bokningen")}</p>
                 <span className="text-sm font-body text-muted-foreground">
                   {t("recovery_duration_label", "Aktuella behandlingar och tider")}
                 </span>
               </div>
 
-              <div className="md:col-span-3 p-10 space-y-5">
-                <h3 className="text-2xl md:text-3xl font-display font-semibold text-foreground">
+              <div className="md:col-span-3 min-w-0 p-6 sm:p-10 space-y-5">
+                <h3 className="break-words text-2xl md:text-3xl font-display font-semibold text-foreground">
                   {t("recovery_section_title", "Återhämtningsmassage – en stund av lugn för fler")}
                 </h3>
                 <div className="w-16 h-1 bg-primary rounded-full" />
@@ -618,7 +605,7 @@ const Index = () => {
                   <motion.a
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
-                    href="https://www.bokadirekt.se/places/viriditas-massage-136924"
+                    href={g("booking_url")}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackBookingClick("recovery-highlight")}
@@ -700,7 +687,7 @@ const Index = () => {
                   <motion.a
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
-                    href="https://www.bokadirekt.se/places/viriditas-massage-136924"
+                    href={g("booking_url")}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackBookingClick("recovery-social-proof")}
@@ -775,10 +762,10 @@ const Index = () => {
             </Accordion>
           </motion.div>
         </div>
-      </section>
+      </section>)}
 
       {/* Friskvård / Epassi */}
-      <section className="py-24 px-6">
+      {c("show_wellness", "true") !== "false" && (<section className="py-24 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial="hidden"
@@ -792,13 +779,11 @@ const Index = () => {
                 <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/15">
                   <Gift className="w-7 h-7 text-primary" />
                 </div>
-                <h2 className="text-2xl md:text-3xl font-display font-semibold text-foreground">
-                  Betala med friskvårdsbidrag
-                </h2>
+                <h2 className="text-2xl md:text-3xl font-display font-semibold text-foreground">{c("text_075", "Betala med friskvårdsbidrag")}</h2>
                 <div className="flex items-center justify-center rounded-xl bg-white px-6 py-4">
                   <img
-                    src="/epassi-logo.svg"
-                    alt="Epassi – betala din massage med friskvårdsbidrag"
+                    src={c("image_004", "/epassi-logo.svg")}
+                    alt={c("text_076", "Epassi – betala din massage med friskvårdsbidrag")}
                     width={140}
                     height={44}
                     loading="lazy"
@@ -807,27 +792,22 @@ const Index = () => {
                 </div>
               </div>
               <div className="md:col-span-3 p-10 flex flex-col justify-center gap-5">
-                <p className="text-lg text-muted-foreground leading-relaxed font-body">
-                  Viriditas är ansluten till <span className="font-medium text-foreground">Epassi</span> – betala din
-                  friskvårdsmassage smidigt direkt via Epassi-appen på plats. Använder du en annan portal som Benify
-                  eller Wellnet går det också bra; du betalar som vanligt och laddar upp kvittot för ersättning.
-                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed font-body">{c("text_077", "Viriditas är ansluten till ")}<span className="font-medium text-foreground">{c("text_078", "Epassi")}</span>{c("text_079", " – betala din friskvårdsmassage smidigt direkt via Epassi-appen på plats. Använder du en annan portal som Benify eller Wellnet går det också bra; du betalar som vanligt och laddar upp kvittot för ersättning.")}</p>
                 <Link
-                  to="/friskvardsbidrag-massage-uddevalla"
+                  to={c("link_006", "/friskvardsbidrag-massage-uddevalla")}
                   className="inline-flex items-center gap-2 text-primary font-body font-medium hover:underline"
-                >
-                  Läs mer om friskvårdsbidrag <ArrowRight className="w-4 h-4" />
+                >{c("text_080", "Läs mer om friskvårdsbidrag ")}<ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
           </motion.div>
         </div>
-      </section>
+      </section>)}
 
 
 
       {/* Omdömen */}
-      <section className="py-28 px-6 bg-[#f4f0eb]">
+      {c("show_reviews", "true") !== "false" && (<section className="py-28 px-6 bg-[#f4f0eb]">
         <div className="max-w-4xl mx-auto text-center mb-16">
           <motion.h2
             initial="hidden"
@@ -835,9 +815,7 @@ const Index = () => {
             viewport={{ once: true }}
             variants={fadeUp}
             className="text-3xl md:text-5xl font-display font-semibold text-foreground mb-4"
-          >
-            Vad kunderna säger
-          </motion.h2>
+          >{c("text_081", "Vad kunderna säger")}</motion.h2>
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -861,7 +839,7 @@ const Index = () => {
                   <Star key={i} className={`w-5 h-5 ${i < Math.round(Number(avgRating)) ? "text-amber-500 fill-amber-500" : "text-border"}`} />
                 ))}
               </span>
-              <span className="text-muted-foreground text-sm">{totalCount} omdömen</span>
+              <span className="text-muted-foreground text-sm">{totalCount}{c("text_082", " omdömen")}</span>
             </div>
           </motion.div>
         </div>
@@ -928,19 +906,18 @@ const Index = () => {
           <motion.a
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            href="https://www.bokadirekt.se/places/viriditas-massage-136924"
+            href={g("booking_url")}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackBookingClick("cta-after-reviews")}
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
-          >
-            Boka din massage idag <Calendar className="w-5 h-5" />
+          >{c("text_083", "Boka din massage idag ")}<Calendar className="w-5 h-5" />
           </motion.a>
         </motion.div>
-      </section>
+      </section>)}
 
       {/* Hitta hit / Kontakt */}
-      <section id="kontakt" className="py-28 px-6">
+      {c("show_contact", "true") !== "false" && (<section id="kontakt" className="py-28 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <motion.h2
@@ -976,7 +953,7 @@ const Index = () => {
                     <MapPin className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-display font-semibold text-foreground mb-1">Adress</h3>
+                    <h3 className="font-display font-semibold text-foreground mb-1">{c("text_085", "Adress")}</h3>
                     <p className="text-muted-foreground whitespace-pre-line">{t("contact_address_full", "Uddevalla Folkets Hus\nGöteborgsvägen 11B, Uddevalla")}</p>
                   </div>
                 </div>
@@ -986,16 +963,15 @@ const Index = () => {
                     <Clock className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-display font-semibold text-foreground mb-1">Öppettider</h3>
+                    <h3 className="font-display font-semibold text-foreground mb-1">{c("text_087", "Öppettider")}</h3>
                     <p className="text-muted-foreground whitespace-pre-line">{t("contact_hours_display", "Se aktuella tider och behandlingar i bokningen.")}</p>
                     <a
-                      href="https://www.bokadirekt.se/places/viriditas-massage-136924"
+                      href={g("booking_url")}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => trackBookingClick("contact-hours-schedule-link")}
                       className="inline-flex items-center gap-1.5 text-primary font-body font-medium text-sm hover:underline mt-2"
-                    >
-                      Se alla lediga tider <ExternalLink className="w-3.5 h-3.5" />
+                    >{c("text_089", "Se alla lediga tider ")}<ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
                 </div>
@@ -1005,14 +981,12 @@ const Index = () => {
                     <Mail className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-display font-semibold text-foreground mb-1">E-post</h3>
+                    <h3 className="font-display font-semibold text-foreground mb-1">{c("text_090", "E-post")}</h3>
                     <a
-                      href="mailto:info@auroramedia.se"
+                      href={`mailto:${g("email")}`}
                       onClick={() => trackContactClick("kontakt-email")}
                       className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      info@auroramedia.se
-                    </a>
+                    >{g("email")}</a>
                   </div>
                 </div>
               </div>
@@ -1021,25 +995,23 @@ const Index = () => {
                 <motion.a
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
-                  href="https://maps.google.com/?q=Uddevalla+Folkets+Hus+G%C3%B6teborgsv%C3%A4gen+11B+Uddevalla"
+                  href={g("maps_url")}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackContactClick("kontakt-maps")}
                   className="inline-flex items-center justify-center gap-2 bg-card border border-border text-foreground px-6 py-3 rounded-full font-body font-medium shadow-sm hover:shadow-md transition-shadow"
                 >
-                  <ExternalLink className="w-4 h-4" /> Öppna i Google Maps
-                </motion.a>
+                  <ExternalLink className="w-4 h-4" />{c("text_091", " Öppna i Google Maps")}</motion.a>
                 <motion.a
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
-                  href="https://www.bokadirekt.se/places/viriditas-massage-136924"
+                  href={g("booking_url")}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackBookingClick("kontakt")}
                   className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full font-body font-medium shadow-lg shadow-primary/20"
                 >
-                  <Calendar className="w-4 h-4" /> Boka din behandling
-                </motion.a>
+                  <Calendar className="w-4 h-4" />{c("text_092", " Boka din behandling")}</motion.a>
               </div>
             </motion.div>
 
@@ -1054,16 +1026,16 @@ const Index = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div className="rounded-3xl overflow-hidden shadow-lg aspect-[4/5]">
                   <img
-                    src={folketsHus}
-                    alt="Uddevalla Folkets Hus – fasad med entré"
+                    src={c("image_005", folketsHus)}
+                    alt={c("text_093", "Uddevalla Folkets Hus – fasad med entré")}
                     loading="lazy"
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="rounded-3xl overflow-hidden shadow-lg aspect-[4/5]">
                   <img
-                    src={folketsHusEntre}
-                    alt="Entrén till Uddevalla Folkets Hus, Göteborgsvägen 11B"
+                    src={c("image_006", folketsHusEntre)}
+                    alt={c("text_094", "Entrén till Uddevalla Folkets Hus, Göteborgsvägen 11B")}
                     loading="lazy"
                     className="w-full h-full object-cover"
                   />
@@ -1071,8 +1043,8 @@ const Index = () => {
               </div>
               <div className="rounded-3xl overflow-hidden shadow-lg">
                 <ExternalEmbedGate service="Google Maps"><iframe
-                  title="Karta till Viriditas – Uddevalla Folkets Hus"
-                  src="https://www.google.com/maps?q=Uddevalla+Folkets+Hus,+G%C3%B6teborgsv%C3%A4gen+11B,+Uddevalla&output=embed"
+                  title={c("text_095", "Karta till Viriditas – Uddevalla Folkets Hus")}
+                  src={g("map_embed_url")}
                   width="100%"
                   height="280"
                   style={{ border: 0 }}
@@ -1083,10 +1055,10 @@ const Index = () => {
             </motion.div>
           </div>
         </div>
-      </section>
+      </section>)}
 
       {/* Inne i salongen */}
-      <section className="py-28 px-6 bg-card">
+      {c("show_gallery", "true") !== "false" && (<section className="py-28 px-6 bg-card">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
@@ -1095,13 +1067,9 @@ const Index = () => {
             variants={fadeUp}
             className="text-center mb-14 max-w-2xl mx-auto space-y-4"
           >
-            <h2 className="text-3xl md:text-5xl font-display font-semibold text-foreground">
-              Inne i salongen
-            </h2>
+            <h2 className="text-3xl md:text-5xl font-display font-semibold text-foreground">{c("text_096", "Inne i salongen")}</h2>
             <div className="w-20 h-1 bg-primary rounded-full mx-auto" />
-            <p className="text-lg text-muted-foreground leading-relaxed font-body">
-              En lugn och omsorgsfullt förberedd plats i Uddevalla Folkets Hus – med dagsljus, mjuka filtar och små detaljer som får dig att landa direkt.
-            </p>
+            <p className="text-lg text-muted-foreground leading-relaxed font-body">{c("text_097", "En lugn och omsorgsfullt förberedd plats i Uddevalla Folkets Hus – med dagsljus, mjuka filtar och små detaljer som får dig att landa direkt.")}</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-4 md:gap-6">
@@ -1114,8 +1082,8 @@ const Index = () => {
               className="md:row-span-2 rounded-3xl overflow-hidden shadow-lg"
             >
               <img
-                src={salonRoomPainting}
-                alt="Behandlingsrum hos Viriditas i Uddevalla med massagebänk, mjuka handdukar och tavla av grön skog"
+                src={c("image_007", salonRoomPainting)}
+                alt={c("text_098", "Behandlingsrum hos Viriditas i Uddevalla med massagebänk, mjuka handdukar och tavla av grön skog")}
                 loading="lazy"
                 className="w-full h-full object-cover aspect-[3/4] md:aspect-auto"
               />
@@ -1129,8 +1097,8 @@ const Index = () => {
               className="rounded-3xl overflow-hidden shadow-lg"
             >
               <img
-                src={salonTableWindow}
-                alt="Massagebänk vid fönstret med dagsljus i Viriditas behandlingsrum"
+                src={c("image_008", salonTableWindow)}
+                alt={c("text_099", "Massagebänk vid fönstret med dagsljus i Viriditas behandlingsrum")}
                 loading="lazy"
                 className="w-full h-full object-cover aspect-[4/3]"
               />
@@ -1144,8 +1112,8 @@ const Index = () => {
               className="rounded-3xl overflow-hidden shadow-lg"
             >
               <img
-                src={salonWindowsill}
-                alt="Fönsterbräda med saltkristallampa, ängel och växter i Viriditas salong"
+                src={c("image_009", salonWindowsill)}
+                alt={c("text_100", "Fönsterbräda med saltkristallampa, ängel och växter i Viriditas salong")}
                 loading="lazy"
                 className="w-full h-full object-cover aspect-[4/3]"
               />
@@ -1159,18 +1127,18 @@ const Index = () => {
               className="md:col-span-2 rounded-3xl overflow-hidden shadow-lg"
             >
               <img
-                src={salonWindowLogo}
-                alt="Viriditas massage – logotyp i fönstret på salongen i Uddevalla"
+                src={c("image_010", salonWindowLogo)}
+                alt={c("text_101", "Viriditas massage – logotyp i fönstret på salongen i Uddevalla")}
                 loading="lazy"
                 className="w-full h-full object-cover aspect-[16/9]"
               />
             </motion.div>
           </div>
         </div>
-      </section>
+      </section>)}
 
       {/* FAQ */}
-      <section className="py-28 px-6 bg-card">
+      {c("show_faq", "true") !== "false" && (<section className="py-28 px-6 bg-card">
         <div className="max-w-3xl mx-auto">
           <motion.div
             initial="hidden"
@@ -1179,9 +1147,7 @@ const Index = () => {
             variants={fadeUp}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-5xl font-display font-semibold text-foreground mb-4">
-              Vanliga frågor
-            </h2>
+            <h2 className="text-3xl md:text-5xl font-display font-semibold text-foreground mb-4">{c("text_102", "Vanliga frågor")}</h2>
             <div className="w-20 h-1 bg-primary rounded-full mx-auto" />
           </motion.div>
 
@@ -1194,11 +1160,11 @@ const Index = () => {
           >
             <Accordion type="single" collapsible className="space-y-3">
               {[
-                { q: "Vad kostar massage hos Viriditas i Uddevalla?", a: "Klassisk massage kostar 450 kr för 30 minuter, 595 kr för 45 minuter, 720 kr för 60 minuter och 998 kr för 80 minuter. Du bokar enkelt online." },
-                { q: "Var ligger Viriditas i Uddevalla?", a: "Viriditas finns i Uddevalla Folkets Hus, Göteborgsvägen 11B." },
-                { q: "Hur bokar jag tid för massage?", a: 'Du bokar snabbt och enkelt online via vår bokningssida. Klicka på "Boka tid" här på sidan.' },
-                { q: "Vad är klassisk massage?", a: "Klassisk massage är den vanligaste massageformen i Sverige. Den löser upp spänningar, ökar blodcirkulationen och ger djup avkoppling för hela kroppen." },
-                { q: "Vem är massageterapeuten på Viriditas?", a: "Andreas Håman är diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage med bakgrund inom vården. Tack vare sin synnedsättning har han utvecklat en unik känslighet i sina händer, vilket gör hans behandlingar extra uppmärksamma och precisa." },
+                { q: c("faq_010", "Vad kostar massage hos Viriditas i Uddevalla?"), a: c("faq_011", "Klassisk massage kostar 450 kr för 30 minuter, 595 kr för 45 minuter, 720 kr för 60 minuter och 998 kr för 80 minuter. Du bokar enkelt online.") },
+                { q: c("faq_012", "Var ligger Viriditas i Uddevalla?"), a: c("faq_013", "Viriditas finns i Uddevalla Folkets Hus, Göteborgsvägen 11B.") },
+                { q: c("faq_014", "Hur bokar jag tid för massage?"), a: c("faq_015", "Du bokar snabbt och enkelt online via vår bokningssida. Klicka på \"Boka tid\" här på sidan.") },
+                { q: c("faq_016", "Vad är klassisk massage?"), a: c("faq_017", "Klassisk massage är den vanligaste massageformen i Sverige. Den löser upp spänningar, ökar blodcirkulationen och ger djup avkoppling för hela kroppen.") },
+                { q: c("faq_018", "Vem är massageterapeuten på Viriditas?"), a: c("faq_019", "Andreas Håman är diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage med bakgrund inom vården. Tack vare sin synnedsättning har han utvecklat en unik känslighet i sina händer, vilket gör hans behandlingar extra uppmärksamma och precisa.") },
               ].map((faq, i) => (
                 <AccordionItem key={i} value={`faq-${i}`} className="bg-background rounded-2xl border border-border px-6">
                   <AccordionTrigger className="text-left font-display text-foreground hover:no-underline">
@@ -1212,10 +1178,10 @@ const Index = () => {
             </Accordion>
           </motion.div>
         </div>
-      </section>
+      </section>)}
 
       {/* Final CTA before footer */}
-      <section className="py-20 px-6 bg-primary">
+      {c("show_cta2", "true") !== "false" && (<section className="py-20 px-6 bg-primary">
         <div className="max-w-3xl mx-auto text-center">
           <motion.div
             initial="hidden"
@@ -1233,17 +1199,16 @@ const Index = () => {
             <motion.a
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              href="https://www.bokadirekt.se/places/viriditas-massage-136924"
+              href={g("booking_url")}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookingClick("cta-before-footer")}
               className="inline-flex items-center gap-2 bg-primary-foreground text-primary px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg hover:shadow-xl transition-shadow"
-            >
-              Boka tid <Calendar className="w-5 h-5" />
+            >{g("booking_label")}<Calendar className="w-5 h-5" />
             </motion.a>
           </motion.div>
         </div>
-      </section>
+      </section>)}
       </main>
 
       <Footer />
@@ -1254,13 +1219,12 @@ const Index = () => {
         style={{ paddingBottom: "calc(1rem + env(safe-area-inset-bottom))" }}
       >
         <a
-          href="https://www.bokadirekt.se/places/viriditas-massage-136924"
+          href={g("booking_url")}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackBookingClick("sticky-mobile")}
           className="pointer-events-auto flex items-center justify-center gap-2 bg-primary text-primary-foreground py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/30"
-        >
-          Boka tid <Calendar className="w-5 h-5" />
+        >{g("booking_label")}<Calendar className="w-5 h-5" />
         </a>
       </div>
     </div>
