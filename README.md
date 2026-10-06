@@ -10,7 +10,7 @@ Administration finns på `/admin` och `/dashboard`. Inloggning sker med ett geme
 - **Inställningar:** gemensamma kontaktuppgifter, bokningslänk och behandlingspriser.
 - **Sidor:** egna artiklar och sidor med block, utkast, förhandsgranskning och menyval.
 - **Bilder:** ladda upp och återanvänd bilder. Uppladdade bilder som används i sparat innehåll kan inte raderas.
-- **Statistik:** klick på bokningsknappar; genomförda bokningar visas i Bokadirekt.
+- **Statistik:** klick på bokning och kontakt. Klick visar intresse; genomförda bokningar visas i Bokadirekt.
 - **Åtkomst & hjälp:** lösenordsbyte, innehållsexport och kundguide. Exporten innehåller texter och bildadresser, inte bildfiler eller bokningsdata.
 
 Grundtexternas prisuppgifter följer gemensamma priser. En text som kunden redigerat separat är en egen formulering och behöver uppdateras om den innehåller ett pris.

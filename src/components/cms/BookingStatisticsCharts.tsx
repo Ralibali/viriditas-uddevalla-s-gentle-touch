@@ -1,3 +1,4 @@
+import { bookingClickSourceLabel, bookingClickPieSources } from "@/lib/bookingClickSources";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { motion } from "framer-motion";
 import { BarChart3, MousePointerClick, TrendingUp, Calendar } from "lucide-react";
@@ -10,7 +11,7 @@ const fadeUp = {
   }),
 };
 
-const COLORS = ["hsl(var(--primary))", "hsl(142 71% 45%)", "hsl(217 91% 60%)", "hsl(38 92% 50%)", "hsl(0 84% 60%)", "hsl(280 65% 60%)"];
+const COLORS = ["hsl(var(--primary))", "hsl(142 71% 45%)", "hsl(217 91% 60%)", "hsl(38 92% 50%)", "hsl(0 84% 60%)", "hsl(280 65% 60%)", "hsl(var(--muted-foreground))"];
 
 export type BookingClick = { source: string | null; clicked_at: string };
 
@@ -28,8 +29,9 @@ export default function BookingStatisticsCharts({ clicks, isLoading }: { clicks:
     bySource[s] = (bySource[s] || 0) + 1;
   });
   const sourceData = Object.entries(bySource)
-    .map(([name, value]) => ({ name, value }))
+    .map(([source, value]) => ({ source, name: bookingClickSourceLabel(source), value }))
     .sort((a, b) => b.value - a.value);
+  const pieData = bookingClickPieSources(sourceData);
 
   const dailyMap: Record<string, number> = {};
   const now = new Date();
@@ -57,11 +59,11 @@ export default function BookingStatisticsCharts({ clicks, isLoading }: { clicks:
 
   return (
     <>
-      <p className="font-body text-sm text-muted-foreground mb-6">Klick på bokningsknappar. Detta visar intresse för att boka; genomförda bokningar och betalningar finns i Bokadirekt. Besökare som avböjer statistik registreras inte. Dagar visas enligt svensk tid.</p>
-      {allClicks.length === 0 && <p role="status" className="font-body text-sm bg-card border border-border rounded-xl p-4 mb-6">Inga bokningsklick har registrerats ännu.</p>}
+      <p className="font-body text-sm text-muted-foreground mb-6">Klick på bokning och kontakt, inklusive telefon och e-post. Bokningsklick visar intresse för att boka; genomförda bokningar och betalningar finns i Bokadirekt. Besökare som avböjer statistik registreras inte. Dagar visas enligt svensk tid.</p>
+      {allClicks.length === 0 && <p role="status" className="font-body text-sm bg-card border border-border rounded-xl p-4 mb-6">Inga klick har registrerats ännu.</p>}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
         {[
-          { label: "Registrerade bokningsklick", value: totalClicks, icon: MousePointerClick, color: "text-primary" },
+          { label: "Registrerade klick", value: totalClicks, icon: MousePointerClick, color: "text-primary" },
           { label: "Idag", value: todayClicks, icon: Calendar, color: "text-primary" },
           { label: "Senaste 7 dagar", value: weekClicks, icon: TrendingUp, color: "text-primary" },
           { label: "Bästa källa", value: topSource.name, icon: BarChart3, color: "text-primary" },
@@ -72,19 +74,19 @@ export default function BookingStatisticsCharts({ clicks, isLoading }: { clicks:
             animate="visible"
             variants={fadeUp}
             custom={i}
-            className="bg-card border border-border rounded-2xl p-5 shadow-sm"
+            className="min-w-0 bg-card border border-border rounded-2xl p-5 shadow-sm"
           >
             <div className="flex items-center gap-2 mb-2">
               <stat.icon className={`w-5 h-5 ${stat.color}`} />
               <span className="text-muted-foreground text-xs font-body">{stat.label}</span>
             </div>
-            <p className="text-2xl font-display font-bold text-foreground">{stat.value}</p>
+            <p className="break-words text-2xl font-display font-bold text-foreground">{stat.value}</p>
           </motion.div>
         ))}
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
-        <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={4} className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+        <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={4} className="min-w-0 bg-card border border-border rounded-2xl p-6 shadow-sm">
           <h2 className="font-display font-semibold text-foreground mb-4">Klick per dag (14 dagar)</h2>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={dailyData}>
@@ -96,18 +98,22 @@ export default function BookingStatisticsCharts({ clicks, isLoading }: { clicks:
           </ResponsiveContainer>
         </motion.div>
 
-        <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={5} className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+        <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={5} className="min-w-0 bg-card border border-border rounded-2xl p-6 shadow-sm">
           <h2 className="font-display font-semibold text-foreground mb-4">Fördelning per källa</h2>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
-              <Pie data={sourceData} cx="50%" cy="50%" innerRadius={50} outerRadius={90} dataKey="value" label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`} labelLine={false} style={{ fontSize: 11 }}>
-                {sourceData.map((_, index) => (
-                  <Cell key={index} fill={COLORS[index % COLORS.length]} />
+              <Pie data={pieData} cx="50%" cy="50%" innerRadius={50} outerRadius={90} dataKey="value" label={({ percent }) => `${(percent * 100).toFixed(0)}%`} labelLine={false} style={{ fontSize: 11 }}>
+                {pieData.map((source, index) => (
+                  <Cell key={source.source} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
               <Tooltip />
             </PieChart>
           </ResponsiveContainer>
+          {sourceData.length > 6 && <p className="mb-3 text-xs text-muted-foreground">De sex största källorna visas separat. Resterande klick ingår i Övriga.</p>}
+          <ul className="space-y-2 text-sm font-body">
+            {pieData.map((source, index) => <li key={source.source} className="flex items-start gap-2"><span className="mt-1 h-3 w-3 shrink-0 rounded-full" style={{ background: COLORS[index % COLORS.length] }} /><span className="min-w-0 break-words">{source.name}</span></li>)}
+          </ul>
         </motion.div>
       </div>
 
@@ -124,7 +130,7 @@ export default function BookingStatisticsCharts({ clicks, isLoading }: { clicks:
             </thead>
             <tbody>
               {sourceData.map((s, i) => (
-                <tr key={s.name} className="border-b border-border/50">
+                <tr key={s.source} className="border-b border-border/50">
                   <td className="py-3 text-foreground font-body flex items-center gap-2">
                     <span className="w-3 h-3 rounded-full inline-block" style={{ background: COLORS[i % COLORS.length] }} />
                     {s.name}
