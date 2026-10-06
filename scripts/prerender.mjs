@@ -28,6 +28,7 @@ const STATIC_ROUTES = [
   { path: "/massage-mot-nackspanning", changefreq: "monthly", priority: "0.8" },
   { path: "/friskvardsbidrag-massage-uddevalla", changefreq: "monthly", priority: "0.8" },
   { path: "/massage-ljungskile", changefreq: "monthly", priority: "0.8" },
+  { path: "/integritet", changefreq: "yearly", priority: "0.3" },
 ];
 
 const MIME = {

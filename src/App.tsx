@@ -7,6 +7,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
+import RouteScroll from "./components/RouteScroll";
 
 
 const OmAndreas = lazy(() => import("./pages/OmAndreas.tsx"));
@@ -33,6 +34,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <RouteScroll />
         <AnalyticsConsent />
         <Suspense fallback={<Loading />}>
           <Routes>
@@ -44,6 +46,7 @@ const App = () => (
             <Route path="/massage-mot-nackspanning" element={<MassageMotNackspanning />} />
             <Route path="/friskvardsbidrag-massage-uddevalla" element={<FriskvardsbidragMassageUddevalla />} />
             <Route path="/massage-ljungskile" element={<MassageLjungskile />} />
+            <Route path="/admin" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/p/:slug" element={<DynamicPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

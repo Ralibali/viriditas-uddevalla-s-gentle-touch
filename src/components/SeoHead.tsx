@@ -1,4 +1,7 @@
 import { useEffect } from "react";
+import { useSiteContent } from "@/hooks/useSiteContent";
+import { safeContentUrl } from "@/lib/cmsContentSafety";
+import { serializeStructuredData, treatmentPriceNumber } from "@/lib/siteContentValues";
 
 const SITE_URL = "https://viriditasmassage.se";
 const DEFAULT_OG_IMAGE = "https://viriditasmassage.se/og-image.jpg";
@@ -20,8 +23,8 @@ export interface SeoHeadProps {
 
 /**
  * Sets <title>, meta description, canonical, robots and social meta tags
- * for the current page. Use one of these per route. The component is
- * intentionally render-free so it can sit anywhere in the tree.
+ * for the current page. Use one of these per route. Public routes also
+ * render shared business data from the same settings as the visible site.
  *
  * NOTE: Because the project is a client-rendered SPA, search engines that
  * execute JS will pick this up but the *initial* HTML still serves the
@@ -32,9 +35,13 @@ export const SeoHead = ({
   description,
   path,
   noindex = false,
-  image = DEFAULT_OG_IMAGE,
+  image,
   ogType = "website",
 }: SeoHeadProps) => {
+  const { c, g } = useSiteContent("home");
+  const resolvedImage = safeContentUrl(image || g("og_image"), true) || DEFAULT_OG_IMAGE;
+  const businessName = g("business_name");
+  const ownerName = g("owner_name");
   useEffect(() => {
     if (typeof document === "undefined") return;
 
@@ -42,6 +49,8 @@ export const SeoHead = ({
 
     document.title = title;
 
+    setMeta("name", "title", title);
+    setMeta("name", "author", ownerName);
     setMeta("name", "description", description);
     setMeta(
       "name",
@@ -50,6 +59,7 @@ export const SeoHead = ({
         ? "noindex, nofollow"
         : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
     );
+    setMeta("name", "googlebot", noindex ? "noindex, nofollow" : "index, follow");
 
     setLinkRel("canonical", url);
 
@@ -58,16 +68,65 @@ export const SeoHead = ({
     setMeta("property", "og:description", description);
     setMeta("property", "og:url", url);
     setMeta("property", "og:type", ogType);
-    setMeta("property", "og:image", image);
+    setMeta("property", "og:site_name", businessName);
+    setMeta("property", "og:image", resolvedImage);
+    setMeta("property", "og:image:alt", title);
+    if (resolvedImage !== DEFAULT_OG_IMAGE) {
+      document.querySelector('meta[property="og:image:width"]')?.remove();
+      document.querySelector('meta[property="og:image:height"]')?.remove();
+    }
 
     // Twitter
     setMeta("name", "twitter:card", "summary_large_image");
     setMeta("name", "twitter:title", title);
     setMeta("name", "twitter:description", description);
-    setMeta("name", "twitter:image", image);
-  }, [title, description, path, noindex, image, ogType]);
+    setMeta("name", "twitter:image", resolvedImage);
+  }, [title, description, path, noindex, resolvedImage, ogType, businessName, ownerName]);
 
-  return null;
+  if (noindex) return null;
+
+  const offers = [30, 45, 60, 80].map((minutes) => ({
+    "@type": "Offer",
+    price: treatmentPriceNumber(g(`treatment_${minutes}_price`)),
+    priceCurrency: "SEK",
+    url: g("booking_url"),
+    itemOffered: {
+      "@type": "Service",
+      name: `${c(`treatment_${minutes}_title`, "Klassisk massage")} ${minutes} min`,
+    },
+  }));
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "HealthAndBeautyBusiness",
+        "@id": `${SITE_URL}/#business`,
+        name: businessName,
+        url: SITE_URL,
+        description: g("footer_text"),
+        email: g("email"),
+        address: g("address"),
+        image: resolvedImage,
+        hasMap: g("maps_url"),
+        currenciesAccepted: "SEK",
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Behandlingar",
+          itemListElement: offers,
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        name: businessName,
+        url: SITE_URL,
+        inLanguage: "sv-SE",
+        publisher: { "@id": `${SITE_URL}/#business` },
+      },
+    ],
+  };
+
+  return <script data-site-schema="business" type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeStructuredData(schema) }} />;
 };
 
 function setMeta(attr: "name" | "property", key: string, value: string) {

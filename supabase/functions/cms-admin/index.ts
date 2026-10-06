@@ -2,7 +2,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.99.1";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-cms-session",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 const json = (value: unknown, status = 200) => new Response(JSON.stringify(value), {
@@ -50,38 +50,40 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
   try {
-    const authorization = req.headers.get("Authorization");
-    if (!authorization?.startsWith("Bearer ")) return json({ error: "Logga in för att fortsätta." }, 401);
     const supabase = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, {
       auth: { persistSession: false, autoRefreshToken: false },
     });
-    // Verify the live user with Auth. User-editable metadata never grants access.
-    const { data: { user }, error: authError } = await supabase.auth.getUser(authorization.slice(7));
-    if (authError || !user?.email || !user.email_confirmed_at) return json({ error: "Logga in och bekräfta din e-postadress." }, 401);
-    const userEmail = user.email.toLowerCase();
-    const { data: admin, error: roleError } = await supabase.from("cms_admins").select("email").eq("email", userEmail).maybeSingle();
-    if (roleError) throw roleError;
-    if (!admin) return json({ error: "Kontot saknar adminbehörighet. Kontakta webbplatsens ägare." }, 403);
     const bodyText = await req.text();
     if (bodyText.length > 7500000) return json({ error: "För stor uppladdning." }, 413);
-    const { action, payload = {} } = JSON.parse(bodyText);
+    const body = JSON.parse(bodyText);
+    if (!body || typeof body !== "object") throw new InputError("Ogiltig begäran.");
+    const { action, payload = {} } = body;
+    if (action === "login") {
+      const password = text(payload.password, "lösenord", 256);
+      const ip = req.headers.get("cf-connecting-ip") || req.headers.get("x-real-ip") || req.headers.get("x-forwarded-for") || "unknown";
+      const clientKey = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(ip)))).map(n => n.toString(16).padStart(2,"0")).join("");
+      const { data, error } = await supabase.rpc("cms_login", { p_password: password, p_client: clientKey });
+      if (error) throw error;
+      if (data?.error) return json({ error: data.error }, data.status || 401);
+      return json(data);
+    }
+    const token = req.headers.get("x-cms-session");
+    if (!token || !/^[0-9a-f]{64}$/.test(token)) return json({ error: "Logga in för att fortsätta." }, 401);
+    const { data: session, error: sessionError } = await supabase.rpc("cms_validate_session", { p_token: token });
+    if (sessionError) throw sessionError;
+    if (!session?.expires_at) return json({ error: "Sessionen har gått ut. Logga in igen." }, 401);
     switch (action) {
-      case "check_access": return json({ email: userEmail });
-      case "list_admins": {
-        const { data, error } = await supabase.from("cms_admins").select("email,created_at").order("created_at");
+      case "check_access": return json(session);
+      case "change_password": {
+        const { data, error } = await supabase.rpc("cms_change_password", {
+          p_token: token, p_current: text(payload.current_password, "nuvarande lösenord", 256), p_new: text(payload.new_password, "nytt lösenord", 256),
+        });
         if (error) throw error;
+        if (data?.error) return json({ error: data.error }, data.status || 400);
         return json(data);
       }
-      case "add_admin": {
-        const target = email(payload.email);
-        const { error } = await supabase.from("cms_admins").upsert({ email: target }, { onConflict: "email", ignoreDuplicates: true });
-        if (error) throw error;
-        return json({ success: true });
-      }
-      case "remove_admin": {
-        const target = email(payload.email);
-        if (target === userEmail) throw new InputError("Du kan inte ta bort din egen behörighet.");
-        const { error } = await supabase.from("cms_admins").delete().eq("email", target);
+      case "logout": {
+        const { error } = await supabase.rpc("cms_logout", { p_token: token });
         if (error) throw error;
         return json({ success: true });
       }
@@ -147,6 +149,25 @@ Deno.serve(async (req) => {
         ]);
         if (settingsError || pagesError) throw settingsError || pagesError;
         return json({ exported_at: new Date().toISOString(), settings, pages });
+      }
+      case "list_images": {
+        const { data, error } = await supabase.storage.from("site-media").list("", { limit: 1000, sortBy: { column: "created_at", order: "desc" } });
+        if (error) throw error;
+        return json((data ?? []).filter(file => file.id).map(file => ({ path: file.name, created_at: file.created_at, url: supabase.storage.from("site-media").getPublicUrl(file.name).data.publicUrl })));
+      }
+      case "delete_image": {
+        const path = text(payload.path, "bild", 80);
+        if (!/^[0-9a-f-]{36}\.(jpg|png|webp|gif)$/.test(path)) throw new InputError("Ogiltig bild.");
+        const url = supabase.storage.from("site-media").getPublicUrl(path).data.publicUrl;
+        const [{ data: settings, error: settingsError }, { data: pages, error: pagesError }] = await Promise.all([
+          supabase.from("site_settings").select("setting_key").eq("setting_value", url).limit(1),
+          supabase.from("site_pages").select("content"),
+        ]);
+        if (settingsError || pagesError) throw settingsError || pagesError;
+        if (settings?.length || pages?.some(page => JSON.stringify(page.content).includes(url))) throw new InputError("Bilden används på webbplatsen. Byt eller ta bort den från innehållet först.");
+        const { error } = await supabase.storage.from("site-media").remove([path]);
+        if (error) throw error;
+        return json({ success: true });
       }
       case "upload_image": {
         const mimeType = text(payload.mimeType, "bildtyp", 30);
