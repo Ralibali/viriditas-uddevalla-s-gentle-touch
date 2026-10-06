@@ -38,6 +38,21 @@ export type Database = {
         }
         Relationships: []
       }
+      cms_admins: {
+        Row: {
+          created_at: string
+          email: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+        }
+        Relationships: []
+      }
       reviews: {
         Row: {
           created_at: string
