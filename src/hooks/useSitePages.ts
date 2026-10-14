@@ -1,24 +1,19 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { selectRows } from "@/lib/backend";
 import { cmsAdminCall } from "@/lib/cmsAdmin";
 import type { SitePage, ContentBlock } from "@/types/cms";
 
 export function useSitePages({ admin = false }: { admin?: boolean } = {}) {
   return useQuery({
     queryKey: [admin ? "cms-admin-pages" : "site-pages"],
+    staleTime: admin ? 0 : 5 * 60 * 1000,
     queryFn: async () => {
       if (admin) {
         const data = await cmsAdminCall<SitePage[]>("list_pages");
         return data.map(parsePage);
       }
-      // Public: only published pages
-      const { data, error } = await supabase
-        .from("site_pages")
-        .select("*")
-        .eq("is_published", true)
-        .order("nav_order", { ascending: true });
-      if (error) throw error;
-      return data.map(parsePage);
+      const rows = await selectRows<SitePage>("site_pages", { select: "*", is_published: "eq.true", order: "nav_order.asc" });
+      return rows.map(parsePage);
     },
   });
 }
@@ -26,19 +21,10 @@ export function useSitePages({ admin = false }: { admin?: boolean } = {}) {
 export function useSitePage(slug: string) {
   return useQuery({
     queryKey: ["site-page", slug],
+    enabled: !!slug,
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("site_pages")
-        .select("*")
-        .eq("slug", slug)
-        .eq("is_published", true)
-        .maybeSingle();
-      if (error) throw error;
-      if (!data) return null;
-      return {
-        ...data,
-        content: (typeof data.content === 'string' ? JSON.parse(data.content as string) : data.content) as ContentBlock[],
-      } as SitePage;
+      const rows = await selectRows<SitePage>("site_pages", { select: "*", slug: `eq.${slug}`, is_published: "eq.true", limit: "1" });
+      return rows[0] ? parsePage(rows[0]) : null;
     },
   });
 }
@@ -47,11 +33,7 @@ export function useUpsertPage() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async (page: Partial<SitePage> & { slug: string; title: string }) => {
-      const payload = {
-        ...page,
-        content: JSON.stringify(page.content || []),
-      };
-      await cmsAdminCall("upsert_page", payload);
+      await cmsAdminCall("upsert_page", { ...page, content: JSON.stringify(page.content || []) });
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["site-pages"] });
@@ -75,7 +57,7 @@ export function useDeletePage() {
   });
 }
 
-function parsePage(row: { content: unknown }): SitePage {
+export function parsePage(row: { content: unknown }): SitePage {
   return {
     ...row,
     content: (typeof row.content === "string" ? JSON.parse(row.content) : row.content) as ContentBlock[],

@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Plus, Edit3, Trash2, Globe, GlobeLock, Menu as MenuIcon, Loader2 } from "lucide-react";
-import { useSitePages, useDeletePage } from "@/hooks/useSitePages";
-import type { SitePage } from "@/types/cms";
+import { ExternalLink, Loader2, Plus } from "lucide-react";
 import { toast } from "sonner";
+import { useDeletePage, useSitePages } from "@/hooks/useSitePages";
+import { formatDateTime } from "@/lib/adminTypes";
+import type { SitePage } from "@/types/cms";
 
 interface PageListProps {
   onEdit: (page: SitePage) => void;
@@ -15,81 +16,86 @@ export default function PageList({ onEdit, onNew }: PageListProps) {
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const handleDelete = (page: SitePage) => {
-    if (!confirm(`Vill du verkligen ta bort "${page.title}"?`)) return;
+    if (!window.confirm(`Ta bort sidan ”${page.title}”? Det går inte att ångra.`)) return;
     setDeleting(page.id);
     deletePage.mutate(page.id, {
-      onSuccess: () => { toast.success("Sidan borttagen"); setDeleting(null); },
-      onError: (error) => { toast.error("Kunde inte ta bort sidan: " + error.message); setDeleting(null); },
+      onSuccess: () => toast.success("Sidan är borttagen."),
+      onError: (failure) => toast.error(`Kunde inte ta bort sidan: ${failure.message}`),
+      onSettled: () => setDeleting(null),
     });
   };
 
-  if (isLoading) {
-    return <p className="text-muted-foreground font-body text-center py-12">Laddar sidor...</p>;
+  if (isLoading) return <p role="status" className="py-12 text-moss">Hämtar sidorna…</p>;
+  if (error) {
+    return (
+      <div role="alert" className="rounded-2xl border border-destructive/30 bg-paper-raised p-6">
+        <p className="font-semibold text-destructive">Sidorna kunde inte hämtas: {error.message}</p>
+        <button type="button" onClick={() => void refetch()} className="link mt-3">
+          Försök igen
+        </button>
+      </div>
+    );
   }
 
-  if (error) {
-    return <div role="alert" className="bg-card border border-border rounded-xl p-5 space-y-3 font-body text-sm"><p className="text-destructive">Sidorna kunde inte hämtas: {error.message}</p><button onClick={() => refetch()} className="text-primary underline">Försök igen</button></div>;
-  }
+  const sorted = [...(pages ?? [])].sort((a, b) => Number(a.is_published) - Number(b.is_published) || b.updated_at.localeCompare(a.updated_at));
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-display font-semibold text-foreground">Sidor</h2>
-        <button
-          onClick={onNew}
-          className="flex items-center gap-2 px-5 py-2 rounded-xl bg-primary text-primary-foreground font-body font-medium text-sm hover:bg-primary/90 transition-colors"
-        >
-          <Plus className="w-4 h-4" /> Ny sida
+    <div>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <p className="max-w-2xl text-moss">
+          Artiklar och egna sidor. Publicerade sidor visas i kunskapsbanken och i sidfoten. Utkast syns bara här.
+        </p>
+        <button type="button" onClick={onNew} className="btn btn-primary min-h-11 px-5 py-2">
+          <Plus aria-hidden="true" className="h-4 w-4" /> Ny sida
         </button>
       </div>
 
-      {(!pages || pages.length === 0) ? (
-        <div className="text-center py-12 text-muted-foreground font-body">
-          <p>Inga sidor ännu. Skapa din första!</p>
+      {sorted.length === 0 ? (
+        <div className="mt-6 rounded-2xl border border-dashed border-line p-8 text-center">
+          <p className="text-moss">Inga sidor ännu. En artikel om något kunderna ofta frågar om hjälper både dem och synligheten i Google.</p>
+          <button type="button" onClick={onNew} className="link mt-3">
+            Skriv den första artikeln
+          </button>
         </div>
       ) : (
-        <div className="space-y-2">
-          {pages.map((page) => (
-            <div
-              key={page.id}
-              className="bg-card border border-border rounded-xl p-4 flex items-center gap-4 hover:shadow-sm transition-shadow"
-            >
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  {page.is_published ? (
-                    <Globe className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                  ) : (
-                    <GlobeLock className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-                  )}
-                  <span className="font-body font-medium text-foreground truncate">{page.title}</span>
-                </div>
-                <div className="flex items-center gap-3 mt-1">
-                  <span className="text-xs text-muted-foreground font-body">/p/{page.slug}</span>
-                  {page.show_in_nav && (
-                    <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-body flex items-center gap-1">
-                      <MenuIcon className="w-3 h-3" /> I menyn
-                    </span>
-                  )}
-                </div>
+        <ul className="mt-6 divide-y divide-line border-y border-line">
+          {sorted.map((page) => (
+            <li key={page.id} className="flex flex-col gap-4 py-5 md:flex-row md:items-center md:justify-between">
+              <div className="min-w-0">
+                <p className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <span className="font-display text-xl text-ink soft-type">{page.title}</span>
+                  <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${page.is_published ? "bg-sprout text-ink" : "bg-paper-deep text-ink"}`}>
+                    {page.is_published ? "Publicerad" : "Utkast"}
+                  </span>
+                  {page.is_published && page.show_in_nav && <span className="rounded-full border border-line px-2.5 py-0.5 text-xs font-semibold text-moss">Framlyft</span>}
+                </p>
+                <p className="mt-1 break-words type-small text-moss">
+                  /p/{page.slug}, ändrad {formatDateTime(page.updated_at)}
+                </p>
               </div>
-              <button
-                onClick={() => onEdit(page)}
-                aria-label={`Redigera ${page.title}`}
-                className="p-2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Edit3 className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => handleDelete(page)}
-                disabled={deleting !== null}
-                aria-label={`Ta bort ${page.title}`}
-                className="p-2 text-muted-foreground hover:text-destructive transition-colors disabled:opacity-50"
-              >
-                {deleting === page.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
-              </button>
-            </div>
+              <div className="flex shrink-0 flex-wrap gap-2">
+                {page.is_published && (
+                  <a href={`/p/${page.slug}`} target="_blank" rel="noopener noreferrer" className="btn btn-quiet min-h-11 px-4 py-2">
+                    Visa <ExternalLink aria-hidden="true" className="h-4 w-4" />
+                    <span className="sr-only"> {page.title} (öppnas i ny flik)</span>
+                  </a>
+                )}
+                <button type="button" onClick={() => onEdit(page)} className="btn btn-quiet min-h-11 px-4 py-2">
+                  Redigera<span className="sr-only"> {page.title}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleDelete(page)}
+                  disabled={deleting !== null}
+                  className="btn min-h-11 px-4 py-2 text-destructive hover:bg-destructive/5 disabled:opacity-50"
+                >
+                  {deleting === page.id && <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" />}
+                  Ta bort<span className="sr-only"> {page.title}</span>
+                </button>
+              </div>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );

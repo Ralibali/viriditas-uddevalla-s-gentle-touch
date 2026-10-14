@@ -1,20 +1,16 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
-  prefix: "",
+  content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     container: {
       center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      padding: "1.25rem",
+      screens: { "2xl": "1240px" },
     },
     fontFamily: {
-      display: ['"Playfair Display"', 'serif'],
-      body: ['"Lora"', 'serif'],
+      display: ['"Fraunces"', "Georgia", "serif"],
+      body: ['"Atkinson Hyperlegible Next"', "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
     },
     extend: {
       colors: {
@@ -26,6 +22,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          deep: "hsl(var(--primary-deep))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -43,53 +40,39 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
+        paper: {
+          DEFAULT: "hsl(var(--paper))",
+          raised: "hsl(var(--paper-raised))",
+          deep: "hsl(var(--paper-deep))",
+        },
+        ink: "hsl(var(--ink))",
+        moss: "hsl(var(--moss))",
+        sprout: "hsl(var(--sprout))",
+        line: "hsl(var(--line))",
+        amber: "hsl(var(--amber))",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        media: "1.75rem",
       },
-      keyframes: {
-        "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
-        },
-        "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
-        },
+      maxWidth: {
+        prose: "40rem",
+        page: "77.5rem",
       },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+      transitionTimingFunction: {
+        calm: "cubic-bezier(0.22, 0.61, 0.36, 1)",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [],
 } satisfies Config;

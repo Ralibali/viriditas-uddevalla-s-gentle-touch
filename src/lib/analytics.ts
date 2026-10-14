@@ -3,7 +3,7 @@
 // Never send personal data, phone numbers, e-mail, booking details,
 // free text or full external URLs with query parameters.
 
-type AnalyticsEvent = "Booking Click" | "Phone Click" | "Contact Click";
+type AnalyticsEvent = "Booking Click" | "Phone Click" | "Contact Click" | "Form Submitted";
 
 /**
  * Allowed custom properties. Keep these low-cardinality so GA4
@@ -64,3 +64,7 @@ export const trackPhoneEvent = (placement: string): void =>
 
 export const trackContactEvent = (placement: string): void =>
   trackEvent("Contact Click", { placement });
+
+/** A question or gift card request was sent. Only the form type is recorded, never its content. */
+export const trackFormEvent = (form: "question" | "gift_card"): void =>
+  trackEvent("Form Submitted", { placement: form });

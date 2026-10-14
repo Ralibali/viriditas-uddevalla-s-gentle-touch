@@ -1,120 +1,156 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { ExternalLink, Loader2, Save, Search } from "lucide-react";
-import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { useSiteSettings } from "@/hooks/useSiteSettings";
-import { cmsAdminCall } from "@/lib/cmsAdmin";
-import { GLOBAL_CONTENT_FIELDS, SITE_CONTENT_ROUTES, getContentFieldValue, validateContentValue, type SiteContentField } from "@/lib/siteContent";
-import MediaInput from "./MediaInput";
+import { useEffect, useState } from "react";
+import { ChevronDown, ExternalLink, Search } from "lucide-react";
+import { useContentDraft } from "@/hooks/useContentDraft";
+import { SITE_CONTENT_ROUTES } from "@/lib/siteContent";
+import { getContentFieldValue } from "@/lib/siteContentValues";
+import ContentField from "./ContentField";
+import SaveBar from "./SaveBar";
 
-interface ContentEditorProps { onDirtyChange?: (dirty: boolean) => void }
-const ALL_FIELDS = [...GLOBAL_CONTENT_FIELDS, ...SITE_CONTENT_ROUTES.flatMap(route => route.fields)];
+const ROUTE_FIELDS = SITE_CONTENT_ROUTES.flatMap((route) => route.fields);
+const fieldId = (settingKey: string) => `content-${settingKey.replace(/[^a-z0-9_-]/gi, "-")}`;
 
-export default function ContentEditor({ onDirtyChange }: ContentEditorProps) {
-  const query = useSiteSettings();
-  const queryClient = useQueryClient();
-  const [routeId, setRouteId] = useState("global");
+export default function ContentEditor({ onDirtyChange }: { onDirtyChange?: (dirty: boolean) => void }) {
+  const draft = useContentDraft(ROUTE_FIELDS);
+  const [routeId, setRouteId] = useState(SITE_CONTENT_ROUTES[0].id);
   const [search, setSearch] = useState("");
-  const [values, setValues] = useState<Record<string, string>>({});
-  const [baseline, setBaseline] = useState<Record<string, string>>({});
-  const [saving, setSaving] = useState(false);
-  const initialized = useRef(false);
-  const baselineRef = useRef<Record<string, string>>({});
-  const [fieldError, setFieldError] = useState<{ key: string; message: string } | null>(null);
+  const dirty = draft.changedKeys.length > 0;
 
   useEffect(() => {
-    if (!query.data) return;
-    const fresh = Object.fromEntries(ALL_FIELDS.map(field => [field.settingKey, getContentFieldValue(field, query.data)]));
-    const previousBaseline = baselineRef.current;
-    if (!initialized.current) setValues(fresh);
-    else setValues(previous => Object.fromEntries(Object.entries(fresh).map(([key, value]) => [key, previous[key] !== previousBaseline[key] ? previous[key] : value])));
-    initialized.current = true;
-    baselineRef.current = fresh;
-    setBaseline(fresh);
-  }, [query.data]);
+    onDirtyChange?.(dirty);
+  }, [dirty, onDirtyChange]);
 
-  const changedKeys = useMemo(() => Object.keys(values).filter(key => values[key] !== baseline[key]), [values, baseline]);
-  const dirty = changedKeys.length > 0;
-  useEffect(() => { onDirtyChange?.(dirty); }, [dirty, onDirtyChange]);
-  useEffect(() => {
-    if (!dirty) return;
-    const beforeUnload = (event: BeforeUnloadEvent) => { event.preventDefault(); event.returnValue = ""; };
-    window.addEventListener("beforeunload", beforeUnload);
-    return () => window.removeEventListener("beforeunload", beforeUnload);
-  }, [dirty]);
+  async function save() {
+    const result = await draft.save("Ändringarna är sparade och syns på webbplatsen.");
+    if (result.ok || !result.key) return;
+    const key = result.key;
+    const owner = SITE_CONTENT_ROUTES.find((route) => route.fields.some((field) => field.settingKey === key));
+    if (owner) setRouteId(owner.id);
+    setSearch("");
+    window.setTimeout(() => document.getElementById(fieldId(key))?.focus(), 0);
+  }
 
-  const route = SITE_CONTENT_ROUTES.find(route => route.id === routeId);
-  const fields = routeId === "global" ? GLOBAL_CONTENT_FIELDS : route?.fields || [];
-  const visibleFields = fields.filter(field => `${field.label} ${values[field.settingKey] || ""}`.toLocaleLowerCase("sv").includes(search.toLocaleLowerCase("sv")));
-  const groups = [...new Set(visibleFields.map(field => field.group))];
+  if (draft.query.isError && !draft.ready) {
+    return (
+      <div role="alert" className="rounded-2xl border border-destructive/30 bg-paper-raised p-6">
+        <p className="font-semibold text-destructive">Webbplatsens innehåll kunde inte hämtas: {draft.query.error.message}</p>
+        <button type="button" onClick={() => void draft.query.refetch()} className="link mt-3">
+          Försök igen
+        </button>
+      </div>
+    );
+  }
+  if (!draft.ready) return <p role="status" className="py-12 text-moss">Hämtar webbplatsens innehåll…</p>;
 
-  const change = (field: SiteContentField, value: string) => {
-    setFieldError(null);
-    setValues(previous => ({ ...previous, [field.settingKey]: value }));
-  };
+  const route = SITE_CONTENT_ROUTES.find((candidate) => candidate.id === routeId) ?? SITE_CONTENT_ROUTES[0];
+  const needle = search.trim().toLocaleLowerCase("sv");
+  const visibleFields = route.fields.filter((field) => !needle || `${field.label} ${draft.values[field.settingKey] ?? ""}`.toLocaleLowerCase("sv").includes(needle));
+  const groups = [...new Set(visibleFields.map((field) => field.group))];
+  const isChanged = (key: string) => draft.values[key] !== draft.baseline[key];
+  const changesOn = (fields: typeof ROUTE_FIELDS) => fields.filter((field) => isChanged(field.settingKey)).length;
 
-  const save = async () => {
-    const changes = changedKeys.map(key => ({ key, value: values[key] }));
-    for (const change of changes) {
-      const field = ALL_FIELDS.find(field => field.settingKey === change.key);
-      const message = field && validateContentValue(field, change.value);
-      if (message) {
-        const owner = SITE_CONTENT_ROUTES.find(route => route.fields.some(field => field.settingKey === change.key));
-        setRouteId(GLOBAL_CONTENT_FIELDS.some(field => field.settingKey === change.key) ? "global" : owner?.id || routeId);
-        setSearch("");
-        setFieldError({ key: change.key, message });
-        toast.error(message);
-        return;
-      }
-    }
-    if (!changes.length) return;
-    setSaving(true);
-    try {
-      await cmsAdminCall<{ success: boolean }>("update_settings", { settings: changes });
-      const saved = Object.fromEntries(changes.map(change => [change.key, change.value]));
-      baselineRef.current = { ...baselineRef.current, ...saved };
-      setBaseline(previous => ({ ...previous, ...saved }));
-      await queryClient.invalidateQueries({ queryKey: ["site-settings"] });
-      toast.success("Ändringarna är sparade och visas på webbplatsen.");
-    } catch (error) {
-      toast.error(error instanceof Error ? `Kunde inte spara: ${error.message}` : "Kunde inte spara ändringarna.");
-    } finally {
-      setSaving(false);
-    }
-  };
+  return (
+    <div>
+      <p className="max-w-2xl text-moss">
+        Ändra texter, bilder och länkar sida för sida. Kontaktuppgifter, bokningslänk och priser finns under Inställningar och gäller hela webbplatsen.
+      </p>
 
-  if (query.isLoading || !initialized.current && !query.isError) return <p className="py-12 text-center text-muted-foreground">Laddar webbplatsens innehåll…</p>;
-  if (query.isError && !initialized.current) return <div role="alert" className="rounded-2xl border border-destructive/30 p-6"><p>Webbplatsens innehåll kunde inte hämtas.</p><button className="mt-3 underline" onClick={() => void query.refetch()}>Försök igen</button></div>;
+      <div className="mt-6 grid gap-5 rounded-2xl border border-line bg-paper-raised p-5 sm:p-6 md:grid-cols-2">
+        <div>
+          <label htmlFor="content-route" className="field-label">
+            Sida
+          </label>
+          <select
+            id="content-route"
+            value={route.id}
+            onChange={(event) => {
+              setRouteId(event.target.value);
+              setSearch("");
+            }}
+            className="field-input"
+          >
+            {SITE_CONTENT_ROUTES.map((option) => {
+              const count = changesOn(option.fields);
+              return (
+                <option key={option.id} value={option.id}>
+                  {option.label}
+                  {count ? ` (${count} ${count === 1 ? "ändring" : "ändringar"})` : ""}
+                </option>
+              );
+            })}
+          </select>
+          <a href={route.path} target="_blank" rel="noopener noreferrer" className="link mt-3 inline-flex items-center gap-1.5 type-small">
+            Öppna sidan
+            <ExternalLink aria-hidden="true" className="h-4 w-4" />
+            <span className="sr-only"> (öppnas i ny flik)</span>
+          </a>
+        </div>
+        <div>
+          <label htmlFor="content-search" className="field-label">
+            Sök på sidan
+          </label>
+          <div className="relative">
+            <Search aria-hidden="true" className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-moss" />
+            <input
+              id="content-search"
+              type="search"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              className="field-input pl-11"
+              placeholder="Till exempel pris eller rubrik"
+              aria-describedby="content-search-hint"
+            />
+          </div>
+          <p id="content-search-hint" className="field-hint">
+            Söker i fältens namn och text.
+          </p>
+        </div>
+      </div>
 
-  return <div className="space-y-6">
-    <div className="flex flex-wrap items-center justify-between gap-4">
-      <div><h2 className="text-xl font-display font-semibold">Webbplatsens innehåll</h2><p className="mt-1 text-sm text-muted-foreground">Redigera texter, bilder, länkar och sökinformation på samtliga sidor.</p></div>
-      <button type="button" onClick={() => void save()} disabled={saving || !dirty} className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2 text-sm font-medium text-primary-foreground disabled:opacity-50">
-        {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-        {saving ? "Sparar…" : dirty ? `Spara ${changedKeys.length} ändring${changedKeys.length === 1 ? "" : "ar"}` : "Allt sparat"}
-      </button>
+      {draft.error && (
+        <p role="alert" className="mt-6 rounded-xl border border-destructive/30 bg-paper-raised p-4 font-semibold text-destructive">
+          {draft.error.message}
+        </p>
+      )}
+      {!visibleFields.length && <p className="mt-6 rounded-2xl border border-dashed border-line p-8 text-center text-moss">Inga fält på den här sidan matchar ”{search.trim()}”.</p>}
+
+      <div className="mt-6 space-y-4">
+        {groups.map((group) => {
+          const fields = visibleFields.filter((field) => field.group === group);
+          const changed = changesOn(fields);
+          return (
+            <details key={`${route.id}-${group}`} open className="group rounded-2xl border border-line bg-paper-raised">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 sm:px-6 [&::-webkit-details-marker]:hidden">
+                <span className="font-display text-xl text-ink soft-type">{group}</span>
+                <span className="flex shrink-0 items-center gap-3">
+                  {changed > 0 && (
+                    <span className="rounded-full bg-sprout px-2.5 py-0.5 text-xs font-semibold text-ink">
+                      {changed} {changed === 1 ? "ändrad" : "ändrade"}
+                    </span>
+                  )}
+                  <ChevronDown aria-hidden="true" className="h-5 w-5 text-moss transition-transform duration-200 group-open:rotate-180" />
+                </span>
+              </summary>
+              <div className={`border-t border-line px-5 sm:px-6 ${fields.every((field) => field.kind === "toggle") ? "divide-y divide-line py-2" : "space-y-6 py-6"}`}>
+                {fields.map((field) => (
+                  <ContentField
+                    key={field.settingKey}
+                    field={field}
+                    id={fieldId(field.settingKey)}
+                    value={draft.values[field.settingKey] ?? getContentFieldValue(field, draft.query.data)}
+                    changed={isChanged(field.settingKey)}
+                    invalid={draft.error?.key === field.settingKey}
+                    disabled={draft.saving}
+                    onChange={(value) => draft.set(field.settingKey, value)}
+                    onRevert={() => draft.revert(field.settingKey)}
+                  />
+                ))}
+              </div>
+            </details>
+          );
+        })}
+      </div>
+
+      <SaveBar count={draft.changedKeys.length} saving={draft.saving} onSave={() => void save()} onDiscard={draft.discard} />
     </div>
-    <div className="grid gap-4 rounded-2xl border border-border bg-card p-5 md:grid-cols-2">
-      <div><label htmlFor="content-route" className="mb-1 block text-sm font-medium">Välj del av webbplatsen</label><select id="content-route" value={routeId} onChange={event => { setRouteId(event.target.value); setSearch(""); }} className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm"><option value="global">Gemensamt – kontakt, bokning och priser</option>{SITE_CONTENT_ROUTES.map(route => <option key={route.id} value={route.id}>{route.label}</option>)}</select></div>
-      <div><label htmlFor="content-search" className="mb-1 block text-sm font-medium">Hitta text eller bild</label><div className="relative"><Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" /><input id="content-search" value={search} onChange={event => setSearch(event.target.value)} className="w-full rounded-xl border border-border bg-background py-2 pl-9 pr-3 text-sm" placeholder="Sök i den valda sidan…" /></div></div>
-      <p className="text-xs text-muted-foreground md:col-span-2">Gemensamma bokningslänkar och kontaktuppgifter gäller hela webbplatsen. Grundtexternas priser följer prisinställningarna tills du själv ändrar den texten.</p>
-      {route && <a href={route.path} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-primary hover:underline">Visa sidan <ExternalLink className="h-3.5 w-3.5" /></a>}
-    </div>
-    {fieldError && <p role="alert" className="rounded-xl border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive">{fieldError.message}</p>}
-    {!visibleFields.length && <p className="py-8 text-center text-muted-foreground">Inga fält matchar din sökning.</p>}
-    {groups.map(group => <details key={`${routeId}-${group}`} open className="rounded-2xl border border-border bg-card">
-      <summary className="cursor-pointer px-5 py-4 font-display font-semibold">{group}</summary>
-      <div className="space-y-5 border-t border-border p-5">{visibleFields.filter(field => field.group === group).map(field => {
-        const id = `content-${field.settingKey.replace(/[^a-z0-9_-]/gi, "-")}`;
-        const value = values[field.settingKey] ?? getContentFieldValue(field, query.data);
-        if (field.kind === "toggle") return <label key={field.key} htmlFor={id} className="flex items-center gap-3 rounded-lg border border-border p-3"><input id={id} type="checkbox" checked={value !== "false"} disabled={saving} onChange={event => change(field, event.target.checked ? "true" : "false")} className="h-4 w-4 accent-primary" /><span className="text-sm font-medium">{field.label}</span></label>;
-        if (field.kind === "image") return <MediaInput key={field.key} id={id} label={field.label} value={value} onChange={value => change(field, value)} disabled={saving} />;
-        return <div key={field.key}>
-          <label htmlFor={id} className="mb-1 block text-sm font-medium">{field.label}</label>
-          {field.kind === "longtext" ? <textarea id={id} value={value} disabled={saving} onChange={event => change(field, event.target.value)} className="min-h-28 w-full resize-y rounded-xl border border-border bg-background px-4 py-3 text-sm" aria-invalid={fieldError?.key === field.settingKey} /> : <input id={id} value={value} disabled={saving} onChange={event => change(field, event.target.value)} className="w-full rounded-xl border border-border bg-background px-4 py-2 text-sm" aria-invalid={fieldError?.key === field.settingKey} />}
-          {field.kind === "video" && <p className="mt-1 text-xs text-muted-foreground">Ange en https-adress till filmfilen eller en sökväg på webbplatsen.</p>}
-        </div>;
-      })}</div>
-    </details>)}
-  </div>;
+  );
 }

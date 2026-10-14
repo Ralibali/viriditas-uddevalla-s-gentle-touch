@@ -4,7 +4,7 @@ Current provider: Google Analytics 4. This replaces the previous Plausible integ
 
 - Measurement ID: `G-4SSYD3NV8T`.
 - Production hosts: viriditasmassage.se, www.viriditasmassage.se.
-- Consent storage key: `viriditas_ga4_consent_v1`.
+- Consent storage key: `viriditas_ga4_consent_v2` (bumped in October 2026 when the privacy text changed, so every visitor is asked again).
 - No GA4 library or events before analytics consent. Refused events are not buffered or replayed.
 - SPA pageviews are sent exactly once by `ga4Runtime.ts`. Enhanced measurement is disabled in the GA4 web stream.
 - Existing business-event helpers keep their public names for compatibility; the transport converts event names to lower_snake_case (for example `Form Submitted` → `form_submitted`).

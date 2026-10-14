@@ -20,6 +20,8 @@ vi.mock("@/components/cms/PageList", () => ({ default: () => <p>Skyddade sidor</
 vi.mock("@/components/cms/PageEditor", () => ({ default: () => <p>Sidredigering</p> }));
 vi.mock("@/components/cms/SettingsEditor", () => ({ default: () => <p>Skyddade inställningar</p> }));
 vi.mock("@/components/cms/CmsAccessEditor", () => ({ default: () => <p>Skyddad åtkomst</p> }));
+vi.mock("@/components/cms/Overview", () => ({ default: () => <p>Skyddad översikt</p> }));
+vi.mock("@/components/cms/MessagesInbox", () => ({ default: () => <p>Skyddade meddelanden</p> }));
 
 const session = { token: "test-opaque-token", expires_at: "2026-10-06T16:00:00Z" };
 function mount() {
@@ -35,6 +37,17 @@ beforeEach(() => {
 });
 
 describe("admin session gate", () => {
+  it("opens on the overview and lets the keyboard move between sections", async () => {
+    sessionStorage.setItem("cms-session", session.token);
+    mock.call.mockResolvedValue({ expires_at: session.expires_at });
+    mount();
+    const overview = await screen.findByRole("tab", { name: "Översikt" });
+    expect(overview).toHaveAttribute("aria-selected", "true");
+    fireEvent.keyDown(overview, { key: "ArrowDown" });
+    expect(screen.getByRole("tab", { name: "Meddelanden" })).toHaveAttribute("aria-selected", "true");
+    expect(await screen.findByText("Skyddade meddelanden")).toBeVisible();
+  });
+
   it("does not request protected data for an anonymous visitor, even with a forged legacy login", async () => {
     sessionStorage.setItem("dashboard-auth", "true");
     sessionStorage.setItem("dashboard-password", "old-shared-password");
@@ -62,6 +75,8 @@ describe("admin session gate", () => {
     await screen.findByText("Kontrollerar administratörsåtkomst…");
     expect(screen.queryByText("Ändra testinnehåll")).not.toBeInTheDocument();
     await act(async () => approve?.({ expires_at: session.expires_at }));
+    expect(await screen.findByText("Skyddad översikt")).toBeVisible();
+    fireEvent.click(screen.getByRole("tab", { name: "Innehåll" }));
     expect(await screen.findByText("Ändra testinnehåll")).toBeVisible();
     client.setQueryData(["cms-admin-pages"], [{ title: "Hemligt utkast" }]);
     fireEvent.click(screen.getByRole("button", { name: "Logga ut" }));
@@ -77,7 +92,7 @@ describe("admin session gate", () => {
     mount();
     fireEvent.change(screen.getByLabelText("Lösenord"), { target: { value: "test-password" } });
     fireEvent.click(screen.getByRole("button", { name: "Logga in" }));
-    expect(await screen.findByText("Ändra testinnehåll")).toBeVisible();
+    expect(await screen.findByText("Skyddad översikt")).toBeVisible();
     expect(mock.login).toHaveBeenCalledWith("test-password");
     expect(mock.call).toHaveBeenCalledWith("check_access");
   });
@@ -96,6 +111,7 @@ describe("admin session gate", () => {
     mock.call.mockResolvedValue({ expires_at: session.expires_at });
     const confirm = vi.spyOn(window, "confirm").mockReturnValue(false);
     mount();
+    fireEvent.click(await screen.findByRole("tab", { name: "Innehåll" }));
     fireEvent.click(await screen.findByText("Ändra testinnehåll"));
     fireEvent.click(screen.getByRole("tab", { name: "Inställningar" }));
     expect(screen.getByText("Ändra testinnehåll")).toBeVisible();

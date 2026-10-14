@@ -12,6 +12,8 @@ export type BlockType =
 export interface ContentBlock {
   id: string;
   type: BlockType;
+  // Block data is free-form JSON from the page editor; BlockRenderer validates every value it renders.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: Record<string, any>;
 }
 

@@ -1,9 +1,9 @@
-import { useId, useState } from "react";
-import { Loader2, Upload, Images } from "lucide-react";
+import { useId, useState, type ReactNode } from "react";
+import { Images, Loader2, Upload } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 import { cmsAdminCall } from "@/lib/cmsAdmin";
 import { isSafeContentUrl } from "@/lib/siteContentValues";
 import MediaLibrary from "./MediaLibrary";
-import { useQueryClient } from "@tanstack/react-query";
 
 interface MediaInputProps {
   value: string;
@@ -11,20 +11,26 @@ interface MediaInputProps {
   id?: string;
   label?: string;
   disabled?: boolean;
+  /** Shown beside the label, for example a changed marker. */
+  labelAddon?: ReactNode;
 }
 
-export default function MediaInput({ value, onChange, id, label = "Bild", disabled = false }: MediaInputProps) {
+const ACCEPTED = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+
+export default function MediaInput({ value, onChange, id, label = "Bild", disabled = false, labelAddon }: MediaInputProps) {
   const queryClient = useQueryClient();
   const generatedId = useId();
-  const [showLibrary, setShowLibrary] = useState(false);
   const inputId = id || generatedId;
+  const [showLibrary, setShowLibrary] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [brokenPreview, setBrokenPreview] = useState<string | null>(null);
+  const locked = disabled || uploading;
 
   const upload = async (file?: File) => {
     if (!file) return;
     setError(null);
-    if (!["image/jpeg", "image/png", "image/webp", "image/gif"].includes(file.type)) {
+    if (!ACCEPTED.includes(file.type)) {
       setError("Välj en JPG-, PNG-, WebP- eller GIF-bild.");
       return;
     }
@@ -41,30 +47,98 @@ export default function MediaInput({ value, onChange, id, label = "Bild", disabl
         reader.readAsDataURL(file);
       });
       const result = await cmsAdminCall<{ url: string; path: string }>("upload_image", { filename: file.name, mimeType: file.type, base64 });
-      if (!result.url || !isSafeContentUrl(result.url, true)) throw new Error("Ingen giltig bildadress returnerades.");
+      if (!result.url || !isSafeContentUrl(result.url, true)) throw new Error("Ingen giltig bildadress kom tillbaka.");
       onChange(result.url);
       await queryClient.invalidateQueries({ queryKey: ["cms-images"] });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Bilden kunde inte laddas upp.");
+    } catch (failure) {
+      setError(failure instanceof Error ? failure.message : "Bilden kunde inte laddas upp.");
     } finally {
       setUploading(false);
     }
   };
 
-  return <div className="space-y-2">
-    <label htmlFor={inputId} className="block text-sm font-medium text-foreground">{label}</label>
-    <input id={inputId} value={value} onChange={event => { setError(null); onChange(event.target.value); }} disabled={disabled || uploading} className="w-full rounded-xl border border-border bg-background px-4 py-2 text-sm text-foreground" placeholder="https://… eller /bilder/bild.jpg" aria-describedby={`${inputId}-help ${error ? `${inputId}-error` : ""}`} />
-    <div className="flex flex-wrap items-center gap-3">
-      <label htmlFor={`${inputId}-upload`} className={`inline-flex cursor-pointer items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm font-medium ${disabled || uploading ? "pointer-events-none opacity-50" : "hover:bg-muted"}`}>
-        {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
-        {uploading ? "Laddar upp…" : "Ladda upp bild"}
-      </label>
-      <button type="button" disabled={disabled || uploading} onClick={() => setShowLibrary(value => !value)} className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm font-medium hover:bg-muted disabled:opacity-50" aria-expanded={showLibrary}><Images className="h-4 w-4" /> {showLibrary ? "Stäng bibliotek" : "Välj från bibliotek"}</button>
-      <input id={`${inputId}-upload`} type="file" accept="image/jpeg,image/png,image/webp,image/gif" disabled={disabled || uploading} className="sr-only" onChange={event => { void upload(event.target.files?.[0]); event.target.value = ""; }} />
-      <p id={`${inputId}-help`} className="text-xs text-muted-foreground">JPG, PNG, WebP eller GIF. Högst 5 MB. Spara sidan efter uppladdning.</p>
+  const preview = value && isSafeContentUrl(value, true) ? value : "";
+
+  return (
+    <div>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4">
+        <label htmlFor={inputId} className="field-label">
+          {label}
+        </label>
+        {labelAddon}
+      </div>
+      <div className="grid gap-4 sm:grid-cols-[8.5rem_1fr]">
+        <div className="flex h-28 items-center justify-center overflow-hidden rounded-xl border border-line bg-paper sm:h-full sm:min-h-28">
+          {preview && brokenPreview !== preview ? (
+            <img src={preview} alt="" className="h-full w-full object-cover" loading="lazy" onError={() => setBrokenPreview(preview)} />
+          ) : (
+            <span className="px-3 text-center type-small text-moss">{preview ? "Bilden kan inte visas här" : "Ingen bild vald"}</span>
+          )}
+        </div>
+        <div className="min-w-0">
+          <input
+            id={inputId}
+            value={value}
+            onChange={(event) => {
+              setError(null);
+              onChange(event.target.value);
+            }}
+            disabled={locked}
+            inputMode="url"
+            spellCheck={false}
+            className="field-input"
+            placeholder="https://… eller /bild.jpg"
+            aria-invalid={error ? true : undefined}
+            aria-describedby={`${inputId}-help${error ? ` ${inputId}-error` : ""}`}
+          />
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <label
+              htmlFor={`${inputId}-upload`}
+              className={`btn btn-quiet min-h-11 cursor-pointer px-4 py-2 text-[0.9375rem] ${locked ? "pointer-events-none opacity-50" : ""}`}
+            >
+              {uploading ? <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" /> : <Upload aria-hidden="true" className="h-4 w-4" />}
+              {uploading ? "Laddar upp…" : "Ladda upp"}
+            </label>
+            <input
+              id={`${inputId}-upload`}
+              type="file"
+              accept={ACCEPTED.join(",")}
+              disabled={locked}
+              className="sr-only"
+              onChange={(event) => {
+                void upload(event.target.files?.[0]);
+                event.target.value = "";
+              }}
+            />
+            <button
+              type="button"
+              disabled={locked}
+              onClick={() => setShowLibrary((open) => !open)}
+              aria-expanded={showLibrary}
+              className="btn btn-quiet min-h-11 px-4 py-2 text-[0.9375rem] disabled:opacity-50"
+            >
+              <Images aria-hidden="true" className="h-4 w-4" /> {showLibrary ? "Stäng bildbiblioteket" : "Välj i bildbiblioteket"}
+            </button>
+          </div>
+          <p id={`${inputId}-help`} className="field-hint">
+            JPG, PNG, WebP eller GIF, högst 5 MB. Uppladdade bilder sparas i bildbiblioteket.
+          </p>
+          {error && (
+            <p id={`${inputId}-error`} role="alert" className="mt-2 font-semibold text-destructive">
+              {error}
+            </p>
+          )}
+        </div>
+      </div>
+      {showLibrary && (
+        <MediaLibrary
+          currentValue={value}
+          onSelect={(url) => {
+            onChange(url);
+            setShowLibrary(false);
+          }}
+        />
+      )}
     </div>
-    {showLibrary && <MediaLibrary currentValue={value} onSelect={url => { onChange(url); setShowLibrary(false); }} />}
-    {error && <p id={`${inputId}-error`} role="alert" className="text-sm text-destructive">{error}</p>}
-    {value && isSafeContentUrl(value, true) && <img src={value} alt="Förhandsvisning av vald bild" className="max-h-44 rounded-lg border border-border object-contain" loading="lazy" />}
-  </div>;
+  );
 }

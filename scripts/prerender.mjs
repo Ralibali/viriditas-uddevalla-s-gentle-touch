@@ -28,6 +28,7 @@ const STATIC_ROUTES = [
   { path: "/massage-mot-nackspanning", changefreq: "monthly", priority: "0.8" },
   { path: "/friskvardsbidrag-massage-uddevalla", changefreq: "monthly", priority: "0.8" },
   { path: "/massage-ljungskile", changefreq: "monthly", priority: "0.8" },
+  { path: "/kunskapsbank", changefreq: "weekly", priority: "0.6" },
   { path: "/integritet", changefreq: "yearly", priority: "0.3" },
 ];
 
@@ -154,7 +155,7 @@ async function main() {
   let browser;
   try {
     browser = await puppeteer.launch({
-      headless: "new",
+      headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
 
@@ -166,6 +167,8 @@ async function main() {
           waitUntil: "networkidle0",
           timeout: 30000,
         });
+        // Visitor-specific UI (the cookie question) is not part of the page itself.
+        await page.evaluate(() => document.querySelectorAll('[data-prerender="skip"]').forEach((element) => element.remove()));
         const html = await page.content();
         const outDir = route === "/" ? DIST : join(DIST, route);
         await mkdir(outDir, { recursive: true });

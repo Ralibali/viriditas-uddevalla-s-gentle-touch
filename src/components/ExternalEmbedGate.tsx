@@ -1,16 +1,19 @@
-import { useState, type ReactNode } from 'react';
+import { useState, type ReactNode } from "react";
 
-type Props = { service: string; children: ReactNode; english?: boolean };
-/** Load third-party content only after the visitor requests this specific embed. */
-export default function ExternalEmbedGate({ service, children, english = false }: Props) {
+type Props = { service: string; children: ReactNode };
+
+/** Third-party content (like a map) loads only after the visitor asks for it. */
+export default function ExternalEmbedGate({ service, children }: Props) {
   const [enabled, setEnabled] = useState(false);
   if (enabled) return <>{children}</>;
-  return <div className="flex min-h-[240px] flex-col items-center justify-center gap-4 bg-muted p-6 text-center text-foreground">
-    <p className="max-w-md text-sm">{english
-      ? `To display this content, your browser connects to ${service}. The provider receives your IP address and browser information.`
-      : `För att visa innehållet ansluter din webbläsare till ${service}. Leverantören får då din IP-adress och webbläsarinformation.`}</p>
-    <button type="button" onClick={() => setEnabled(true)} className="rounded-lg border bg-background px-4 py-2 text-sm font-medium">
-      {english ? `Load content from ${service}` : `Visa innehåll från ${service}`}
-    </button>
-  </div>;
+  return (
+    <div className="flex min-h-[340px] flex-col items-start justify-end gap-4 bg-paper-deep p-6 sm:p-8">
+      <p className="max-w-md type-small text-ink/80">
+        För att visa kartan ansluter din webbläsare till {service}. Leverantören får då din IP-adress och information om webbläsaren.
+      </p>
+      <button type="button" onClick={() => setEnabled(true)} className="btn btn-quiet">
+        Visa kartan från {service}
+      </button>
+    </div>
+  );
 }

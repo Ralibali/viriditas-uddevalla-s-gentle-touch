@@ -1,4 +1,4 @@
-import { supabase } from "@/integrations/supabase/client";
+import { callFunction } from "@/lib/backend";
 
 export function clearLegacyAdminLogin() {
   sessionStorage.removeItem("dashboard-auth");
@@ -20,31 +20,23 @@ export function setCmsSession(session: CmsSession | null) {
 }
 
 export function cmsAdminLogin(password: string): Promise<CmsSession> {
-  return invokeAdmin<CmsSession>("login", { password });
+  return callFunction<CmsSession>("cms-admin", { action: "login", payload: { password } });
 }
 
-export async function cmsAdminCall<T = unknown>(action: string, payload: Record<string, unknown> = {}): Promise<T> {
+function sessionToken(): string {
   const token = sessionStorage.getItem("cms-session");
   if (!token) throw new Error("Din inloggning har gått ut. Logga in igen.");
-  return invokeAdmin<T>(action, payload, token);
+  return token;
 }
 
-async function invokeAdmin<T>(action: string, payload: Record<string, unknown>, token?: string): Promise<T> {
-  const { data, error } = await supabase.functions.invoke("cms-admin", {
-    headers: token ? { "x-cms-session": token } : undefined,
-    body: { action, payload },
-  });
+/** Protected admin actions. Only the opaque session token is sent, never the password. */
+export async function cmsAdminCall<T = unknown>(action: string, payload: Record<string, unknown> = {}): Promise<T> {
+  const token = sessionToken();
+  return callFunction<T>("cms-admin", { action, payload }, { "x-cms-session": token });
+}
 
-  if (error) {
-    // The function's response explains denied access and validation failures.
-    const response = (error as { context?: Response }).context;
-    let message: string | undefined;
-    if (response instanceof Response) {
-      const body = await response.clone().json().catch(() => null) as { error?: string } | null;
-      message = body?.error;
-    }
-    throw new Error(message || "Kunde inte nå administrationen. Försök igen om en stund.");
-  }
-  if (data?.error) throw new Error(String(data.error));
-  return data as T;
+/** Run a server job (fetching reviews or treatments) as the signed-in administrator. */
+export async function cmsRunJob<T = unknown>(functionName: "scrape-reviews" | "sync-treatments"): Promise<T> {
+  const token = sessionToken();
+  return callFunction<T>(functionName, {}, { "x-cms-session": token });
 }

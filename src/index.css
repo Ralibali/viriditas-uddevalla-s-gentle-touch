@@ -1,4 +1,36 @@
-@import url('/fonts/site-fonts.css');
+/* Typefaces are served by the site itself, see public/fonts/SOURCES.md. */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/fraunces-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/fraunces-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/atkinson-hyperlegible-next-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/atkinson-hyperlegible-next-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
 
 @tailwind base;
 @tailwind components;
@@ -6,93 +38,361 @@
 
 @layer base {
   :root {
-    --background: 40 33% 96%;
-    --foreground: 150 20% 15%;
+    /* Lavpapper, skogsbläck och grönska. */
+    --paper: 77 19% 93%; /* #EEF0E9 */
+    --paper-raised: 72 26% 96%; /* #F7F8F3 */
+    --paper-deep: 82 19% 88%; /* #E3E7DC */
+    --ink: 143 26% 12%; /* #17271D */
+    --moss: 97 11% 38%; /* #5F6C57 */
+    --line: 86 15% 78%; /* #C9D0C0 */
+    --sprout: 81 43% 74%; /* #C5D9A0 */
+    --amber: 36 73% 38%; /* #A8701A */
 
-    --card: 40 30% 93%;
-    --card-foreground: 150 20% 15%;
-
-    --popover: 40 33% 96%;
-    --popover-foreground: 150 20% 15%;
-
-    --primary: 145 35% 28%;
-    --primary-foreground: 40 33% 96%;
-
-    --secondary: 40 25% 88%;
-    --secondary-foreground: 150 20% 15%;
-
-    --muted: 40 20% 90%;
-    --muted-foreground: 150 12% 38%;
-
-    --accent: 145 25% 40%;
-    --accent-foreground: 40 33% 96%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 40 20% 85%;
-    --input: 40 20% 85%;
-    --ring: 145 35% 28%;
-
+    --background: var(--paper);
+    --foreground: var(--ink);
+    --card: var(--paper-raised);
+    --card-foreground: var(--ink);
+    --popover: var(--paper-raised);
+    --popover-foreground: var(--ink);
+    --primary: 141 33% 26%; /* #2D5A3D */
+    --primary-deep: 138 35% 19%; /* #1F4029 */
+    --primary-foreground: var(--paper-raised);
+    --secondary: var(--paper-deep);
+    --secondary-foreground: var(--ink);
+    --muted: var(--paper-deep);
+    --muted-foreground: var(--moss);
+    --accent: var(--paper-deep);
+    --accent-foreground: var(--ink);
+    --destructive: 7 56% 42%;
+    --destructive-foreground: var(--paper-raised);
+    --border: var(--line);
+    --input: var(--line);
+    --ring: var(--primary);
     --radius: 0.75rem;
-
-    --hero-overlay: linear-gradient(180deg, hsla(150, 20%, 10%, 0.55) 0%, hsla(150, 20%, 10%, 0.75) 100%);
-    --section-divider: 40 25% 88%;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground font-body;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
-  }
-
-  /* Tydliga, synliga fokusmarkeringar med projektets ring-token */
-  a:focus-visible,
-  button:focus-visible,
-  [role="button"]:focus-visible,
-  [tabindex]:focus-visible {
-    outline: 2px solid hsl(var(--ring));
-    outline-offset: 2px;
-    border-radius: var(--radius);
-  }
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: reduce) {
   html {
-    scroll-behavior: auto;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5.5rem;
   }
 
-  .animate-bounce {
-    animation: none !important;
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    font-feature-settings: "kern";
+    text-rendering: optimizeLegibility;
   }
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+  @media (min-width: 768px) {
+    body {
+      font-size: 1.125rem;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-ink;
+    font-optical-sizing: auto;
+    font-variation-settings: "SOFT" 100, "WONK" 0;
+    font-weight: 420;
+    letter-spacing: -0.012em;
+    text-wrap: balance;
+    /* Long Swedish compounds such as "Avslappningsmassage" must never overflow a phone screen. */
+    overflow-wrap: break-word;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: hsl(var(--sprout));
+    color: hsl(var(--ink));
+  }
+
+  :focus-visible {
+    outline: 3px solid hsl(var(--primary));
+    outline-offset: 3px;
+    border-radius: 0.375rem;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Type scale (major third on an 18 px body). */
+  .type-display {
+    font-size: clamp(2.875rem, 1.9rem + 4.6vw, 5.75rem);
+    line-height: 0.98;
+    font-weight: 380;
+    letter-spacing: -0.025em;
+  }
+  .type-h1 {
+    font-size: clamp(2.125rem, 1.5rem + 2.9vw, 4rem);
+    line-height: 1.04;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+  .type-h2 {
+    font-size: clamp(1.875rem, 1.45rem + 2vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.018em;
+  }
+  .type-h3 {
+    font-size: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);
+    line-height: 1.2;
+  }
+  .type-lead {
+    font-size: clamp(1.1875rem, 1.05rem + 0.6vw, 1.4375rem);
+    line-height: 1.55;
+  }
+  .type-small {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  /* Buttons: one primary action per view, quiet secondary actions. */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-body font-semibold transition-colors duration-200 ease-calm;
+    min-height: 3rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary-deep;
+  }
+  .btn-quiet {
+    @apply border border-ink/25 text-ink hover:border-ink hover:bg-paper-raised;
+  }
+  .btn-on-dark {
+    @apply bg-paper-raised text-primary-deep hover:bg-sprout;
+  }
+  .btn-lg {
+    min-height: 3.5rem;
+    padding: 0.95rem 1.9rem;
+    font-size: 1.0625rem;
+  }
+
+  .link {
+    @apply text-primary font-semibold underline decoration-primary/40 decoration-2 underline-offset-4 transition-colors hover:decoration-primary;
+  }
+  .link-quiet {
+    @apply underline decoration-1 underline-offset-4 hover:decoration-2;
+  }
+
+  .page-gutter {
+    @apply mx-auto w-full max-w-page px-5 sm:px-8;
+  }
+
+  .section {
+    padding-block: clamp(4rem, 3rem + 5vw, 7.5rem);
+  }
+
+  /* Rules carry structure; no drop shadows on content. */
+  .rule-top {
+    @apply border-t border-line;
+  }
+
+  /* Forms */
+  .field-label {
+    @apply mb-1.5 block font-semibold text-ink;
+    font-size: 0.9375rem;
+  }
+  .field-hint {
+    @apply mt-1.5 text-moss;
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+  .field-input {
+    @apply w-full rounded-lg border border-ink/25 bg-paper-raised px-4 text-ink transition-colors placeholder:text-moss/70 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30;
+    min-height: 3rem;
+    padding-block: 0.65rem;
+    font-size: 1rem;
+  }
+  .field-input[aria-invalid="true"] {
+    @apply border-destructive;
+  }
+  textarea.field-input {
+    @apply resize-y;
+    min-height: 8.5rem;
+  }
+
+  /* Native disclosure for questions and answers. */
+  .faq-item {
+    @apply border-b border-line;
+  }
+  .faq-item > summary {
+    @apply flex cursor-pointer list-none items-start justify-between gap-6 py-5 font-display text-ink;
+    font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+    line-height: 1.3;
+    font-variation-settings: "SOFT" 100, "WONK" 0;
+  }
+  .faq-item > summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item > summary::after {
+    content: "";
+    @apply mt-2 h-3 w-3 shrink-0 border-b-2 border-r-2 border-primary transition-transform duration-200;
+    transform: rotate(45deg);
+  }
+  .faq-item[open] > summary::after {
+    transform: rotate(-135deg) translate(-2px, -2px);
+  }
+  .faq-item > div {
+    @apply max-w-prose pb-6 text-ink/85;
+  }
+
+  /* Long-form text: landing pages and articles from the administration. */
+  .article {
+    @apply max-w-prose text-ink/90;
+  }
+  .article > * + * {
+    margin-top: 1.15em;
+  }
+  .article h2 {
+    @apply type-h2;
+    margin-top: 2.2em;
+  }
+  .article h3 {
+    @apply type-h3;
+    margin-top: 1.8em;
+  }
+  .article h2 + *,
+  .article h3 + * {
+    margin-top: 0.7em;
+  }
+  .article ul {
+    @apply space-y-2 pl-0;
+  }
+  .article ul > li {
+    @apply relative pl-7;
+  }
+  .article ul > li::before {
+    content: "";
+    @apply absolute left-1 top-[0.62em] h-2 w-2 rounded-full bg-primary;
+  }
+  .article ol {
+    counter-reset: step;
+    @apply space-y-4 pl-0;
+  }
+  .article ol > li {
+    counter-increment: step;
+    @apply relative pl-12;
+  }
+  .article ol > li::before {
+    content: counter(step);
+    @apply absolute left-0 top-0 flex h-8 w-8 items-center justify-center rounded-full border border-primary/40 font-display text-primary;
+    font-size: 1rem;
+  }
+  .article blockquote {
+    @apply border-l-2 border-primary pl-6 font-display text-ink;
+    font-size: 1.375rem;
+    line-height: 1.4;
+  }
+  .article a:not(.btn) {
+    @apply link;
+  }
+  .article img {
+    @apply rounded-media;
+  }
+
+  /* Braille: raised dots on paper, like embossing. */
+  .braille {
+    @apply inline-flex items-start;
+    gap: var(--braille-cell-gap, 0.62em);
+    font-size: var(--braille-size, 1rem);
+  }
+  .braille-cell {
+    display: grid;
+    grid-template-columns: repeat(2, 0.42em);
+    grid-template-rows: repeat(3, 0.42em);
+    gap: 0.27em;
+  }
+  /* Raised green pearls with light from the top left. */
+  .braille-dot {
+    border-radius: 9999px;
+    background: radial-gradient(circle at 32% 28%, hsl(110 30% 62%) 0, hsl(var(--primary)) 46%, hsl(var(--primary-deep)) 100%);
+    box-shadow:
+      0.05em 0.08em 0.1em hsl(var(--ink) / 0.35),
+      -0.02em -0.03em 0.04em hsl(0 0% 100% / 0.8);
+  }
+  .braille-on-dark .braille-dot {
+    background: radial-gradient(circle at 32% 28%, hsl(81 50% 90%) 0, hsl(var(--sprout)) 42%, hsl(90 28% 55%) 100%);
+    box-shadow:
+      0.05em 0.08em 0.12em rgb(0 0 0 / 0.5),
+      -0.02em -0.03em 0.04em hsl(var(--sprout) / 0.3);
+  }
+  .braille-empty {
+    visibility: hidden;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .soft-type {
+    font-variation-settings: "SOFT" 100, "WONK" 0;
+  }
+}
+
+/* The one orchestrated moment: the hero headline settles and the braille is pressed in. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-enter {
+    animation: hero-settle 900ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+  .hero-enter-late {
+    animation: hero-settle 900ms 180ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+  .braille-press .braille-dot {
+    animation: dot-press 520ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    animation-delay: calc(450ms + var(--dot-index, 0) * 55ms);
+  }
+}
+
+.is-prerendered .hero-enter,
+.is-prerendered .hero-enter-late,
+.is-prerendered .braille-press .braille-dot {
+  animation: none;
+}
+
+@keyframes hero-settle {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes dot-press {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }

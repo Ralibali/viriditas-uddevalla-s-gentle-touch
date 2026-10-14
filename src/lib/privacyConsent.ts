@@ -19,3 +19,10 @@ export function readPrivacyConsent(key: string): PrivacyConsent | null {
 export function storePrivacyConsent(key: string, analytics: boolean): void {
   try { localStorage.setItem(key, JSON.stringify({ version: 2, analytics, updatedAt: new Date().toISOString() })); } catch { /* The runtime can remember a choice for this session. */ }
 }
+
+export const COOKIE_SETTINGS_EVENT = 'viriditas:cookie-settings';
+
+/** Reopen the statistics choice, e.g. from the footer or the privacy page. */
+export function openCookieSettings(): void {
+  window.dispatchEvent(new Event(COOKIE_SETTINGS_EVENT));
+}

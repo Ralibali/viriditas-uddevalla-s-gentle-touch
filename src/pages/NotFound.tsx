@@ -1,40 +1,31 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import SeoHead from "@/components/SeoHead";
+import SiteLayout from "@/components/site/SiteLayout";
+import Braille from "@/components/site/Braille";
+import BookingLink from "@/components/site/BookingLink";
 
-const NotFound = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    console.error(
-      "404 Error: User attempted to access non-existent route:",
-      location.pathname,
-    );
-  }, [location.pathname]);
-
-  return (
-    <>
-      <SeoHead
-        title="Sidan hittades inte | Viriditas"
-        description="Sidan du letar efter finns inte. Gå tillbaka till startsidan för att hitta massagebehandlingar i Uddevalla hos Viriditas."
-        noindex
-      />
-      <div className="flex min-h-screen items-center justify-center bg-muted">
-        <div className="text-center px-6">
-          <h1 className="mb-4 text-4xl font-bold">404</h1>
-          <p className="mb-4 text-xl text-muted-foreground">
-            Sidan hittades inte
-          </p>
-          <a
-            href="/"
-            className="text-primary underline hover:text-primary/90"
-          >
-            Tillbaka till startsidan
-          </a>
-        </div>
+const NotFound = () => (
+  <SiteLayout>
+    <SeoHead
+      title="Sidan hittades inte | Viriditas"
+      description="Sidan du letar efter finns inte. Gå till startsidan för massage i Uddevalla hos Viriditas."
+      noindex
+    />
+    <section className="page-gutter pb-24 pt-40 md:pt-48">
+      <Braille word="vilse" size="1.4rem" animated />
+      <h1 className="type-display mt-8 max-w-3xl">Den här sidan finns inte</h1>
+      <p className="mt-6 max-w-prose type-lead text-ink/80">Adressen kan vara felstavad, eller så har sidan flyttats. Härifrån kommer du vidare.</p>
+      <div className="mt-10 flex flex-wrap gap-4">
+        <Link to="/" className="btn btn-primary btn-lg">
+          Till startsidan
+        </Link>
+        <Link to="/#behandlingar" className="btn btn-quiet btn-lg">
+          Se behandlingar och priser
+        </Link>
+        <BookingLink source="404" className="btn btn-quiet btn-lg" />
       </div>
-    </>
-  );
-};
+    </section>
+  </SiteLayout>
+);
 
 export default NotFound;

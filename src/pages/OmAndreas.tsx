@@ -1,165 +1,109 @@
-import { serializeStructuredData } from "@/lib/siteContentValues";
+import { aboutContent } from "@/content/about";
 import { useSiteContent } from "@/hooks/useSiteContent";
-import { motion } from "framer-motion";
-import { Calendar, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import { trackBookingClick } from "@/lib/trackBookingClick";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
 import SeoHead from "@/components/SeoHead";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.15, duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const },
-  }),
-};
+import SiteLayout from "@/components/site/SiteLayout";
+import PageIntro from "@/components/site/PageIntro";
+import BookingLink from "@/components/site/BookingLink";
+import SmartLink from "@/components/site/SmartLink";
+import JsonLd, { breadcrumbs, SITE_URL } from "@/components/site/JsonLd";
 
 const OmAndreas = () => {
-  const { c, g } = useSiteContent("about");
+  const { c, g } = useSiteContent(aboutContent);
+  const background = [c("text_013"), c("text_014"), c("text_015")].filter(Boolean);
 
   return (
-    <div className="min-h-screen bg-background">
-      <SeoHead
-        title={c("seo_001", "Om Andreas Håman | Certifierad massör i Uddevalla")}
-        description={c("seo_002", "Andreas Håman – diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage i Uddevalla. Lär känna mannen bakom Viriditas.")}
-        path="/om-andreas"
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: serializeStructuredData({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": c("seo_003", "Hem"),
-                "item": "https://viriditasmassage.se/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": c("seo_004", "Om Andreas"),
-                "item": "https://viriditasmassage.se/om-andreas"
-              }
-            ]
-          })
+    <SiteLayout stickyBooking="om-andreas-sticky">
+      <SeoHead title={c("seo_001")} description={c("seo_002")} path="/om-andreas" ogType="profile" />
+      <JsonLd data={breadcrumbs([{ name: c("seo_003"), path: "/" }, { name: c("seo_004"), path: "/om-andreas" }])} />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: g("owner_name"),
+          jobTitle: c("seo_005"),
+          image: c("image_001").startsWith("/") ? `${SITE_URL}${c("image_001")}` : c("image_001"),
+          worksFor: { "@type": "HealthAndBeautyBusiness", "@id": `${SITE_URL}/#business`, name: g("business_name"), url: `${SITE_URL}/` },
+          workLocation: {
+            "@type": "Place",
+            name: c("seo_006"),
+            address: { "@type": "PostalAddress", streetAddress: c("seo_007"), addressLocality: c("seo_008"), addressCountry: "SE" },
+          },
         }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: serializeStructuredData({
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": g("owner_name"),
-            "jobTitle": c("seo_005", "Certifierad massör"),
-            "worksFor": {
-              "@type": "HealthAndBeautyBusiness",
-              "name": g("business_name"),
-              "url": "https://viriditasmassage.se"
-            },
-            "workLocation": {
-              "@type": "Place",
-              "name": c("seo_006", "Uddevalla Folkets Hus"),
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": c("seo_007", "Göteborgsvägen 11B"),
-                "addressLocality": c("seo_008", "Uddevalla"),
-                "addressCountry": "SE"
-              }
-            }
-          })
-        }}
-      />
-      <Navbar alwaysSolid />
 
-      <main className="pt-32 pb-20 px-6">
-        <div className="max-w-3xl mx-auto">
-          <motion.h1
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={0}
-            className="text-4xl md:text-5xl font-display font-semibold text-foreground mb-8 leading-tight"
-          >{c("text_001", "Andreas Håman – Certifierad massör i Uddevalla")}</motion.h1>
+      <PageIntro
+        crumbs={{ home: c("seo_003"), current: c("seo_004") }}
+        title={c("text_001")}
+        lead={c("text_002")}
+        aside={
+          <img
+            src={c("image_001")}
+            alt={c("text_009")}
+            width={900}
+            height={1200}
+            {...{ fetchpriority: "high" }}
+            className="aspect-[4/5] w-full rounded-media object-cover object-top"
+          />
+        }
+      >
+        <BookingLink source="om-andreas-top" className="btn btn-primary btn-lg" />
+      </PageIntro>
 
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={1}
-            className="space-y-6 text-lg text-muted-foreground leading-relaxed font-body"
-          >
-            <p>{c("text_002", "Andreas Håman är diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage med bakgrund inom vården. Hans resa till massageyrket är ovanlig – och det är just det som gör hans behandlingar unika.")}</p>
-            <p>{c("text_003", "Andreas har en synnedsättning som skärpt hans övriga sinnen på ett sätt som är svårt att förklara men lätt att känna. Varje behandling är djupt uppmärksam. Han lyssnar med händerna.")}</p>
-            <p>{c("text_004", "Han praktiserar i Uddevalla Folkets Hus, Göteborgsvägen 11B, och erbjuder klassisk massage och återhämtningsmassage – anpassade efter varje persons unika behov, oavsett om du söker avkoppling, smärtlindring eller återhämtning.")}</p>
-          </motion.div>
+      <section className="section rule-top">
+        <div className="page-gutter grid gap-12 md:grid-cols-12 md:gap-16">
+          <div className="md:col-span-7">
+            <p className="max-w-prose type-lead text-ink/90">{c("text_003")}</p>
+            {c("text_010") && (
+              <figure className="my-12">
+                <blockquote>
+                  <p className="font-display text-[clamp(2.25rem,1.6rem+3vw,4rem)] leading-[1.02] text-primary soft-type" style={{ fontWeight: 380 }}>
+                    ”{c("text_010")}”
+                  </p>
+                </blockquote>
+                <figcaption className="mt-3 text-moss">{g("owner_name")}</figcaption>
+              </figure>
+            )}
+            <p className="max-w-prose text-ink/85">{c("text_004")}</p>
 
-          {/* Mid-content CTA */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={1.5}
-            className="mt-12 bg-primary/5 border border-primary/20 rounded-3xl p-8 text-center"
-          >
-            <p className="text-foreground font-display font-semibold text-xl mb-2">{c("text_005", "Nyfiken på hur det känns?")}</p>
-            <p className="text-muted-foreground font-body mb-4">{c("text_006", "Boka din första behandling och upplev skillnaden.")}</p>
-            <motion.a
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              href={g("booking_url")}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackBookingClick("om-andreas-mid")}
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full font-body font-medium shadow-lg shadow-primary/20 hover:shadow-xl transition-shadow"
-            >{g("booking_label")}<Calendar className="w-5 h-5" />
-            </motion.a>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={2}
-            className="mt-16"
-          >
-            <h2 className="text-3xl font-display font-semibold text-foreground mb-6">{c("text_007", "Boka din tid")}</h2>
-            <motion.a
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              href={g("booking_url")}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackBookingClick("om-andreas")}
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-full font-body font-medium text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
-            >{g("booking_label")}<Calendar className="w-5 h-5" />
-            </motion.a>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={3}
-            className="mt-12"
-          >
-            <Link
-              to={c("link_001", "/klassisk-massage")}
-              className="inline-flex items-center gap-2 text-primary font-body font-medium hover:underline"
-            >{c("text_008", "Läs mer om klassisk massage ")}<ArrowRight className="w-4 h-4" />
-            </Link>
-          </motion.div>
+            {background.length > 0 && (
+              <div className="mt-14">
+                <h2 className="type-h3">{c("text_012")}</h2>
+                <ul className="mt-5 divide-y divide-line border-y border-line">
+                  {background.map((item) => (
+                    <li key={item} className="py-4">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+          <figure className="md:col-span-5">
+            <img src={c("image_002")} alt={c("text_011")} width={900} height={1200} loading="lazy" decoding="async" className="aspect-[3/4] w-full rounded-media object-cover" />
+            {c("text_011") && <figcaption className="mt-3 type-small text-moss">{c("text_011")}</figcaption>}
+          </figure>
         </div>
-      </main>
+      </section>
 
-      <Footer />
-    </div>
+      <section aria-labelledby="about-closing" className="bg-primary text-primary-foreground">
+        <div className="page-gutter flex flex-col items-start gap-8 py-16 md:flex-row md:items-end md:justify-between md:py-20">
+          <div>
+            <h2 id="about-closing" className="type-h2 text-primary-foreground">
+              {c("text_005")}
+            </h2>
+            <p className="mt-3 max-w-prose text-primary-foreground/80">{c("text_006")}</p>
+            <p className="mt-6">
+              <SmartLink to={c("link_001")} className="font-semibold text-primary-foreground underline decoration-primary-foreground/40 decoration-2 underline-offset-4 hover:decoration-primary-foreground">
+                {c("text_008")}
+              </SmartLink>
+            </p>
+          </div>
+          <BookingLink source="om-andreas" className="btn btn-on-dark btn-lg shrink-0">
+            {c("text_007") || undefined}
+          </BookingLink>
+        </div>
+      </section>
+    </SiteLayout>
   );
 };
 

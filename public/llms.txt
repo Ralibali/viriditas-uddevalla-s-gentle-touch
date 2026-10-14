@@ -1,8 +1,8 @@
-# Viriditas Massage Uddevalla
+# Viriditas massage, Uddevalla
 
-> Exklusiv massagesalong i Uddevalla. Klassisk massage och återhämtningsmassage hos certifierad massör Andreas Håman i Uddevalla Folkets Hus, Göteborgsvägen 11B.
+> Klassisk massage och återhämtningsmassage hos Andreas Håman, diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage. Uddevalla Folkets Hus, Göteborgsvägen 11B, Uddevalla. Bokning sker via Bokadirekt. Friskvårdsbidrag kan användas.
 
-Viriditas drivs av Andreas Håman – diplomerad massageterapeut och certifierad massör enligt Branschrådet Svensk Massage med bakgrund inom vården och en synnedsättning som skärpt övriga sinnen. Se aktuella tider och behandlingar i bokningen. Bokning sker via bokadirekt.se. Friskvårdsbidrag accepteras.
+Andreas har bakgrund inom vården och en synnedsättning som har skärpt hans övriga sinnen, inte minst känseln i händerna. Behandlingarna anpassas efter kundens besvär och önskemål. Aktuella tider, behandlingar och priser finns alltid i bokningen.
 
 ## Behandlingar
 
@@ -11,13 +11,20 @@ Viriditas drivs av Andreas Håman – diplomerad massageterapeut och certifierad
 - Klassisk massage 60 min – 720 kr
 - Klassisk massage 80 min – 998 kr
 - Återhämtningsmassage – se aktuella behandlingar, priser och villkor i bokningen.
+- Presentkort – beställs via formuläret på startsidan.
 
-## Pages
+## Sidor
 
-- [Startsida](/): Översikt, behandlingar, omdömen och bokning.
-- [Om Andreas](/om-andreas): Andreas Håmans bakgrund och utbildning.
-- [Klassisk massage](/klassisk-massage): Vad klassisk massage är och hur den hjälper mot spänningar och stress.
+- [Startsida](https://viriditasmassage.se/): Behandlingar och priser, omdömen, presentkort, kontakt och bokning.
+- [Om Andreas](https://viriditasmassage.se/om-andreas): Andreas Håmans bakgrund, utbildning och sätt att arbeta.
+- [Klassisk massage](https://viriditasmassage.se/klassisk-massage): Vad klassisk massage är och hur den hjälper mot spänningar och stress.
+- [Avslappningsmassage i Uddevalla](https://viriditasmassage.se/avslappningsmassage-uddevalla): Lugn massage för återhämtning.
+- [Massage mot nackspänning](https://viriditasmassage.se/massage-mot-nackspanning): Massage för stel nacke och spända axlar.
+- [Friskvårdsbidrag och massage](https://viriditasmassage.se/friskvardsbidrag-massage-uddevalla): Så använder du friskvårdsbidraget för massage.
+- [Massage nära Ljungskile](https://viriditasmassage.se/massage-ljungskile): För dig i Ljungskile, omkring 15 minuter från salongen.
+- [Kunskapsbank](https://viriditasmassage.se/kunskapsbank): Artiklar om massage, besvär och återhämtning.
 
 ## Optional
 
-- [Boka tid](https://www.bokadirekt.se/places/viriditas-massage-136924): Extern bokningssida hos Bokadirekt.
+- [Boka tid](https://www.bokadirekt.se/places/viriditas-massage-136924): Bokningssida hos Bokadirekt.
+- [Integritet](https://viriditasmassage.se/integritet): Hur webbplatsen hanterar personuppgifter och statistik.

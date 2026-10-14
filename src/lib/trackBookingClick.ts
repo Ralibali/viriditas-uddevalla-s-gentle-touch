@@ -1,5 +1,5 @@
-import { hasTelemetryConsent, telemetryPath } from '@/lib/privacyTelemetry';
-import { supabase } from "@/integrations/supabase/client";
+import { hasTelemetryConsent, telemetryPath } from "@/lib/privacyTelemetry";
+import { insertRow } from "@/lib/backend";
 import { trackBookingEvent, trackContactEvent, trackPhoneEvent } from "@/lib/analytics";
 
 type ClickType = "booking" | "phone" | "contact";
@@ -9,14 +9,13 @@ const trackClick = async (source: string, clickType: ClickType) => {
   const path = telemetryPath();
   if (!path) return;
   try {
-    await supabase.from("booking_clicks").insert({
+    await insertRow("booking_clicks", {
       source,
       click_type: clickType,
       page_url: window.location.origin + path,
     });
-  } catch (e) {
-    // Silently fail – don't block the user
-    console.error("Failed to track click:", e);
+  } catch {
+    // Statistics must never block the visitor.
   }
 };
 
