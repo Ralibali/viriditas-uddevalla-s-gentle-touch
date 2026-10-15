@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { clearLegacyAdminLogin, cmsAdminCall, cmsAdminLogin, setCmsSession } from "./cmsAdmin";
+import { clearLegacyAdminLogin, cmsAdminCall, cmsAdminLogin, cmsRunJob, setCmsSession } from "./cmsAdmin";
 
 const sdk = vi.hoisted(() => ({ invoke: vi.fn() }));
 vi.mock("@/integrations/supabase/client", () => ({ supabase: { functions: { invoke: sdk.invoke } } }));
@@ -35,6 +35,15 @@ describe("admin session authentication", () => {
     expect(sdk.invoke).toHaveBeenCalledWith("cms-admin", { headers: undefined, body: { action: "login", payload: { password: "login-password" } } });
     expect(sessionStorage.getItem("cms-session")).toBe(result.token);
     expect(Object.values(sessionStorage)).not.toContain("login-password");
+  });
+
+  it("runs a Bokadirekt fetch with the administrator's session and never without one", async () => {
+    await expect(cmsRunJob("scrape-reviews")).rejects.toThrow("Logga in igen");
+    expect(sdk.invoke).not.toHaveBeenCalled();
+    setCmsSession({ token: "test-opaque-token", expires_at: "2026-10-06T16:00:00Z" });
+    sdk.invoke.mockResolvedValue({ data: { success: true, count: 12 }, error: null });
+    await expect(cmsRunJob("scrape-reviews")).resolves.toEqual({ success: true, count: 12 });
+    expect(sdk.invoke).toHaveBeenCalledWith("scrape-reviews", { headers: { "x-cms-session": "test-opaque-token" }, body: {} });
   });
 
   it("preserves server session errors instead of silently falling back", async () => {

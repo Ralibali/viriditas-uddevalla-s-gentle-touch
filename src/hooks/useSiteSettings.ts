@@ -12,7 +12,7 @@ export function useSiteSettings() {
         .select("*");
       if (error) throw error;
       const map: Record<string, string> = {};
-      data.forEach((s: any) => { map[s.setting_key] = s.setting_value || ""; });
+      data.forEach((s: { setting_key: string; setting_value: string | null }) => { map[s.setting_key] = s.setting_value || ""; });
       return map;
     },
   });

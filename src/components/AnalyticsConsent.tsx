@@ -38,6 +38,7 @@ export default function AnalyticsConsent() {
 
   return (
     <section
+      data-prerender="skip"
       ref={dialogRef}
       id="analytics-consent"
       role="dialog"

@@ -154,7 +154,7 @@ async function main() {
   let browser;
   try {
     browser = await puppeteer.launch({
-      headless: "new",
+      headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
 
@@ -166,6 +166,8 @@ async function main() {
           waitUntil: "networkidle0",
           timeout: 30000,
         });
+        // Visitor-specific UI (the cookie question) is not part of the page itself.
+        await page.evaluate(() => document.querySelectorAll('[data-prerender="skip"]').forEach((element) => element.remove()));
         const html = await page.content();
         const outDir = route === "/" ? DIST : join(DIST, route);
         await mkdir(outDir, { recursive: true });

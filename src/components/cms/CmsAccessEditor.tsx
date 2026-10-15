@@ -97,9 +97,12 @@ export default function CmsAccessEditor({ onDirtyChange }: { onDirtyChange?: (di
       <section className="bg-card border border-border rounded-2xl p-5 sm:p-6 space-y-3">
         <h2 className="text-xl font-display font-semibold">Så sköter du webbplatsen</h2>
         <ul className="list-disc pl-5 text-sm space-y-2">
+          <li><strong>Översikt:</strong> Det viktigaste just nu: klick på boka, betyget hos Bokadirekt, publicerade sidor och saker som behöver göras.</li>
           <li><strong>Innehåll:</strong> Ändra texter och bilder på webbplatsens befintliga sidor. Ladda upp bilder från din dator eller ange en bildadress. Spara och öppna webbplatsen för att se resultatet.</li>
           <li><strong>Inställningar:</strong> Ändra kontaktuppgifter, bokningslänk, priser och återkommande texter.</li>
           <li><strong>Sidor:</strong> Skapa egna sidor med text, bilder och innehållsblock. Du kan spara ett utkast, förhandsgranska och välja om en publicerad sida ska synas i menyn.</li>
+          <li><strong>Omdömen:</strong> Omdömena hämtas från Bokadirekt. Välj vilka som visas på webbplatsen och vilka som visas först, eller hämta nya direkt.</li>
+          <li><strong>Priser:</strong> Jämför priserna på webbplatsen med Bokadirekt och uppdatera dem med ett klick.</li>
           <li><strong>Bokningar:</strong> Lediga tider, kundbokningar och betalningar hanteras i Bokadirekt. Här ändrar du länken dit. Statistiken visar klick på bokning och kontakt. Genomförda bokningar visas i Bokadirekt.</li>
           <li><strong>Överlämning:</strong> Låt kunden logga in via /admin och testa att redigera innehållet. Kunden kan sedan välja sitt eget administratörslösenord här, vilket också avslutar tidigare sessioner.</li>
         </ul>

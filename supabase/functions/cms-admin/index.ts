@@ -1,4 +1,4 @@
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.99.1";
+import { createClient, type SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2.99.1";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -38,6 +38,64 @@ function setting(row: { key?: unknown; value?: unknown }) {
   if (key === "email" && value) email(value);
   return { setting_key: key, setting_value: value, updated_at: new Date().toISOString() };
 }
+function uuid(value: unknown, name: string): string {
+  const result = text(value, name, 36);
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(result)) throw new InputError(`Ogiltigt id för ${name}.`);
+  return result;
+}
+
+
+/** Run one part of the overview; a part that fails (e.g. before a migration) is reported as unavailable. */
+async function part<T>(work: () => PromiseLike<{ data: T | null; error: unknown; count?: number | null }>) {
+  try {
+    const { data, error, count } = await work();
+    if (error) return { available: false as const };
+    return { available: true as const, data, count: count ?? null };
+  } catch {
+    return { available: false as const };
+  }
+}
+
+async function overview(supabase: SupabaseClient) {
+  const day = 24 * 60 * 60 * 1000;
+  const iso = (daysAgo: number) => new Date(Date.now() - daysAgo * day).toISOString();
+  const clicks = (from: number, to?: number) =>
+    part(() => {
+      let query = supabase.from("booking_clicks").select("id", { count: "exact", head: true }).eq("click_type", "booking").gte("clicked_at", iso(from));
+      if (to !== undefined) query = query.lt("clicked_at", iso(to));
+      return query;
+    });
+  const [last7, previous7, last30, messages, reviews, settings, pages, jobs] = await Promise.all([
+    clicks(7),
+    clicks(14, 7),
+    clicks(30),
+    part(() => supabase.rpc("cms_message_counts")),
+    part(() => supabase.from("reviews").select("*")),
+    part(() => supabase.from("site_settings").select("setting_key,setting_value").in("setting_key", ["review_rating_value", "review_count"])),
+    part(() => supabase.from("site_pages").select("is_published")),
+    part(() => supabase.rpc("cms_job_status")),
+  ]);
+  const reviewRows = (reviews.available ? reviews.data : []) as { rating: number; is_hidden?: boolean }[];
+  const settingMap = Object.fromEntries(
+    ((settings.available ? settings.data : []) as { setting_key: string; setting_value: string | null }[]).map((row) => [row.setting_key, row.setting_value]),
+  );
+  const pageRows = (pages.available ? pages.data : []) as { is_published: boolean }[];
+  return {
+    booking_clicks: last7.available ? { last_7_days: last7.count, previous_7_days: previous7.count, last_30_days: last30.count } : null,
+    messages: messages.available ? messages.data : null,
+    reviews: reviews.available
+      ? {
+          imported: reviewRows.length,
+          hidden: reviewRows.filter((row) => row.is_hidden).length,
+          rating: settingMap.review_rating_value ? Number(settingMap.review_rating_value) : null,
+          count: settingMap.review_count ? Number(settingMap.review_count) : null,
+        }
+      : null,
+    pages: pages.available ? { published: pageRows.filter((row) => row.is_published).length, drafts: pageRows.filter((row) => !row.is_published).length } : null,
+    jobs: jobs.available ? jobs.data : null,
+  };
+}
+
 function contentBlocks(raw: unknown) {
   const blocks = typeof raw === "string" ? JSON.parse(raw) : raw;
   const types = ["heading", "paragraph", "image", "video", "cta_button", "list", "quote", "divider", "faq"];
@@ -175,11 +233,55 @@ Deno.serve(async (req) => {
       case "get_booking_clicks": {
         const { data, error } = await supabase
           .from("booking_clicks")
-          .select("id,source,clicked_at")
+          .select("id,source,clicked_at,click_type")
           .order("clicked_at", { ascending: false })
           .limit(10000);
         if (error) throw error;
         return json(data);
+      }
+      case "overview":
+        return json(await overview(supabase));
+      case "list_messages": {
+        const status = payload.status === "new" || payload.status === "handled" ? payload.status : null;
+        const { data, error } = await supabase.rpc("cms_list_messages", { p_status: status });
+        if (error) throw error;
+        return json(data ?? []);
+      }
+      case "update_message": {
+        const { data, error } = await supabase.rpc("cms_update_message", {
+          p_id: uuid(payload.id, "meddelande"),
+          p_status: payload.status === "handled" ? "handled" : "new",
+        });
+        if (error) throw error;
+        if (data?.error) return json({ error: data.error }, data.status || 400);
+        return json({ success: true });
+      }
+      case "delete_message": {
+        const { error } = await supabase.rpc("cms_delete_message", { p_id: uuid(payload.id, "meddelande") });
+        if (error) throw error;
+        return json({ success: true });
+      }
+      case "list_reviews": {
+        const { data, error } = await supabase.from("reviews").select("*").order("created_at", { ascending: false });
+        if (error) throw error;
+        return json(data ?? []);
+      }
+      case "update_review": {
+        const changes: Record<string, boolean> = {};
+        if (typeof payload.is_hidden === "boolean") changes.is_hidden = payload.is_hidden;
+        if (typeof payload.is_featured === "boolean") changes.is_featured = payload.is_featured;
+        if (!Object.keys(changes).length) throw new InputError("Ingen ändring angavs.");
+        const { error } = await supabase.from("reviews").update(changes).eq("id", uuid(payload.id, "omdöme"));
+        if (error) throw error;
+        return json({ success: true });
+      }
+      case "list_treatments": {
+        const { data, error } = await supabase
+          .from("treatments")
+          .select("service_ref,title,duration_minutes,price_sek,description,last_synced_at")
+          .order("duration_minutes", { ascending: true });
+        if (error) throw error;
+        return json(data ?? []);
       }
       case "export_content": {
         const [{ data: settings, error: settingsError }, { data: pages, error: pagesError }] = await Promise.all([
@@ -260,6 +362,10 @@ Deno.serve(async (req) => {
     if (error instanceof InputError || error instanceof SyntaxError) return json({ error: error.message }, 400);
     const dbError = error as { code?: string };
     if (dbError.code === "23505") return json({ error: "Det finns redan en sida med den adressen." }, 409);
+    // A function or column that does not exist yet means the latest migration has not run.
+    if (["PGRST202", "PGRST204", "42883", "42703"].includes(dbError.code ?? "")) {
+      return json({ error: "Den här delen kräver den senaste databasuppdateringen. Kör migreringarna och försök igen." }, 503);
+    }
     console.error("CMS operation failed", dbError.code ?? "unknown");
     return json({ error: "Åtgärden kunde inte slutföras. Försök igen." }, 500);
   }

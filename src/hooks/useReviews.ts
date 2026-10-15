@@ -7,6 +7,8 @@ export interface Review {
   rating: number;
   review_text: string | null;
   review_date: string;
+  /** Chosen in the administration; featured reviews are shown first. */
+  is_featured?: boolean;
 }
 
 export function useReviews() {
@@ -20,7 +22,10 @@ export function useReviews() {
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      return data as Review[];
+      // Hidden reviews are filtered by the database. Featured ones come first,
+      // the rest stay newest first.
+      const reviews = data as Review[];
+      return [...reviews.filter((review) => review.is_featured), ...reviews.filter((review) => !review.is_featured)];
     },
   });
 }

@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { BarChart3, FileText, Settings, LayoutDashboard, Users, Pencil, LogOut } from "lucide-react";
+import { BarChart3, FileText, Settings, LayoutDashboard, LayoutGrid, Inbox, Star, Tags, Users, Pencil, LogOut } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import type { SitePage } from "@/types/cms";
 import PageList from "@/components/cms/PageList";
@@ -10,12 +10,17 @@ import SeoHead from "@/components/SeoHead";
 import AdminAuthPanel from "@/components/cms/AdminAuthPanel";
 import CmsAccessEditor from "@/components/cms/CmsAccessEditor";
 import ContentEditor from "@/components/cms/ContentEditor";
+import Overview from "@/components/cms/Overview";
+import MessagesInbox from "@/components/cms/MessagesInbox";
+import ReviewsManager from "@/components/cms/ReviewsManager";
+import PriceSync from "@/components/cms/PriceSync";
+import { useOverview, type AdminTab } from "@/hooks/useAdmin";
 import { clearLegacyAdminLogin, cmsAdminCall, setCmsSession } from "@/lib/cmsAdmin";
 import { toast } from "sonner";
 
 const BookingStatistics = lazy(() => import("@/components/cms/BookingStatistics"));
 
-type Tab = "stats" | "content" | "pages" | "settings" | "access";
+type Tab = AdminTab;
 
 const Dashboard = () => {
   const qc = useQueryClient();
@@ -72,7 +77,7 @@ const Dashboard = () => {
 };
 
 function AuthorizedDashboard({ onSignOut }: { onSignOut: () => Promise<void> }) {
-  const [tab, setTab] = useState<Tab>("content");
+  const [tab, setTab] = useState<Tab>("overview");
   const [editingPage, setEditingPage] = useState<SitePage | "new" | null>(null);
   const [dirty, setDirty] = useState(false);
 
@@ -85,10 +90,17 @@ function AuthorizedDashboard({ onSignOut }: { onSignOut: () => Promise<void> }) 
 
   const mayLeave = () => !dirty || window.confirm("Du har osparade ändringar. Vill du lämna utan att spara?");
 
+  // Messages come from forms; the tab appears once there is something to read.
+  const overview = useOverview();
+  const messages = overview.data?.messages;
   const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
+    { id: "overview", label: "Översikt", icon: LayoutGrid },
+    ...(messages && messages.total > 0 ? [{ id: "messages" as const, label: messages.new > 0 ? `Meddelanden (${messages.new})` : "Meddelanden", icon: Inbox }] : []),
     { id: "content", label: "Innehåll", icon: Pencil },
     { id: "stats", label: "Statistik", icon: LayoutDashboard },
     { id: "pages", label: "Sidor", icon: FileText },
+    { id: "reviews", label: "Omdömen", icon: Star },
+    { id: "prices", label: "Priser", icon: Tags },
     { id: "settings", label: "Inställningar", icon: Settings },
     { id: "access", label: "Åtkomst & hjälp", icon: Users },
   ];
@@ -102,7 +114,7 @@ function AuthorizedDashboard({ onSignOut }: { onSignOut: () => Promise<void> }) 
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
           <h1 className="text-2xl md:text-4xl font-display font-semibold text-foreground flex items-center gap-3">
@@ -113,7 +125,7 @@ function AuthorizedDashboard({ onSignOut }: { onSignOut: () => Promise<void> }) 
         {dirty && <p className="font-body text-primary text-sm mb-5">Osparade ändringar</p>}
 
         {/* Tabs */}
-        <div role="tablist" aria-label="Administration" className="flex gap-1 sm:gap-2 mb-8 border-b border-border pb-2 overflow-x-auto">
+        <div role="tablist" aria-label="Administration" className="flex gap-1 mb-8 border-b border-border pb-2 overflow-x-auto">
           {tabs.map((t) => (
             <button
               key={t.id}
@@ -131,7 +143,7 @@ function AuthorizedDashboard({ onSignOut }: { onSignOut: () => Promise<void> }) 
                 const next = tabs[nextIndex].id;
                 if (selectTab(next)) document.getElementById(`admin-tab-${next}`)?.focus();
               }}
-              className={`flex flex-shrink-0 items-center gap-2 px-3 sm:px-4 py-2 rounded-t-xl font-body text-sm font-medium transition-colors ${
+              className={`flex flex-shrink-0 items-center gap-2 px-3 py-2 rounded-t-xl font-body text-sm font-medium transition-colors ${
                 tab === t.id
                   ? "bg-card border border-border border-b-background text-foreground -mb-[1px]"
                   : "text-muted-foreground hover:text-foreground"
@@ -144,6 +156,10 @@ function AuthorizedDashboard({ onSignOut }: { onSignOut: () => Promise<void> }) 
         </div>
 
         <div role="tabpanel" id={`admin-panel-${tab}`} aria-labelledby={`admin-tab-${tab}`}>
+        {tab === "overview" && <Overview onNavigate={(next) => void selectTab(next)} />}
+        {tab === "messages" && <MessagesInbox />}
+        {tab === "reviews" && <ReviewsManager />}
+        {tab === "prices" && <PriceSync />}
         {tab === "content" && <ContentEditor onDirtyChange={setDirty} />}
         {tab === "pages" && (
           editingPage ? (
@@ -166,7 +182,7 @@ function AuthorizedDashboard({ onSignOut }: { onSignOut: () => Promise<void> }) 
         {tab === "stats" && <Suspense fallback={<p role="status" className="py-12 text-muted-foreground">Laddar statistik…</p>}><BookingStatistics /></Suspense>}
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

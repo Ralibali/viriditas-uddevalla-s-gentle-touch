@@ -1,24 +1,69 @@
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { createClient, type SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2.99.1";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-cms-session',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
 };
+
+const JOB = 'scrape-reviews';
+const JOB_INTERVAL_SECONDS = 6 * 60 * 60;
+
+// Each run costs a Firecrawl credit. A signed-in administrator may refresh once a
+// minute; anyone else (the scheduled job, or someone holding the public key) at
+// most once per JOB_INTERVAL_SECONDS. The last result is kept for the admin view.
+async function authorizeRun(req: Request, supabase: SupabaseClient, job: string): Promise<{ admin: boolean } | Response> {
+  const token = req.headers.get("x-cms-session");
+  let admin = false;
+  if (token) {
+    if (!/^[0-9a-f]{64}$/.test(token)) return respond({ success: false, error: "Logga in för att fortsätta." }, 401);
+    const { data } = await supabase.rpc("cms_validate_session", { p_token: token });
+    if (!data?.expires_at) return respond({ success: false, error: "Sessionen har gått ut. Logga in igen." }, 401);
+    admin = true;
+  }
+  const { data: claimed, error } = await supabase.rpc("cms_claim_job", {
+    p_job: job,
+    p_min_interval_seconds: admin ? 60 : JOB_INTERVAL_SECONDS,
+  });
+  if (error) {
+    // Before the job-run migration exists every run is allowed, as before.
+    console.warn("Job throttling unavailable", error.code ?? "unknown");
+    return { admin };
+  }
+  if (!claimed) {
+    return respond(
+      { success: false, skipped: true, error: admin ? "Hämtningen kördes nyss. Vänta en minut och försök igen." : "Hämtningen har redan körts nyligen." },
+      429,
+    );
+  }
+  return { admin };
+}
+
+async function finishRun(supabase: SupabaseClient, job: string, result: Record<string, unknown>) {
+  const { error } = await supabase.rpc("cms_finish_job", { p_job: job, p_result: result });
+  if (error) console.warn("Could not record job result", error.code ?? "unknown");
+}
+
+function respond(value: unknown, status = 200) {
+  return new Response(JSON.stringify(value), { status, headers: { ...corsHeaders, "Content-Type": "application/json", "Cache-Control": "no-store" } });
+}
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
+  const supabase = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  const access = await authorizeRun(req, supabase, JOB);
+  if (access instanceof Response) return access;
+
   try {
     const apiKey = Deno.env.get('FIRECRAWL_API_KEY');
     if (!apiKey) {
-      throw new Error('FIRECRAWL_API_KEY not configured');
+      throw new Error('Automatisk hämtning är inte konfigurerad (FIRECRAWL_API_KEY saknas).');
     }
-
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     console.log('Scraping reviews from Bokadirekt...');
 
@@ -58,10 +103,8 @@ Deno.serve(async (req) => {
     }
 
     if (reviews.length === 0) {
-      return new Response(
-        JSON.stringify({ success: true, message: 'No reviews found to update', count: 0, aggregate }),
-        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      await finishRun(supabase, JOB, { success: true, count: 0, aggregate });
+      return respond({ success: true, message: 'No reviews found to update', count: 0, aggregate });
     }
 
     const { error } = await supabase
@@ -73,17 +116,13 @@ Deno.serve(async (req) => {
     }
 
     console.log(`Successfully upserted ${reviews.length} reviews`);
-
-    return new Response(
-      JSON.stringify({ success: true, count: reviews.length, aggregate }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
+    await finishRun(supabase, JOB, { success: true, count: reviews.length, aggregate });
+    return respond({ success: true, count: reviews.length, aggregate });
   } catch (error) {
-    console.error('Error:', error);
-    return new Response(
-      JSON.stringify({ success: false, error: error.message }),
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    console.error('Error:', message);
+    await finishRun(supabase, JOB, { success: false, error: message.slice(0, 300) });
+    return respond({ success: false, error: access.admin ? message : 'Hämtningen misslyckades.' }, 500);
   }
 });
 

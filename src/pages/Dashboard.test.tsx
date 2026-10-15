@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -20,6 +20,10 @@ vi.mock("@/components/cms/PageList", () => ({ default: () => <p>Skyddade sidor</
 vi.mock("@/components/cms/PageEditor", () => ({ default: () => <p>Sidredigering</p> }));
 vi.mock("@/components/cms/SettingsEditor", () => ({ default: () => <p>Skyddade inställningar</p> }));
 vi.mock("@/components/cms/CmsAccessEditor", () => ({ default: () => <p>Skyddad åtkomst</p> }));
+vi.mock("@/components/cms/Overview", () => ({ default: () => <p>Skyddad översikt</p> }));
+vi.mock("@/components/cms/MessagesInbox", () => ({ default: () => <p>Skyddade meddelanden</p> }));
+vi.mock("@/components/cms/ReviewsManager", () => ({ default: () => <p>Skyddade omdömen</p> }));
+vi.mock("@/components/cms/PriceSync", () => ({ default: () => <p>Skyddade priser</p> }));
 
 const session = { token: "test-opaque-token", expires_at: "2026-10-06T16:00:00Z" };
 function mount() {
@@ -62,6 +66,8 @@ describe("admin session gate", () => {
     await screen.findByText("Kontrollerar administratörsåtkomst…");
     expect(screen.queryByText("Ändra testinnehåll")).not.toBeInTheDocument();
     await act(async () => approve?.({ expires_at: session.expires_at }));
+    expect(await screen.findByText("Skyddad översikt")).toBeVisible();
+    fireEvent.click(screen.getByRole("tab", { name: "Innehåll" }));
     expect(await screen.findByText("Ändra testinnehåll")).toBeVisible();
     client.setQueryData(["cms-admin-pages"], [{ title: "Hemligt utkast" }]);
     fireEvent.click(screen.getByRole("button", { name: "Logga ut" }));
@@ -77,7 +83,7 @@ describe("admin session gate", () => {
     mount();
     fireEvent.change(screen.getByLabelText("Lösenord"), { target: { value: "test-password" } });
     fireEvent.click(screen.getByRole("button", { name: "Logga in" }));
-    expect(await screen.findByText("Ändra testinnehåll")).toBeVisible();
+    expect(await screen.findByText("Skyddad översikt")).toBeVisible();
     expect(mock.login).toHaveBeenCalledWith("test-password");
     expect(mock.call).toHaveBeenCalledWith("check_access");
   });
@@ -91,11 +97,45 @@ describe("admin session gate", () => {
     expect(screen.queryByText("Inga bokningsklick har registrerats ännu.")).not.toBeInTheDocument();
   });
 
+  it("opens on the overview and moves between sections with the arrow keys", async () => {
+    sessionStorage.setItem("cms-session", session.token);
+    mock.call.mockResolvedValue({ expires_at: session.expires_at });
+    mount();
+    const overview = await screen.findByRole("tab", { name: "Översikt" });
+    expect(overview).toHaveAttribute("aria-selected", "true");
+    fireEvent.keyDown(overview, { key: "ArrowRight" });
+    expect(screen.getByRole("tab", { name: "Innehåll" })).toHaveAttribute("aria-selected", "true");
+    fireEvent.keyDown(screen.getByRole("tab", { name: "Innehåll" }), { key: "End" });
+    expect(await screen.findByText("Skyddad åtkomst")).toBeVisible();
+  });
+
+  it("shows the messages section only when the forms have sent something", async () => {
+    sessionStorage.setItem("cms-session", session.token);
+    mock.call.mockImplementation((action: string) =>
+      Promise.resolve(action === "overview" ? { messages: { new: 2, total: 3, gift_cards_new: 1 } } : { expires_at: session.expires_at }),
+    );
+    mount();
+    fireEvent.click(await screen.findByRole("tab", { name: "Meddelanden (2)" }));
+    expect(await screen.findByText("Skyddade meddelanden")).toBeVisible();
+  });
+
+  it("leaves the messages section out while there are no messages", async () => {
+    sessionStorage.setItem("cms-session", session.token);
+    mock.call.mockImplementation((action: string) =>
+      Promise.resolve(action === "overview" ? { messages: { new: 0, total: 0, gift_cards_new: 0 } } : { expires_at: session.expires_at }),
+    );
+    mount();
+    expect(await screen.findByRole("tab", { name: "Omdömen" })).toBeVisible();
+    await waitFor(() => expect(mock.call).toHaveBeenCalledWith("overview"));
+    expect(screen.queryByRole("tab", { name: /Meddelanden/ })).not.toBeInTheDocument();
+  });
+
   it("keeps an unsaved draft when declining to leave the tab", async () => {
     sessionStorage.setItem("cms-session", session.token);
     mock.call.mockResolvedValue({ expires_at: session.expires_at });
     const confirm = vi.spyOn(window, "confirm").mockReturnValue(false);
     mount();
+    fireEvent.click(await screen.findByRole("tab", { name: "Innehåll" }));
     fireEvent.click(await screen.findByText("Ändra testinnehåll"));
     fireEvent.click(screen.getByRole("tab", { name: "Inställningar" }));
     expect(screen.getByText("Ändra testinnehåll")).toBeVisible();
